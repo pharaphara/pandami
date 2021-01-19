@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Pandami.Data;
 
 namespace Pandami.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20210119161645_toutesLesTables")]
+    partial class toutesLesTables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -212,7 +214,7 @@ namespace Pandami.Migrations
 
                     b.HasIndex("TypeLitigeId");
 
-                    b.ToTable("Litiges");
+                    b.ToTable("Litige");
                 });
 
             modelBuilder.Entity("Pandami.Models.Materiel", b =>
@@ -295,7 +297,7 @@ namespace Pandami.Migrations
 
                     b.HasIndex("IdTypeAide");
 
-                    b.ToTable("PreferenceAides");
+                    b.ToTable("PreferenceAide");
                 });
 
             modelBuilder.Entity("Pandami.Models.Repondre", b =>
@@ -395,7 +397,7 @@ namespace Pandami.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("TypeLitiges");
+                    b.ToTable("TypeLitige");
                 });
 
             modelBuilder.Entity("Pandami.Models.Disponibilite", b =>

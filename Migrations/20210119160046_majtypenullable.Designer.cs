@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Pandami.Data;
 
 namespace Pandami.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20210119160046_majtypenullable")]
+    partial class majtypenullable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -179,42 +181,6 @@ namespace Pandami.Migrations
                     b.ToTable("JourDeLaSemaines");
                 });
 
-            modelBuilder.Entity("Pandami.Models.Litige", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
-
-                    b.Property<DateTime?>("ClotureDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Commentaire")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("CreationDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int?>("FeatId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("MembreId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("TypeLitigeId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("FeatId");
-
-                    b.HasIndex("MembreId");
-
-                    b.HasIndex("TypeLitigeId");
-
-                    b.ToTable("Litiges");
-                });
-
             modelBuilder.Entity("Pandami.Models.Materiel", b =>
                 {
                     b.Property<int>("Id")
@@ -225,7 +191,12 @@ namespace Pandami.Migrations
                     b.Property<string>("NomMateriel")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("TypeAideId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("TypeAideId");
 
                     b.ToTable("Materiels");
                 });
@@ -295,7 +266,7 @@ namespace Pandami.Migrations
 
                     b.HasIndex("IdTypeAide");
 
-                    b.ToTable("PreferenceAides");
+                    b.ToTable("PreferenceAide");
                 });
 
             modelBuilder.Entity("Pandami.Models.Repondre", b =>
@@ -368,9 +339,6 @@ namespace Pandami.Migrations
                     b.Property<int?>("CategorieAideId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("MaterielId")
-                        .HasColumnType("int");
-
                     b.Property<string>("NomAide")
                         .HasColumnType("nvarchar(max)");
 
@@ -378,24 +346,7 @@ namespace Pandami.Migrations
 
                     b.HasIndex("CategorieAideId");
 
-                    b.HasIndex("MaterielId");
-
                     b.ToTable("TypeAides");
-                });
-
-            modelBuilder.Entity("Pandami.Models.TypeLitige", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
-
-                    b.Property<string>("Libelle")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("TypeLitiges");
                 });
 
             modelBuilder.Entity("Pandami.Models.Disponibilite", b =>
@@ -432,21 +383,11 @@ namespace Pandami.Migrations
                     b.Navigation("Type");
                 });
 
-            modelBuilder.Entity("Pandami.Models.Litige", b =>
+            modelBuilder.Entity("Pandami.Models.Materiel", b =>
                 {
-                    b.HasOne("Pandami.Models.Feat", null)
-                        .WithMany("Litiges")
-                        .HasForeignKey("FeatId");
-
-                    b.HasOne("Pandami.Models.Membre", null)
-                        .WithMany("Litiges")
-                        .HasForeignKey("MembreId");
-
-                    b.HasOne("Pandami.Models.TypeLitige", "TypeLitige")
-                        .WithMany()
-                        .HasForeignKey("TypeLitigeId");
-
-                    b.Navigation("TypeLitige");
+                    b.HasOne("Pandami.Models.TypeAide", null)
+                        .WithMany("Materiels")
+                        .HasForeignKey("TypeAideId");
                 });
 
             modelBuilder.Entity("Pandami.Models.Membre", b =>
@@ -515,19 +456,11 @@ namespace Pandami.Migrations
                         .WithMany()
                         .HasForeignKey("CategorieAideId");
 
-                    b.HasOne("Pandami.Models.Materiel", "Materiel")
-                        .WithMany()
-                        .HasForeignKey("MaterielId");
-
                     b.Navigation("CategorieAide");
-
-                    b.Navigation("Materiel");
                 });
 
             modelBuilder.Entity("Pandami.Models.Feat", b =>
                 {
-                    b.Navigation("Litiges");
-
                     b.Navigation("Reponses");
                 });
 
@@ -539,8 +472,6 @@ namespace Pandami.Migrations
 
                     b.Navigation("Inscriptions");
 
-                    b.Navigation("Litiges");
-
                     b.Navigation("PreferenceAides");
 
                     b.Navigation("Suspensions");
@@ -549,6 +480,8 @@ namespace Pandami.Migrations
             modelBuilder.Entity("Pandami.Models.TypeAide", b =>
                 {
                     b.Navigation("Feats");
+
+                    b.Navigation("Materiels");
 
                     b.Navigation("PreferenceAides");
                 });

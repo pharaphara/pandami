@@ -38,7 +38,6 @@ C:\Pand-Ami\Code\Pandami\obj\Debug\net5.0\ref\Pandami.dll
 C:\Pand-Ami\Code\Pandami\obj\Debug\net5.0\Pandami.pdb
 C:\Pand-Ami\Code\Pandami\obj\Debug\net5.0\Pandami.genruntimeconfig.cache
 C:\Pand-Ami\Code\Pandami\obj\Debug\net5.0\Pandami.csproj.CopyComplete
-C:\Pand-Ami\Code\Pandami\obj\Debug\net5.0\Razor\Views\Membre\Index.cshtml.g.cs
 C:\Pand-Ami\Code\Pandami\bin\Debug\net5.0\Humanizer.dll
 C:\Pand-Ami\Code\Pandami\bin\Debug\net5.0\Microsoft.AspNetCore.Razor.Language.dll
 C:\Pand-Ami\Code\Pandami\bin\Debug\net5.0\Microsoft.Bcl.AsyncInterfaces.dll
@@ -171,3 +170,8 @@ C:\Pand-Ami\Code\Pandami\obj\Debug\net5.0\Razor\Views\Membres\Delete.cshtml.g.cs
 C:\Pand-Ami\Code\Pandami\obj\Debug\net5.0\Razor\Views\Membres\Details.cshtml.g.cs
 C:\Pand-Ami\Code\Pandami\obj\Debug\net5.0\Razor\Views\Membres\Edit.cshtml.g.cs
 C:\Pand-Ami\Code\Pandami\obj\Debug\net5.0\Razor\Views\Membres\Index.cshtml.g.cs
+C:\Pand-Ami\Code\Pandami\obj\Debug\net5.0\Razor\Views\Feats\Create.cshtml.g.cs
+C:\Pand-Ami\Code\Pandami\obj\Debug\net5.0\Razor\Views\Feats\Delete.cshtml.g.cs
+C:\Pand-Ami\Code\Pandami\obj\Debug\net5.0\Razor\Views\Feats\Details.cshtml.g.cs
+C:\Pand-Ami\Code\Pandami\obj\Debug\net5.0\Razor\Views\Feats\Edit.cshtml.g.cs
+C:\Pand-Ami\Code\Pandami\obj\Debug\net5.0\Razor\Views\Feats\Index.cshtml.g.cs

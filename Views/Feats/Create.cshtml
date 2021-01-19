@@ -1,0 +1,93 @@
+﻿@model Pandami.Models.Feat
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Feat</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="CreationDate" class="control-label"></label>
+                <input asp-for="CreationDate" class="form-control" />
+                <span asp-validation-for="CreationDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RealisationDate" class="control-label"></label>
+                <input asp-for="RealisationDate" class="form-control" />
+                <span asp-validation-for="RealisationDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="HeureDebut" class="control-label"></label>
+                <input asp-for="HeureDebut" class="form-control" />
+                <span asp-validation-for="HeureDebut" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="HeureFin" class="control-label"></label>
+                <input asp-for="HeureFin" class="form-control" />
+                <span asp-validation-for="HeureFin" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AcceptationDate" class="control-label"></label>
+                <input asp-for="AcceptationDate" class="form-control" />
+                <span asp-validation-for="AcceptationDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EnCoursRealisation" class="control-label"></label>
+                <input asp-for="EnCoursRealisation" class="form-control" />
+                <span asp-validation-for="EnCoursRealisation" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SurPlace" class="control-label"></label>
+                <input asp-for="SurPlace" class="form-control" />
+                <span asp-validation-for="SurPlace" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FinFeatHelper" class="control-label"></label>
+                <input asp-for="FinFeatHelper" class="form-control" />
+                <span asp-validation-for="FinFeatHelper" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ClotureDate" class="control-label"></label>
+                <input asp-for="ClotureDate" class="form-control" />
+                <span asp-validation-for="ClotureDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SommePrevoir" class="control-label"></label>
+                <input asp-for="SommePrevoir" class="form-control" />
+                <span asp-validation-for="SommePrevoir" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SommeAvancee" class="control-label"></label>
+                <input asp-for="SommeAvancee" class="form-control" />
+                <span asp-validation-for="SommeAvancee" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SommeRembourseeDate" class="control-label"></label>
+                <input asp-for="SommeRembourseeDate" class="form-control" />
+                <span asp-validation-for="SommeRembourseeDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AnnulationDate" class="control-label"></label>
+                <input asp-for="AnnulationDate" class="form-control" />
+                <span asp-validation-for="AnnulationDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
