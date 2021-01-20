@@ -49,6 +49,8 @@ namespace Pandami.Models
         [DataType(DataType.Date)]
         public DateTime? AnnulationDate { get; set; }
 
+        public Boolean EchangeMonetaire { get; set; }
+
     //posède un créateur
     public Membre Createur { get; set; }
 

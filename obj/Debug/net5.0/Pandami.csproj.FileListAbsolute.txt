@@ -175,3 +175,8 @@ C:\Pand-Ami\Code\Pandami\obj\Debug\net5.0\Razor\Views\Feats\Delete.cshtml.g.cs
 C:\Pand-Ami\Code\Pandami\obj\Debug\net5.0\Razor\Views\Feats\Details.cshtml.g.cs
 C:\Pand-Ami\Code\Pandami\obj\Debug\net5.0\Razor\Views\Feats\Edit.cshtml.g.cs
 C:\Pand-Ami\Code\Pandami\obj\Debug\net5.0\Razor\Views\Feats\Index.cshtml.g.cs
+C:\Pand-Ami\Code\Pandami\obj\Debug\net5.0\Razor\Views\Litiges\Create.cshtml.g.cs
+C:\Pand-Ami\Code\Pandami\obj\Debug\net5.0\Razor\Views\Litiges\Delete.cshtml.g.cs
+C:\Pand-Ami\Code\Pandami\obj\Debug\net5.0\Razor\Views\Litiges\Details.cshtml.g.cs
+C:\Pand-Ami\Code\Pandami\obj\Debug\net5.0\Razor\Views\Litiges\Edit.cshtml.g.cs
+C:\Pand-Ami\Code\Pandami\obj\Debug\net5.0\Razor\Views\Litiges\Index.cshtml.g.cs

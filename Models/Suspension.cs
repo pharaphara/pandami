@@ -17,5 +17,6 @@ namespace Pandami.Models
         [DataType(DataType.Date)]
         public DateTime? FinDate { get; set; }
 
+
     }
 }
