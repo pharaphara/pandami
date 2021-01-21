@@ -7,10 +7,16 @@ a.navbar-brand {
   word-break: break-all;
 }
 
+thead {
+    /*background-color: darkslategrey;*/
+    color: deeppink;
+}
+
 /* Provide sufficient contrast against white background */
 a {
   color: #0366d6;
 }
+
 
 .btn-primary {
   color: #fff;
@@ -69,3 +75,7 @@ body {
   white-space: nowrap;
   line-height: 60px; /* Vertically center the text there */
 }
+.display-4 {
+    color: darkblue;
+}
+

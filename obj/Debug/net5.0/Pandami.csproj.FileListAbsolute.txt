@@ -337,7 +337,6 @@ C:\Users\PC\OneDrive\Documents\PANDAMIG1\pandami\obj\Debug\net5.0\Razor\Views\Fe
 C:\Users\PC\OneDrive\Documents\PANDAMIG1\pandami\obj\Debug\net5.0\Razor\Views\Feats\Details.cshtml.g.cs
 C:\Users\PC\OneDrive\Documents\PANDAMIG1\pandami\obj\Debug\net5.0\Razor\Views\Feats\Edit.cshtml.g.cs
 C:\Users\PC\OneDrive\Documents\PANDAMIG1\pandami\obj\Debug\net5.0\Razor\Views\Feats\Index.cshtml.g.cs
-C:\Users\PC\OneDrive\Documents\PANDAMIG1\pandami\obj\Debug\net5.0\Razor\Views\Home\Index.cshtml.g.cs
 C:\Users\PC\OneDrive\Documents\PANDAMIG1\pandami\obj\Debug\net5.0\Razor\Views\Home\Privacy.cshtml.g.cs
 C:\Users\PC\OneDrive\Documents\PANDAMIG1\pandami\obj\Debug\net5.0\Razor\Views\Litiges\Create.cshtml.g.cs
 C:\Users\PC\OneDrive\Documents\PANDAMIG1\pandami\obj\Debug\net5.0\Razor\Views\Litiges\Delete.cshtml.g.cs
@@ -362,3 +361,5 @@ C:\Users\PC\OneDrive\Documents\PANDAMIG1\pandami\obj\Debug\net5.0\Pandami.dll
 C:\Users\PC\OneDrive\Documents\PANDAMIG1\pandami\obj\Debug\net5.0\ref\Pandami.dll
 C:\Users\PC\OneDrive\Documents\PANDAMIG1\pandami\obj\Debug\net5.0\Pandami.pdb
 C:\Users\PC\OneDrive\Documents\PANDAMIG1\pandami\obj\Debug\net5.0\Pandami.genruntimeconfig.cache
+C:\Users\PC\OneDrive\Documents\PANDAMIG1\pandami\obj\Debug\net5.0\Razor\Views\Home\Index.cshtml.g.cs
+C:\Users\PC\OneDrive\Documents\PANDAMIG1\pandami\obj\Debug\net5.0\Razor\Views\Feats\HomeFeatsHome.cshtml.g.cs

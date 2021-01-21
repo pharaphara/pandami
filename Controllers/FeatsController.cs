@@ -25,6 +25,11 @@ namespace Pandami.Controllers
             return View(await _context.Feats.ToListAsync());
         }
 
+        public async Task<IActionResult> HomeFeatsHome()
+        {
+            return View(await _context.Feats.ToListAsync());
+        }
+
         // GET: Feats/Details/5
         public async Task<IActionResult> Details(int? id)
         {
