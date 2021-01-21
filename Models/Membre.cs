@@ -86,7 +86,7 @@ namespace Pandami.Models
 
             [DataType(DataType.Password)]
             public string Mdp { get; set; }
-            public SelectList Sexe { get; set; }
+            public SelectList ListSexe { get; set; }
             public string SexeChoisi { get; set; }
             
         }

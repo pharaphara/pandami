@@ -24,7 +24,7 @@ namespace Pandami.Controllers
             return View(await _context.Membres.ToListAsync());
         }
 
-        public async Task<IActionResult> Create()
+        /* public async Task<IActionResult> Create()
         {
             IQueryable<string> sexeQuery = from m in _context.Sexes
                                             orderby m.NomSexe
@@ -33,20 +33,21 @@ namespace Pandami.Controllers
             var sexes = from m in _context.Sexes
                          select m;
 
-            var CreaMembre = new Membre.CreationMembre()
-            {
-                Sexe = new SelectList (await sexeQuery.Distinct().ToListAsync())
-            };
-
-
-            
+              var CreaMembre = new Membre.CreationMembre()
+               {
+                   Sexe = new SelectList (await sexeQuery.Distinct().ToListAsync())
+               };
 
 
 
 
-            return View(CreaMembre);
-        }
 
 
+
+
+               return View(CreaMembre);*/
     }
+
+
 }
+
