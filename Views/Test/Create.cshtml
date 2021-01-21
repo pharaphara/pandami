@@ -1,4 +1,4 @@
-﻿@model Pandami.Models.Membre
+﻿@model Pandami.Models.Membre.CreationMembre
 
 @{
     ViewData["Title"] = "Create";
@@ -45,10 +45,10 @@
             </div>
             <div class="form-group">
                 <label asp-for="Sexe" class="control-label"></label>
-                <select asp-for="Sexe" asp-items="@ViewBag.sexes">
-                    <option value="">Pick one</option>
+                <select asp-for="SexeChoisi" asp-items="Model.Sexe">
+                    <option value="">All</option>
                 </select>
-                <span asp-validation-for="Sexe" class="text-danger"></span>
+                <span asp-validation-for="SexeChoisi" class="text-danger"></span>
             </div>
 
             <div class="form-group">

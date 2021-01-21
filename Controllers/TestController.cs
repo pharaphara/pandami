@@ -7,12 +7,14 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Pandami.Data;
 using Pandami.Models;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Pandami.Controllers
 {
     public class TestController : Controller
     {
         private readonly DataContext _context;
+
         public TestController(DataContext context)
         {
             _context = context;
@@ -24,11 +26,25 @@ namespace Pandami.Controllers
 
         public async Task<IActionResult> Create()
         {
-           var listsexes = await _context.Sexes.ToListAsync();
-            listsexes = listsexes.ToList();
-            ViewBag.sexes = listsexes;
-           
-            return View();
+            IQueryable<string> sexeQuery = from m in _context.Sexes
+                                            orderby m.NomSexe
+                                            select m.NomSexe;
+
+            var sexes = from m in _context.Sexes
+                         select m;
+
+            var CreaMembre = new Membre.CreationMembre()
+            {
+                Sexe = new SelectList (await sexeQuery.Distinct().ToListAsync())
+            };
+
+
+            
+
+
+
+
+            return View(CreaMembre);
         }
 
 

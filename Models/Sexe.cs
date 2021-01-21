@@ -11,12 +11,7 @@ namespace Pandami.Models
         [MaxLength(50)]
         public string NomSexe { get; set; }
 
-        public IEnumerable<Sexe> GetSexe()
-        {
-           
-        List<Sexe> Sexes = 
-            return Sexes;
-        }
+        
 
 
 
