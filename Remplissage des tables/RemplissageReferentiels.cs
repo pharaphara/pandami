@@ -5,7 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System.Linq;
 using System.Threading.Tasks;
 using Pandami.Data;
-using Pandami.Models
+using Pandami.Models;
 
 namespace Pandami.Remplissage_des_tables
 {

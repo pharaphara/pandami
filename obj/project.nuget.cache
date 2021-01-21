@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "JLm1/fhfHQuEZLsEA6P46FjsfaNBUHXu/0XEJ/M2ptwlQmaS9iuQ4SeTF3zPtiRkEpDA89Dt4aUESmnuSw/u5Q==",
+  "dgSpecHash": "QiQlsRnLwhsJKrHn1w0LxWJX+kMKo6KZ24I7mmOcs1LeCcn3Igf0mADUmuC8EYzkb39vIRHZPo51pAaD5fF86w==",
   "success": true,
-  "projectFilePath": "C:\\Pand-Ami\\Code\\Pandami\\Pandami.csproj",
+  "projectFilePath": "C:\\Users\\formation\\Desktop\\PANDAMI\\pandami\\Pandami.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\formation\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\formation\\.nuget\\packages\\microsoft.aspnetcore.html.abstractions\\2.2.0\\microsoft.aspnetcore.html.abstractions.2.2.0.nupkg.sha512",

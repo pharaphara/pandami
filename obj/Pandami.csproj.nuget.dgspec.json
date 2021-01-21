@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Pand-Ami\\Code\\Pandami\\Pandami.csproj": {}
+    "C:\\Users\\formation\\Desktop\\PANDAMI\\pandami\\Pandami.csproj": {}
   },
   "projects": {
-    "C:\\Pand-Ami\\Code\\Pandami\\Pandami.csproj": {
+    "C:\\Users\\formation\\Desktop\\PANDAMI\\pandami\\Pandami.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Pand-Ami\\Code\\Pandami\\Pandami.csproj",
+        "projectUniqueName": "C:\\Users\\formation\\Desktop\\PANDAMI\\pandami\\Pandami.csproj",
         "projectName": "Pandami",
-        "projectPath": "C:\\Pand-Ami\\Code\\Pandami\\Pandami.csproj",
+        "projectPath": "C:\\Users\\formation\\Desktop\\PANDAMI\\pandami\\Pandami.csproj",
         "packagesPath": "C:\\Users\\formation\\.nuget\\packages\\",
-        "outputPath": "C:\\Pand-Ami\\Code\\Pandami\\obj\\",
+        "outputPath": "C:\\Users\\formation\\Desktop\\PANDAMI\\pandami\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\formation\\AppData\\Roaming\\NuGet\\NuGet.Config",
