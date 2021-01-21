@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\PC\\OneDrive\\Documents\\PANDAMIG1\\pandami\\Pandami.csproj": {}
+    "C:\\Users\\formation\\Desktop\\PANDAMI\\pandami\\Pandami.csproj": {}
   },
   "projects": {
-    "C:\\Users\\PC\\OneDrive\\Documents\\PANDAMIG1\\pandami\\Pandami.csproj": {
+    "C:\\Users\\formation\\Desktop\\PANDAMI\\pandami\\Pandami.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\PC\\OneDrive\\Documents\\PANDAMIG1\\pandami\\Pandami.csproj",
+        "projectUniqueName": "C:\\Users\\formation\\Desktop\\PANDAMI\\pandami\\Pandami.csproj",
         "projectName": "Pandami",
-        "projectPath": "C:\\Users\\PC\\OneDrive\\Documents\\PANDAMIG1\\pandami\\Pandami.csproj",
-        "packagesPath": "C:\\Users\\PC\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\PC\\OneDrive\\Documents\\PANDAMIG1\\pandami\\obj\\",
+        "projectPath": "C:\\Users\\formation\\Desktop\\PANDAMI\\pandami\\Pandami.csproj",
+        "packagesPath": "C:\\Users\\formation\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\formation\\Desktop\\PANDAMI\\pandami\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\PC\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\formation\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
