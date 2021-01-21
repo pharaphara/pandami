@@ -10,7 +10,7 @@ namespace Pandami.Models
         public int Id { get; set; }
         public string NumeroDeVoie { get; set; }
         public string NomDeVoie { get; set; }
-        public string CodePostale { get; set; }
+        public string CodePostal { get; set; }
         public string Ville { get; set; }
         public float latitude { get; set; }
         public float longitude { get; set; }

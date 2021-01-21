@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Pandami.Models
 {
@@ -58,5 +60,35 @@ namespace Pandami.Models
 
         //possède une adresse
         public Adresse Adresse { get; set; }
+
+
+        [NotMapped]
+        public  class CreationMembre
+        {
+            [DataType(DataType.EmailAddress)]
+            public string Email { get; set; }
+
+            [MaxLength(50)]
+            public string Nom { get; set; }
+
+            [MaxLength(50)]
+            public string Prenom { get; set; }
+
+            [DataType(DataType.Date)]
+            public DateTime Naissance { get; set; }
+
+            [DataType(DataType.PhoneNumber)]
+            public string Telephone { get; set; }
+
+
+
+            public DateTime Inscription { get; set; }
+
+            [DataType(DataType.Password)]
+            public string Mdp { get; set; }
+            public SelectList Sexe { get; set; }
+            public string SexeChoisi { get; set; }
+            
+        }
     }
 }
