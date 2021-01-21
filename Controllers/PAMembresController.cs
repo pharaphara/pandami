@@ -60,10 +60,11 @@ namespace Pandami.Controllers
                 Prenom = newMembre.Prenom,
                 Naissance = newMembre.Naissance,
                 Telephone = newMembre.Telephone,
-                Inscription = newMembre.Inscription,
+                Inscription = DateTime.Now,
                 Sexe = sexeNewMembre,
                 Mdp = newMembre.Mdp
             };
+
 
             if (ModelState.IsValid)
             {
