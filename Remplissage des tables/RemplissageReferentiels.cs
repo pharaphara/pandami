@@ -84,79 +84,58 @@ public static void Initialize(IServiceProvider serviceProvider)
                     }
                 );
 
-                if (context.Adresses.Any())
+                if (context.CategorieAides.Any())
                 {
                     return;   // DB has been seeded
                 }
 
-                context.Adresses.AddRange(
-                    new Adresse
+                context.CategorieAides.AddRange(
+                    new CategorieAide
                     {
-                        NumeroDeVoie = "27",
-                        NomDeVoie = "Avenue des Calquières",
-                        CodePostale="12150",
-                        Ville="Severac le Chateau",
-                        latitude=12.451f,
-                        longitude=11.4568f,
-
-
+                        Categorie = "Extérieur"
                     },
 
-                    new Adresse
+                    new CategorieAide
                     {
-                        NumeroDeVoie = "28",
-                        NomDeVoie = "Avenue des Calquières",
-                        CodePostale = "12150",
-                        Ville = "Severac le Chateau",
-                        latitude = 12.451f,
-                        longitude = 11.4568f,
-                    },
-
-                    new Adresse
-                    {
-                        NumeroDeVoie = "29",
-                        NomDeVoie = "Avenue des Calquières",
-                        CodePostale = "12150",
-                        Ville = "Severac le Chateau",
-                        latitude = 12.451f,
-                        longitude = 11.4568f,
-                    },
-
-                    new Adresse
-                    {
-                        NumeroDeVoie = "30",
-                        NomDeVoie = "Avenue des Calquières",
-                        CodePostale = "12150",
-                        Ville = "Severac le Chateau",
-                        latitude = 12.451f,
-                        longitude = 11.4568f,
-                    },
-
-                    new Adresse
-                    {
-                        NumeroDeVoie = "31",
-                        NomDeVoie = "Avenue des Calquières",
-                        CodePostale = "12150",
-                        Ville = "Severac le Chateau",
-                        latitude = 12.451f,
-                        longitude = 11.4568f,
+                        Categorie = "Intérieur"
                     }
                 );
 
-                if (context.Sexes.Any())
+                if (context.TypeAides.Any())
                 {
                     return;   // DB has been seeded
                 }
 
-                context.Sexes.AddRange(
-                    new Sexe
+                context.TypeAides.AddRange(
+                    new TypeAide
                     {
-                        NomSexe = "Homme"
+                        NomAide = "Jardiange"
+                        
                     },
 
-                    new Sexe
+                    new TypeAide
                     {
-                        NomSexe = "Femme"
+                        NomAide = "Course"
+                    },
+
+                    new TypeAide
+                    {
+                        NomAide = "Récupération de colis"
+                    },
+
+                    new TypeAide
+                    {
+                        NomAide = "Promenade des animaux"
+                    },
+
+                    new TypeAide
+                    {
+                        NomAide = "Deplacer une charge lourde"
+                    },
+
+                    new TypeAide
+                    {
+                        NomAide = "Bricolage"
                     }
                 );
 

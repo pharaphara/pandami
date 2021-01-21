@@ -362,6 +362,7 @@ C:\Users\PC\OneDrive\Documents\PANDAMIG1\pandami\obj\Debug\net5.0\Pandami.dll
 C:\Users\PC\OneDrive\Documents\PANDAMIG1\pandami\obj\Debug\net5.0\ref\Pandami.dll
 C:\Users\PC\OneDrive\Documents\PANDAMIG1\pandami\obj\Debug\net5.0\Pandami.pdb
 C:\Users\PC\OneDrive\Documents\PANDAMIG1\pandami\obj\Debug\net5.0\Pandami.genruntimeconfig.cache
+<<<<<<< HEAD
 C:\Users\formation\Desktop\PANDAMI\pandami\obj\Debug\net5.0\Pandami.csprojAssemblyReference.cache
 C:\Users\formation\Desktop\PANDAMI\pandami\obj\Debug\net5.0\Pandami.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\formation\Desktop\PANDAMI\pandami\obj\Debug\net5.0\Pandami.AssemblyInfoInputs.cache
@@ -545,3 +546,10 @@ C:\Users\formation\Desktop\PANDAMI\pandami\obj\Debug\net5.0\Pandami.genruntimeco
 C:\Users\formation\Desktop\PANDAMI\pandami\obj\Debug\net5.0\Razor\Views\Home\Privacy.cshtml.g.cs
 C:\Users\formation\Desktop\PANDAMI\pandami\obj\Debug\net5.0\Razor\Views\Home\Index.cshtml.g.cs
 C:\Users\formation\Desktop\PANDAMI\pandami\obj\Debug\net5.0\Razor\Views\Feats\HomeFeatHome.cshtml.g.cs
+=======
+C:\Pand-Ami\Code\Pandami\obj\Debug\net5.0\Razor\Views\Test\Create.cshtml.g.cs
+C:\Pand-Ami\Code\Pandami\obj\Debug\net5.0\Razor\Views\Test\Delete.cshtml.g.cs
+C:\Pand-Ami\Code\Pandami\obj\Debug\net5.0\Razor\Views\Test\Details.cshtml.g.cs
+C:\Pand-Ami\Code\Pandami\obj\Debug\net5.0\Razor\Views\Test\Edit.cshtml.g.cs
+C:\Pand-Ami\Code\Pandami\obj\Debug\net5.0\Razor\Views\Test\Index.cshtml.g.cs
+>>>>>>> 240acb1919ebb6791b9b8899587621e2592ff68a
