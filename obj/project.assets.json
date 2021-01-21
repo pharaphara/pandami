@@ -7463,6 +7463,7 @@
   },
   "projectFileDependencyGroups": {
     "net5.0": [
+      "Microsoft.EntityFrameworkCore >= 5.0.2",
       "Microsoft.EntityFrameworkCore.SqlServer >= 5.0.2",
       "Microsoft.EntityFrameworkCore.Sqlite >= 5.0.2",
       "Microsoft.EntityFrameworkCore.Tools >= 5.0.2",
@@ -7470,19 +7471,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\formation\\.nuget\\packages\\": {}
+    "C:\\Users\\PC\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\formation\\Desktop\\PANDAMI\\pandami\\Pandami.csproj",
+      "projectUniqueName": "C:\\Users\\PC\\OneDrive\\Documents\\PANDAMIG1\\pandami\\Pandami.csproj",
       "projectName": "Pandami",
-      "projectPath": "C:\\Users\\formation\\Desktop\\PANDAMI\\pandami\\Pandami.csproj",
-      "packagesPath": "C:\\Users\\formation\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\formation\\Desktop\\PANDAMI\\pandami\\obj\\",
+      "projectPath": "C:\\Users\\PC\\OneDrive\\Documents\\PANDAMIG1\\pandami\\Pandami.csproj",
+      "packagesPath": "C:\\Users\\PC\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\PC\\OneDrive\\Documents\\PANDAMIG1\\pandami\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\formation\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\PC\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -7508,6 +7509,10 @@
       "net5.0": {
         "targetAlias": "net5.0",
         "dependencies": {
+          "Microsoft.EntityFrameworkCore": {
+            "target": "Package",
+            "version": "[5.0.2, )"
+          },
           "Microsoft.EntityFrameworkCore.SqlServer": {
             "target": "Package",
             "version": "[5.0.2, )"
@@ -7548,13 +7553,5 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.102\\RuntimeIdentifierGraph.json"
       }
     }
-  },
-  "logs": [
-    {
-      "code": "Undefined",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Problème de lecture du fichier cache C:\\Users\\formation\\Desktop\\PANDAMI\\pandami\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
-    }
-  ]
+  }
 }

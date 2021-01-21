@@ -54,7 +54,7 @@ namespace Pandami
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Feats}/{action=HomeFeatsHome}/{id?}");
+                    pattern: "{controller=PAMembres}/{action=Login}/{id?}");
             });
         }
     }

@@ -1,73 +1,10 @@
-﻿@model IEnumerable<Pandami.Models.Feat>
+﻿@model Pandami.Models.Membre
 
 @{
     ViewData["Title"] = "Home Feats Home";
 }
 <link rel="stylesheet" href="~/css/site.css" />
-<h1>Home Feats Home</h1>
 
-<p>
-    <a asp-action="Create">Créer un Nouveau Feat</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.RealisationDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Type)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.HeureDebut)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.HeureFin)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Adresse)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.EchangeMonetaire)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Id)
-            </th>
-
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.RealisationDate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Type)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.HeureDebut)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.HeureFin)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Adresse)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.EchangeMonetaire)
-                </td>
-                <td>
-                    <a>@Html.DisplayFor(modelItem => item.Id)</a>
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+<h1>Hello hello</h1>
+<div>@Html.DisplayFor(model => model.Nom)</div>
+<div>@DateTime.Now</div>

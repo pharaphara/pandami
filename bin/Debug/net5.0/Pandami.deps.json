@@ -25,6 +25,7 @@
     ".NETCoreApp,Version=v5.0": {
       "Pandami/1.0.0": {
         "dependencies": {
+          "Microsoft.EntityFrameworkCore": "5.0.2",
           "Microsoft.EntityFrameworkCore.SqlServer": "5.0.2",
           "Microsoft.EntityFrameworkCore.Sqlite": "5.0.2",
           "Microsoft.EntityFrameworkCore.Tools": "5.0.2",

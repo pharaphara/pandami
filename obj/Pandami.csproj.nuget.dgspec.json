@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\formation\\Desktop\\PANDAMI\\pandami\\Pandami.csproj": {}
+    "C:\\Users\\PC\\OneDrive\\Documents\\PANDAMIG1\\pandami\\Pandami.csproj": {}
   },
   "projects": {
-    "C:\\Users\\formation\\Desktop\\PANDAMI\\pandami\\Pandami.csproj": {
+    "C:\\Users\\PC\\OneDrive\\Documents\\PANDAMIG1\\pandami\\Pandami.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\formation\\Desktop\\PANDAMI\\pandami\\Pandami.csproj",
+        "projectUniqueName": "C:\\Users\\PC\\OneDrive\\Documents\\PANDAMIG1\\pandami\\Pandami.csproj",
         "projectName": "Pandami",
-        "projectPath": "C:\\Users\\formation\\Desktop\\PANDAMI\\pandami\\Pandami.csproj",
-        "packagesPath": "C:\\Users\\formation\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\formation\\Desktop\\PANDAMI\\pandami\\obj\\",
+        "projectPath": "C:\\Users\\PC\\OneDrive\\Documents\\PANDAMIG1\\pandami\\Pandami.csproj",
+        "packagesPath": "C:\\Users\\PC\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\PC\\OneDrive\\Documents\\PANDAMIG1\\pandami\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\formation\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\PC\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -40,6 +40,10 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "dependencies": {
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[5.0.2, )"
+            },
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
               "version": "[5.0.2, )"

@@ -74,6 +74,27 @@ namespace Pandami.Controllers
             }
             return View(membre);
         }
+
+        public IActionResult Login()
+        {
+            return View();
+        }
+
+        public async Task<IActionResult> VerifPwd ([Bind("Id, Email, Mdp")] Membre membreLogin)
+        {
+            var membreLogged = await (from m in _context.Membres
+                                      where m.Email.Equals(membreLogin.Email)
+                                      select m).FirstOrDefaultAsync();
+
+            if(membreLogged != null && membreLogged.Mdp.Equals(membreLogin.Mdp))
+            {
+                //String idMembre = membreLogged.Id.ToString();
+                return RedirectToAction("HomeFeatsHome", "Feats", membreLogged);
+            }
+            
+            
+            return RedirectToAction(nameof(Login));
+        }
     }
 
     
