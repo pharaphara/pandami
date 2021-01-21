@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using Pandami.Data;
 
 namespace Pandami.Models
 {
@@ -12,8 +10,15 @@ namespace Pandami.Models
 
         [MaxLength(50)]
         public string NomSexe { get; set; }
-        
-       
+
+        public IEnumerable<Sexe> GetSexe()
+        {
+           
+        List<Sexe> Sexes = 
+            return Sexes;
+        }
+
+
 
     }
 }
