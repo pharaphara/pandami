@@ -89,7 +89,7 @@ namespace Pandami.Controllers
             if(membreLogged != null && membreLogged.Mdp.Equals(membreLogin.Mdp))
             {
                 //String idMembre = membreLogged.Id.ToString();
-                return RedirectToAction("HomeFeatsHome", "Feats", membreLogged);
+                return RedirectToAction("HomeFeatsHome", "PAFeats", membreLogged);
             }
             
             
