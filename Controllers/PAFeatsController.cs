@@ -18,7 +18,7 @@ namespace Pandami.Controllers
         {
             _context = context;
         }
-
+        //dessin de bite
         public IActionResult Index()
         {
             return View();
