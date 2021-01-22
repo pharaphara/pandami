@@ -145,10 +145,19 @@ namespace Pandami.Controllers
                                 .FirstOrDefaultAsync(m => m.Id == Id);
             if (membre == null)
             {
+<<<<<<< HEAD
                 return NotFound();
 }
 
             return View(membre);
+=======
+                //String idMembre = membreLogged.Id.ToString();
+                return RedirectToAction("HomeFeatsHome", "PAFeats", membreLogged);
+            }
+            
+            
+            return RedirectToAction(nameof(Login));
+>>>>>>> 4dcbd74a94325c8870edf4ffbbcf6d0e013a3553
         }
 
 

@@ -105,37 +105,89 @@ public static void Initialize(IServiceProvider serviceProvider)
                 {
                     return;   // DB has been seeded
                 }
+                context.SaveChanges();
+
+                var exterieur = (from m in context.CategorieAides
+                                               where m.Id.Equals(2)
+                                               select m).FirstOrDefault();
+
+                var interieur = (from m in context.CategorieAides
+                                 where m.Id.Equals(1)
+                                 select m).FirstOrDefault();
+             
 
                 context.TypeAides.AddRange(
                     new TypeAide
                     {
-                        NomAide = "Jardiange"
-                        
+                        NomAide = "Jardinage",
+                        CategorieAide = exterieur
+
                     },
 
                     new TypeAide
                     {
-                        NomAide = "Course"
+                        NomAide = "Course",
+                        CategorieAide = exterieur
                     },
 
                     new TypeAide
                     {
-                        NomAide = "Récupération de colis"
+                        NomAide = "Récupération de colis",
+                        CategorieAide = exterieur
                     },
 
                     new TypeAide
                     {
-                        NomAide = "Promenade des animaux"
+                        NomAide = "Promenade des animaux",
+                        CategorieAide = exterieur
                     },
 
                     new TypeAide
                     {
-                        NomAide = "Deplacer une charge lourde"
+                        NomAide = "Déplacer une charge lourde",
+                        CategorieAide = interieur
                     },
 
                     new TypeAide
                     {
-                        NomAide = "Bricolage"
+                        NomAide = "Bricolage",
+                        CategorieAide = interieur
+                    },
+
+                    new TypeAide
+                    {
+                         NomAide = "Aide pour se déplacer",
+                         CategorieAide = exterieur
+                    },
+
+                    new TypeAide
+                    {
+                        NomAide = "Ménage",
+                        CategorieAide = interieur
+                    },
+
+                    new TypeAide
+                    {
+                        NomAide = "Administratif",
+                        CategorieAide = interieur
+                    },
+
+                    new TypeAide
+                    {
+                        NomAide = "Informatique",
+                        CategorieAide = interieur
+                    },
+
+                    new TypeAide
+                    {
+                        NomAide = "Visite de courtoisie",
+                        CategorieAide = interieur
+                    },
+
+                    new TypeAide
+                    {
+                        NomAide = "Soutien scolaire",
+                        CategorieAide = interieur
                     }
 
 

@@ -22,13 +22,18 @@ else
         <form id="login" asp-action="Login" method="get">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
+<<<<<<< HEAD
                 <label asp-for="Email" class="control-label"></label>
                 <input asp-for="Email" name="Email" type="text" class="form-control" />
+=======
+                <label asp-for="Email" class="control-label">Login / Adresse mail</label>
+                <input asp-for="Email" name="Email" type="email" class="form-control"/>
+>>>>>>> 4dcbd74a94325c8870edf4ffbbcf6d0e013a3553
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
             <div class=" form-group">
-                <label asp-for="Mdp" class="control-label"></label>
-                <input asp-for="Mdp" name="Mdp" type="text" class="form-control" />
+                <label asp-for="Mdp" class="control-label">Password</label>
+                <input asp-for="Mdp" name="Mdp" type="password" class="form-control" />
                 <span asp-validation-for="Mdp" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -39,4 +44,11 @@ else
         </form>
     </div>
 </div>
+<<<<<<< HEAD
 }
+=======
+
+<div>
+    <a asp-action="Creation">Créer un Compte</a>
+</div>
+>>>>>>> 4dcbd74a94325c8870edf4ffbbcf6d0e013a3553
