@@ -26,6 +26,7 @@ namespace Pandami
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddRazorPages();
             services.AddDbContext<DataContext>(options =>
            options.UseSqlServer(Configuration.GetConnectionString("AccesBDD")));
         }
@@ -54,7 +55,7 @@ namespace Pandami
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=PAMembres}/{action=Login}/{id?}");
+                    pattern: "{controller=PAMembres}/{action=Login}/{userId?}/{featId?}");
             });
         }
     }

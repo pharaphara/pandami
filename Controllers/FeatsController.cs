@@ -25,13 +25,14 @@ namespace Pandami.Controllers
             return View(await _context.Feats.ToListAsync());
         }
 
-        public async Task<IActionResult> HomeFeatsHome(Membre membre)
+        public async Task<IActionResult> HomeFeatsHome(int? Id)
         {
-           /* var membre = await (from m in _context.Membres
-                                where m.Id.Equals(membre.)
+            var membre = await (from m in _context.Membres
+                                where m.Id.Equals(Id)
                                 select m).FirstOrDefaultAsync();
-           
-           */
+            ViewBag.Id = Id;
+
+
 
             return View(membre);
         }

@@ -137,7 +137,12 @@ public static void Initialize(IServiceProvider serviceProvider)
                     {
                         NomAide = "Bricolage"
                     }
+
+
                 );
+               
+
+
 
 
                 context.SaveChanges();

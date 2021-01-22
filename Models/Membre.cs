@@ -88,6 +88,9 @@ namespace Pandami.Models
             public string Mdp { get; set; }
             public SelectList ListSexe { get; set; }
             public string SexeChoisi { get; set; }
+
+            public SelectList ListAdresse { get; set; }
+            public string adresseChoisie { get; set; }
             
         }
     }
