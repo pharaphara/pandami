@@ -25,11 +25,20 @@ namespace Pandami.Controllers
         }
 
 
-        public async Task<IActionResult> Creation([Bind("Id, Email, Mdp")] Membre membre)
+        public async Task<IActionResult> Creation([Bind("Id, Email, Mdp")] int? Id)
         {
+<<<<<<< HEAD
             var membreLogged = await (from m in _context.Membres
                                       where m.Id.Equals(2)
                                       select m).FirstOrDefaultAsync();
+=======
+           var membreLogged = await (from m in _context.Membres
+                                    where m.Id.Equals(Id)
+                                    select m).FirstOrDefaultAsync();
+>>>>>>> 450d78d0f23bb0056767917e21024ec8686af688
+
+            ViewBag.Id = Id;
+            ViewBag.Nom = membreLogged.Nom;
 
             IQueryable<string> recupTypeAide = from m in _context.TypeAides
                                                orderby m.NomAide
@@ -41,6 +50,7 @@ namespace Pandami.Controllers
 
             return View(newFeat);
         }
+       
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -82,12 +92,27 @@ namespace Pandami.Controllers
         }
 
 
+<<<<<<< HEAD
 
         public IActionResult HomeFeatsHome(int? Id)
+=======
+      /*  public IActionResult HomeFeatsHome()
+>>>>>>> 450d78d0f23bb0056767917e21024ec8686af688
         {
             return View();
-        }
+        }*/
 
+        public async Task<IActionResult> HomeFeatsHome(int? Id)
+        {
+            var membre = await (from m in _context.Membres
+                                where m.Id.Equals(Id)
+                                select m).FirstOrDefaultAsync();
+            ViewBag.Id = Id;
+
+
+
+            return View(membre);
+        }
 
 
     }

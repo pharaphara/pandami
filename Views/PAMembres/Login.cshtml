@@ -13,7 +13,7 @@
 @if (ViewBag.Id != null)
 {
 <div>   Ca va marcher @ViewBag.Id </div>
-<a asp-controller="Feats" asp-action="HomeFeatsHome" asp-route-id="@ViewBag.Id">Edit</a>
+<a asp-controller="PAFeats" asp-action="HomeFeatsHome" asp-route-id="@ViewBag.Id">Edit</a>
 }
 else
 {
@@ -24,7 +24,7 @@ else
             <div class="form-group">
 
                 <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" name="Email" type="text" class="form-control" />
+                <input asp-for="Email" name="Email" type="text" class="form-control" size="30" />
 
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>

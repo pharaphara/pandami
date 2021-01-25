@@ -110,7 +110,11 @@ namespace Pandami.Controllers
                 ViewBag.Id = membreLogged.Id;
                 ViewBag.Nom = membreLogged.Nom;
                 ViewBag.Prenom = membreLogged.Prenom;
+<<<<<<< HEAD
                 
+=======
+                ViewBag.Membre = membreLogged;
+>>>>>>> 450d78d0f23bb0056767917e21024ec8686af688
             }
             
             return View();
