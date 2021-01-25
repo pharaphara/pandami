@@ -5,10 +5,29 @@
     
 }
 
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("input[type='radio']").click(function () {
+            var val = $("input[name='CategorieRadio']:checked").val();
+            /*if (val) {
+                alert("Votre service sera : " + val);
+           }*/
+            if (val == "Exterieur") {
+                alert("Votre service sera : " + val);
+            }
 
+<<<<<<< HEAD
+            var liste = document.getElementById("Id")
+        });
+
+    });
+</script>
+=======
 
 
 <p></p>
+>>>>>>> 450d78d0f23bb0056767917e21024ec8686af688
 <h1>Create</h1>
 
 <h4>Feat</h4>
@@ -119,6 +138,8 @@
     <a asp-action="HomeFeatsHome">Back to List</a>
 </div>
 
+<<<<<<< HEAD
+=======
 <!--script-- src="https://code.jquery.com/jquery-1.12.4.min.js"></!--script-->
 <!--script-- type="text/javascript">
     $(document).ready(function () {
@@ -139,6 +160,7 @@
 
 </!--script-->
 
+>>>>>>> 450d78d0f23bb0056767917e21024ec8686af688
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

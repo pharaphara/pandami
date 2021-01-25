@@ -27,9 +27,15 @@ namespace Pandami.Controllers
 
         public async Task<IActionResult> Creation([Bind("Id, Email, Mdp")] int? Id)
         {
+<<<<<<< HEAD
+            var membreLogged = await (from m in _context.Membres
+                                      where m.Id.Equals(2)
+                                      select m).FirstOrDefaultAsync();
+=======
            var membreLogged = await (from m in _context.Membres
                                     where m.Id.Equals(Id)
                                     select m).FirstOrDefaultAsync();
+>>>>>>> 450d78d0f23bb0056767917e21024ec8686af688
 
             ViewBag.Id = Id;
             ViewBag.Nom = membreLogged.Nom;
@@ -67,7 +73,7 @@ namespace Pandami.Controllers
                 EnCoursRealisation = null,
                 SurPlace = null,
                 FinFeatHelper = null,
-                ClotureDate =null,
+                ClotureDate = null,
                 SommePrevoir = newFeat.SommePrevoir,
                 SommeAvancee = null,
                 SommeRembourseeDate = null,
@@ -84,13 +90,8 @@ namespace Pandami.Controllers
             }
             return View(feat);
         }
-            
 
 
-      /*  public IActionResult HomeFeatsHome()
-        {
-            return View();
-        }*/
 
         public async Task<IActionResult> HomeFeatsHome(int? Id)
         {
