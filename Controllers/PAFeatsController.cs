@@ -7,6 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using System.Collections;
 
 namespace Pandami.Controllers
 {
@@ -25,24 +26,23 @@ namespace Pandami.Controllers
         }
 
 
-        public async Task<IActionResult> Creation([Bind("Id, Email, Mdp")] int? Id)
+        public async Task<IActionResult> Creation([Bind("Id, Email, Mdp")] int Id)
         {
 
-           var membreLogged = await (from m in _context.Membres
-                                    where m.Id.Equals(Id)
-                                    select m).FirstOrDefaultAsync();
 
+            var membre = _context.Membres.Where(m => m.Id == Id).FirstOrDefault();
 
-            ViewBag.Id = Id;
-            ViewBag.Nom = membreLogged.Nom;
+            Feat newFeat = new Feat()
+            {
+                Createur = membre
+            };
 
             IQueryable<string> recupTypeAide = from m in _context.TypeAides
                                                orderby m.NomAide
                                                select m.NomAide;
-            var newFeat = new Feat.CreationFeat()
-            {
-                TypesAide = new SelectList(await recupTypeAide.Distinct().ToListAsync())
-            };
+
+            ViewBag.TypesAide = new SelectList(await recupTypeAide.Distinct().ToListAsync());
+            
 
             return View(newFeat);
         }
@@ -53,10 +53,10 @@ namespace Pandami.Controllers
 
         public async Task<IActionResult> Create([Bind("Id, CreationDate, RealisatinDate, HeureDebut, HeureFin" +
             "AcceptationDate, EnCoursRealisation, SurPlace, FinFeatHelper, ClotureDate, SommePrevoir, SommeAvancee, SommeRembourseeDate"+
-            "AnnulationDate, EchangeMonetaire, AideChoisie")] Feat.CreationFeat newFeat, int Createur, string test)
+            "AnnulationDate, EchangeMonetaire, AideChoisie")] Feat newFeat, int Createur, string Type)
         {
             var aideChoisieNewFeat = await (from m in _context.TypeAides
-                                            where m.NomAide.Equals(newFeat.AideChoisie)
+                                            where m.NomAide.Equals(Type)
                                             select m).FirstOrDefaultAsync();
 
             
@@ -101,25 +101,20 @@ namespace Pandami.Controllers
 
 
 
-        public async Task<IActionResult> HomeFeatsHome(int? Id)
+        public async Task<IActionResult> HomeFeatsHome(int Id)
         {
-            var membre = await (from m in _context.Membres
-                                where m.Id.Equals(Id)
-                                select m).FirstOrDefaultAsync();
-            ViewBag.Id = Id;
+            //Eagerly Loading pour charger toutes les entités liées
+             List<Feat> listFeats = _context.Feats
+                       .Include(b => b.Adresse)
+                       .Include(b => b.Type)
+                       .Include(b => b.Createur)
+                       .ToList();
 
-            var listeFeats = _context.Feats
-                       .Include(b => b.Type).ToListAsync();
-            var total = _context.Feats.Count();
-            for (int i = 0 ; i == total; i++ )
-            {
-                var feat = _context.Feats
-                            .Where(b => b.Id == i)
-                            .Include(b => b.Type)
-                            .Include(b => b.Createur).FirstOrDefault();
-            }
+            ViewBag.IdMembre = Id;
 
-            return View(listeFeats);
+
+
+            return View(listFeats);
         }
     }
 }

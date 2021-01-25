@@ -29,7 +29,8 @@ namespace Pandami
             services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddDbContext<DataContext>(options =>
-           options.UseSqlServer(Configuration.GetConnectionString("AccesBDD")));
+           options.UseSqlServer(Configuration.GetConnectionString("AccesBDD"),
+           o => o.UseQuerySplittingBehavior(QuerySplittingBehavior.SplitQuery)));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

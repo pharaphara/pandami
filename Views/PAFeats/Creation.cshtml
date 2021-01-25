@@ -1,4 +1,4 @@
-﻿@model Pandami.Models.Feat.CreationFeat
+﻿@model Pandami.Models.Feat
 
 @{
     ViewData["Title"] = "Create";
@@ -9,25 +9,25 @@
 <h1>Create</h1>
 
 <h4>Feat</h4>
-<div>   Ca va marcher @ViewBag.Id </div>
+<div>   Ca va marcher @Model.Createur.Nom </div>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Createur" value="@ViewBag.Id" />
-            <input type="hidden" name="Test" value="sdfsdf" />
+            <input type="hidden" asp-for="Createur" value="@Model.Createur.Id" />
+            
             <div class="form-group">
-                <label class="control-label">Nom du Giftee</label>
-                <input id="Text1" type="text" value="@ViewBag.Nom" disabled="disabled" />
+                <label class="control-label">Nom du Giftee : @Model.Createur.Nom</label>
+                
             </div>
 
             <div class="form-group">
                 <label>Activité </label>
-                <label asp-for="AideChoisie" class="control-label">Aide demandée</label>
-                <select asp-for="AideChoisie" asp-items="Model.TypesAide" id="maListe">
+                <label asp-for="Type" class="control-label">Aide demandée</label>
+                <select asp-for="Type" asp-items="@ViewBag.TypesAide" id="maListe">
                 </select>
-                <span asp-validation-for="AideChoisie" class="text-danger"></span>
+                <span asp-validation-for="Type" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="RealisationDate" class="control-label"></label>
