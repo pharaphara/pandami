@@ -1,0 +1,55 @@
+﻿@model Pandami.Models.Disponibilite
+
+@{
+    ViewData["Title"] = "DispoAjout";
+}
+
+<h1>DispoAjout</h1>
+
+<h4>Disponibilite</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="DispoAjout">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Jour" class="control-label"></label>
+                <select asp-for="Jour" asp-items=@ViewBag.ListJour>
+                </select>
+                <span asp-validation-for="Jour" class="text-danger"></span>
+            </div>
+            
+            Matin : <input type="checkbox" name="creneau" value="Matin" data-val-required="The IsChecked field is required." />
+            Aprés Midi : <input type="checkbox" name="creneau" value="Aprés Midi" />
+            <div></div>
+            <div class="form-group">
+                <label asp-for="ValiditeDebutDate" class="control-label">A partir de </label>
+                <input asp-for="ValiditeDebutDate" class="form-control" />
+                <span asp-validation-for="ValiditeDebutDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ValiditeFinDate" class="control-label">Jusqu'à (Facultatif)</label>
+                <input asp-for="ValiditeFinDate" class="form-control" />
+                <span asp-validation-for="ValiditeFinDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Jour" class="control-label"></label>
+                <select asp-for="Jour" asp-items=@ViewBag.ListJour>
+                </select>
+                <span asp-validation-for="Jour" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

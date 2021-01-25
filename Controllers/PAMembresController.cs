@@ -92,7 +92,7 @@ namespace Pandami.Controllers
                 _context.Adresses.TakeLast(Id);
 
                 String Idmembre = membre.Id.ToString();
-                return RedirectToAction("HomeFeatsHome", "Feats", Idmembre);
+                return RedirectToAction("Login");
             }
             return View(membre);
         }
@@ -161,7 +161,7 @@ namespace Pandami.Controllers
 
                 return NotFound();
             }
-            //ViewBag.sexe = membre.Sexe.NomSexe;
+            ViewBag.id = membre.Id;
 
             return View(membre);
 
@@ -213,32 +213,76 @@ namespace Pandami.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EnrModif([Bind("Id,Email,Nom,Prenom,Naissance,Telephone,Inscription, SexeChoisi, adresseChoisie, Mdp")] Membre modifMembre, int? Id)
+        public async Task<IActionResult> ModifProfil(int id, [Bind("Id,Email,Nom,Prenom,Naissance,Telephone,Mdp")] Membre membre,string Sexe, string Adresse)
         {
-            if (Id == null)
+            
+
+
+            if (id != membre.Id)
             {
                 return NotFound();
             }
+            var sexeMembre = await (from m in _context.Sexes
+                                       where m.NomSexe.Contains(Sexe)
+                                       select m).FirstOrDefaultAsync();
 
+            var adresseMembre = await (from m in _context.Adresses
+                                          where m.NomDeVoie.Contains(Adresse)
+                                          select m).FirstOrDefaultAsync();
+            membre.Sexe = sexeMembre;
+            membre.Adresse = adresseMembre;
 
-
-            var membre = await (from m in _context.Membres
-                                where m.Id.Equals(Id)
-                                select m).FirstOrDefaultAsync();
-
-            if (membre == null)
+            if (ModelState.IsValid)
             {
+                try
+                {
+                    _context.Update(membre);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!MembreExists(membre.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            return View(membre);
+        }
 
-                return NotFound();
-            };
 
-            //membre.Nom == modifMembre.Nom ? membre.Nom = membre.Nom : membre.Nom = modifMembre.Nom;
-            //membre.Prenom == modifMembre.Prenom ? membre.Prenom = membre.Prenom.ToString() : membre.Prenom = modifMembre.Prenom.ToString();
+        public async Task<IActionResult> Dispo(int? Id)
+        {
+            ViewBag.Id = Id;
+            return View(await _context.Disponibilites.ToListAsync());
+            
+        }
+
+        public async Task<IActionResult> DispoAjout(int? IdMembre)
+        {
+            ViewBag.IdMembre = IdMembre;
+            IQueryable<string> RecupJours = from m in _context.JourDeLaSemaines
+                                              orderby m.Id
+                                              select m.NomDuJour;
 
 
+
+            ViewBag.ListJour = new SelectList(await RecupJours.Distinct().ToListAsync());
 
             return View();
+
         }
+
+        private bool MembreExists(int id)
+        {
+            return _context.Membres.Any(e => e.Id == id);
+        }
+
     }
 }
     

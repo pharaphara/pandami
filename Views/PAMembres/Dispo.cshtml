@@ -1,0 +1,53 @@
+﻿@model IEnumerable<Pandami.Models.Disponibilite>
+
+@{
+    ViewData["Title"] = "Liste de vos disponibilités";
+}
+
+<h1>Dispo, test id = @ViewBag.Id</h1>
+
+<p>
+    <a asp-action="DispoAjout" asp-route-id=@ViewBag.Id>Ajouter une disponibilité</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.DebutHeure)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FinHeure)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ValiditeDebutDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ValiditeFinDate)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.DebutHeure)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FinHeure)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ValiditeDebutDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ValiditeFinDate)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
