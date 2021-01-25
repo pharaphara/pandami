@@ -18,7 +18,7 @@
 <div>@Html.DisplayFor(model => model.Nom)</div>
 <div>@DateTime.Now</div>
 <div>
-    <a asp-action="Creation">Créer un Feat</a>
+    <a asp-action="Creation" asp-route-id="@ViewBag.Id">Créer un Feat</a>
 </div>
 >>>>>>> 4dcbd74a94325c8870edf4ffbbcf6d0e013a3553
 }

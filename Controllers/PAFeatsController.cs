@@ -32,6 +32,7 @@ namespace Pandami.Controllers
                                     select m).FirstOrDefaultAsync();
 
             ViewBag.Id = Id;
+            ViewBag.Nom = membreLogged.Nom;
 
             IQueryable<string> recupTypeAide = from m in _context.TypeAides
                                                orderby m.NomAide

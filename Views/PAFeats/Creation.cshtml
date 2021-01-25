@@ -12,15 +12,6 @@
 <h1>Create</h1>
 
 <h4>Feat</h4>
-@if (ViewBag.Id != null)
-{
-    <div>   Ca va marcher @ViewBag.Id </div>
-    <a asp-controller="Feats" asp-action="HomeFeatsHome" asp-route-id="@ViewBag.Id">Edit</a>
-}
-else
-{
-    <div>   Ca va pas marcher looser </div>
-}
 
 <hr />
 <div class="row">
@@ -28,13 +19,17 @@ else
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
+                <label class="control-label">Nom du Giftee</label>
+                <input id="Text1" type="text" value="@ViewBag.Nom" disabled="disabled"/>
+            </div>
+            <div class="form-group">
                 <label>Catégorie d'aide demandée</label>
                 <div>
                     <input id="RadioInterieur" type="radio" Text="Intérieur" name="CategorieRadio" value="Interieur" />
                     <label for="RadioInterieur">Activité intérieure</label>
                 </div>
                 <div>
-                    <input id="RadioExterieur" type="radio" Text="Extérieur" name="CategorieRadio" value="Exterieur"/>
+                    <input id="RadioExterieur" type="radio" Text="Extérieur" name="CategorieRadio" value="Exterieur" />
                     <label for="RadioExterieur">Activité extèrieure</label>
 
                     <input id="CatButton" type="button" value="Récupérer la valeur" />
