@@ -3,8 +3,6 @@
     ViewData["Title"] = "Login";
 
     var email = "";
-
-
 }
 
 
@@ -22,10 +20,8 @@ else
         <form id="login" asp-action="Login" method="get">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-
                 <label asp-for="Email" class="control-label"></label>
                 <input asp-for="Email" name="Email" type="text" class="form-control" size="30" />
-
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
             <div class=" form-group">
@@ -36,8 +32,6 @@ else
             <div class="form-group">
                 <input type="submit" value="Login" class="btn btn-primary" asp-action="Login" />
             </div>
-            
-
         </form>
     </div>
 </div>
