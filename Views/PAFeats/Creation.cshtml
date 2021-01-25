@@ -4,8 +4,23 @@
     ViewData["Title"] = "Create";
 }
 
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("input[type='radio']").click(function () {
+            var val = $("input[name='CategorieRadio']:checked").val();
+            /*if (val) {
+                alert("Votre service sera : " + val);
+           }*/
+            if (val == "Exterieur") {
+                alert("Votre service sera : " + val);
+            }
 
-<p> </p>
+            var liste = document.getElementById("Id")
+        });
+
+    });
+</script>
 <h1>Create</h1>
 
 <h4>Feat</h4>
@@ -110,24 +125,6 @@
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
-
-<!--<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-<script type="text/javascript">
-    $(document).ready(function () {
-        $("input[type='radio']").click(function () {
-            var val = $("input[name='CategorieRadio']:checked").val();
-            /*if (val) {
-                alert("Votre service sera : " + val);
-           }*/
-            if (val == "Exterieur") {
-                alert("Votre service sera : " + val);
-            }
-
-            var liste = document.getElementById("Id")
-        });
-
-    });
-</script> -->
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

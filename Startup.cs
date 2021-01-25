@@ -27,6 +27,7 @@ namespace Pandami
         {
             services.AddControllersWithViews();
             services.AddRazorPages();
+            services.AddServerSideBlazor();
             services.AddDbContext<DataContext>(options =>
            options.UseSqlServer(Configuration.GetConnectionString("AccesBDD")));
         }
@@ -56,6 +57,9 @@ namespace Pandami
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=PAMembres}/{action=Login}/{userId?}/{featId?}");
+
+                endpoints.MapBlazorHub();
+
             });
         }
     }
