@@ -69,9 +69,9 @@ html {
 body {
     /* Margin bottom by footer height */
     margin-bottom: 60px;
-    background: linear-gradient(to top left, #4c7155, #4c7155);
+    background: linear-gradient(to top left, white, white);
   /*  background-image: url("https://zupimages.net/up/21/03/prs3.jpg");*/
-    color: whitesmoke;
+    color: black;
 }
 .footer {
   position: absolute;

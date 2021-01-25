@@ -4,22 +4,7 @@
     ViewData["Title"] = "Create";
     
 }
-<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-<script type="text/javascript">
-    $(document).ready(function () {
-        $("input[type='radio']").click(function () {
-            var val = $("input[name='CategorieRadio']:checked").val();
 
-        });
-
-
-    });
-
-</script>
-}
-@functions{
- public string val =  ("input[name='CategorieRadio']:checked").ToString();
-}
 
 
 
@@ -27,6 +12,16 @@
 <h1>Create</h1>
 
 <h4>Feat</h4>
+@if (ViewBag.Id != null)
+{
+    <div>   Ca va marcher @ViewBag.Id </div>
+    <a asp-controller="Feats" asp-action="HomeFeatsHome" asp-route-id="@ViewBag.Id">Edit</a>
+}
+else
+{
+    <div>   Ca va pas marcher looser </div>
+}
+
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -42,13 +37,9 @@
                     <input id="RadioExterieur" type="radio" Text="Extérieur" name="CategorieRadio" value="Exterieur"/>
                     <label for="RadioExterieur">Activité extèrieure</label>
 
-<<<<<<< HEAD
-                    <input id="CatButton" type="button" value="Récupérer la valeur" onclick="HomeFeatsHome"/>
-=======
                     <input id="CatButton" type="button" value="Récupérer la valeur" />
                 </div>
->>>>>>> d4c65f44ef30cc323d4f46103d4632fac42624b0
-
+                <label>Activité </label>
                 <div class="form-group">
                     <label asp-for="AideChoisie" class="control-label">Aide demandée</label>
                     <select asp-for="AideChoisie" asp-items="Model.TypesAide" id="maListe">
