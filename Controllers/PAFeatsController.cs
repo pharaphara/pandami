@@ -53,11 +53,19 @@ namespace Pandami.Controllers
 
         public async Task<IActionResult> Create([Bind("Id, CreationDate, RealisatinDate, HeureDebut, HeureFin" +
             "AcceptationDate, EnCoursRealisation, SurPlace, FinFeatHelper, ClotureDate, SommePrevoir, SommeAvancee, SommeRembourseeDate"+
-            "AnnulationDate, EchangeMonetaire, AideChoisie")] Feat.CreationFeat newFeat)
+            "AnnulationDate, EchangeMonetaire, AideChoisie")] Feat.CreationFeat newFeat, int Createur, string test)
         {
             var aideChoisieNewFeat = await (from m in _context.TypeAides
                                             where m.NomAide.Equals(newFeat.AideChoisie)
                                             select m).FirstOrDefaultAsync();
+
+            
+            
+            var membreLogged = await (from m in _context.Membres
+                                      where m.Id.Equals(Createur)
+                                      select m).FirstOrDefaultAsync();
+
+            ViewBag.Id = Createur;
 
             Feat feat = new Feat()
             {
@@ -70,21 +78,25 @@ namespace Pandami.Controllers
                 SurPlace = null,
                 FinFeatHelper = null,
                 ClotureDate = null,
-               
+                SommePrevoir = newFeat.SommePrevoir,
                 SommeAvancee = null,
                 SommeRembourseeDate = null,
                 AnnulationDate = null,
                 EchangeMonetaire = newFeat.EchangeMonetaire,
-                Type = aideChoisieNewFeat
+                Type = aideChoisieNewFeat,
+                Createur = membreLogged
+                
             };
 
             if (ModelState.IsValid)
             {
                 _context.Add(feat);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(HomeFeatsHome));
+
+
+                return RedirectToAction("HomeFeatsHome", "PAFeats");
             }
-            return View(feat);
+            return RedirectToAction("Profil", "PAMembres");
         }
 
 
@@ -96,11 +108,18 @@ namespace Pandami.Controllers
                                 select m).FirstOrDefaultAsync();
             ViewBag.Id = Id;
 
+            var listeFeats = _context.Feats
+                       .Include(b => b.Type).ToListAsync();
+            var total = _context.Feats.Count();
+            for (int i = 0 ; i == total; i++ )
+            {
+                var feat = _context.Feats
+                            .Where(b => b.Id == i)
+                            .Include(b => b.Type)
+                            .Include(b => b.Createur).FirstOrDefault();
+            }
 
-
-            return View(membre);
+            return View(listeFeats);
         }
-
-
     }
 }
