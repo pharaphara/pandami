@@ -2,133 +2,55 @@
 
 @{
     ViewData["Title"] = "Create";
-    
+
 }
 
-<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-<script type="text/javascript">
-    $(document).ready(function () {
-        $("input[type='radio']").click(function () {
-            var val = $("input[name='CategorieRadio']:checked").val();
-            /*if (val) {
-                alert("Votre service sera : " + val);
-           }*/
-            if (val == "Exterieur") {
-                alert("Votre service sera : " + val);
-            }
-
-<<<<<<< HEAD
-            var liste = document.getElementById("Id")
-        });
-
-    });
-</script>
-=======
-
-
 <p></p>
->>>>>>> 450d78d0f23bb0056767917e21024ec8686af688
 <h1>Create</h1>
 
 <h4>Feat</h4>
-
+<div>   Ca va marcher @ViewBag.Id </div>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Createur" value="@ViewBag.Id" />
+            <input type="hidden" name="Test" value="sdfsdf" />
             <div class="form-group">
                 <label class="control-label">Nom du Giftee</label>
-                <input id="Text1" type="text" value="@ViewBag.Nom" disabled="disabled"/>
+                <input id="Text1" type="text" value="@ViewBag.Nom" disabled="disabled" />
+            </div>
+
+            <div class="form-group">
+                <label>Activité </label>
+                <label asp-for="AideChoisie" class="control-label">Aide demandée</label>
+                <select asp-for="AideChoisie" asp-items="Model.TypesAide" id="maListe">
+                </select>
+                <span asp-validation-for="AideChoisie" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label>Catégorie d'aide demandée</label>
-                <div>
-                    <input id="RadioInterieur" type="radio" Text="Intérieur" name="CategorieRadio" value="Interieur" />
-                    <label for="RadioInterieur">Activité intérieure</label>
-                </div>
-                <div>
-                    <input id="RadioExterieur" type="radio" Text="Extérieur" name="CategorieRadio" value="Exterieur" />
-                    <label for="RadioExterieur">Activité extèrieure</label>
-
-                    <input id="CatButton" type="button" value="Récupérer la valeur" />
-                </div>
-
-                <div class="form-group">
-                    <label>Activité </label>
-                    <label asp-for="AideChoisie" class="control-label">Aide demandée</label>
-                    <select asp-for="AideChoisie" asp-items="Model.TypesAide" id="maListe">
-                    </select>
-                    <span asp-validation-for="AideChoisie" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="CreationDate" class="control-label"></label>
-                    <input asp-for="CreationDate" class="form-control" />
-                    <span asp-validation-for="CreationDate" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="RealisationDate" class="control-label"></label>
-                    <input asp-for="RealisationDate" class="form-control" value="2020-01-01" />
-                    <span asp-validation-for="RealisationDate" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="HeureDebut" class="control-label"></label>
-                    <input asp-for="HeureDebut" class="form-control" />
-                    <span asp-validation-for="HeureDebut" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="HeureFin" class="control-label"></label>
-                    <input asp-for="HeureFin" class="form-control" />
-                    <span asp-validation-for="HeureFin" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="AcceptationDate" class="control-label"></label>
-                    <input asp-for="AcceptationDate" class="form-control" />
-                    <span asp-validation-for="AcceptationDate" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="EnCoursRealisation" class="control-label"></label>
-                    <input asp-for="EnCoursRealisation" class="form-control" />
-                    <span asp-validation-for="EnCoursRealisation" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="SurPlace" class="control-label"></label>
-                    <input asp-for="SurPlace" class="form-control" />
-                    <span asp-validation-for="SurPlace" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="FinFeatHelper" class="control-label"></label>
-                    <input asp-for="FinFeatHelper" class="form-control" />
-                    <span asp-validation-for="FinFeatHelper" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="ClotureDate" class="control-label"></label>
-                    <input asp-for="ClotureDate" class="form-control" />
-                    <span asp-validation-for="ClotureDate" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="SommePrevoir" class="control-label"></label>
-                    <input asp-for="SommePrevoir" class="form-control" />
-                    <span asp-validation-for="SommePrevoir" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="SommeAvancee" class="control-label"></label>
-                    <input asp-for="SommeAvancee" class="form-control" />
-                    <span asp-validation-for="SommeAvancee" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="SommeRembourseeDate" class="control-label"></label>
-                    <input asp-for="SommeRembourseeDate" class="form-control" />
-                    <span asp-validation-for="SommeRembourseeDate" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="AnnulationDate" class="control-label"></label>
-                    <input asp-for="AnnulationDate" class="form-control" />
-                    <span asp-validation-for="AnnulationDate" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <input type="submit" value="Create" class="btn btn-primary" />
-                </div>
+                <label asp-for="RealisationDate" class="control-label"></label>
+                <input asp-for="RealisationDate" class="form-control" value="2020-01-01" />
+                <span asp-validation-for="RealisationDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="HeureDebut" class="control-label"></label>
+                <input asp-for="HeureDebut" class="form-control" value="14:00" />
+                <span asp-validation-for="HeureDebut" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="HeureFin" class="control-label"></label>
+                <input asp-for="HeureFin" class="form-control" value="20:00"/>
+                <span asp-validation-for="HeureFin" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SommePrevoir" class="control-label"></label>
+                <input asp-for="SommePrevoir" class="form-control" />
+                <span asp-validation-for="SommePrevoir" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>
     </div>
@@ -137,9 +59,6 @@
 <div>
     <a asp-action="HomeFeatsHome">Back to List</a>
 </div>
-
-<<<<<<< HEAD
-=======
 <!--script-- src="https://code.jquery.com/jquery-1.12.4.min.js"></!--script-->
 <!--script-- type="text/javascript">
     $(document).ready(function () {
@@ -160,7 +79,6 @@
 
 </!--script-->
 
->>>>>>> 450d78d0f23bb0056767917e21024ec8686af688
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

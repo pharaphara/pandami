@@ -102,13 +102,13 @@ namespace Pandami.Models
           public DateTime? ClotureDate { get; set; }
     
           [DataType(DataType.Currency)]
-          public DateTime? SommePrevoir { get; set; }
+          public float? SommePrevoir { get; set; }
     
           [DataType(DataType.Currency)]
           public float? SommeAvancee { get; set; }
     
-          [DataType(DataType.Currency)]
-          public float? SommeRembourseeDate { get; set; }
+          [DataType(DataType.Date)]
+          public DateTime? SommeRembourseeDate { get; set; }
     
           [DataType(DataType.Date)]
           public DateTime? AnnulationDate { get; set; }
@@ -118,11 +118,13 @@ namespace Pandami.Models
           public SelectList TypesAide { get; set; }
     
           public string AideChoisie { get; set; }
-    
-         // public SelectList IndoorOutdoorList { get; set; }
-    
-          //public string IndoorOutdoorChoisie { get; set; }
-      }
+
+          public Membre Createur { get; set; }
+
+            // public SelectList IndoorOutdoorList { get; set; }
+
+            //public string IndoorOutdoorChoisie { get; set; }
+        }
         
 
 

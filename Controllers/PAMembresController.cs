@@ -92,7 +92,7 @@ namespace Pandami.Controllers
                 _context.Adresses.TakeLast(Id);
 
                 String Idmembre = membre.Id.ToString();
-                return RedirectToAction("HomeFeatsHome", "Feats", Idmembre);
+                return RedirectToAction("HomeFeatsHome", "PAFeats", Idmembre);
             }
             return View(membre);
         }
