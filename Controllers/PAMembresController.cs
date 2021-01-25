@@ -110,6 +110,7 @@ namespace Pandami.Controllers
                 ViewBag.Id = membreLogged.Id;
                 ViewBag.Nom = membreLogged.Nom;
                 ViewBag.Prenom = membreLogged.Prenom;
+                
             }
             
             return View();
@@ -141,13 +142,20 @@ namespace Pandami.Controllers
                 return NotFound();
                 }
 
-            var membre = await _context.Membres
-                                .FirstOrDefaultAsync(m => m.Id == Id);
+           // var membre = _context.Membres.Find(Id);
+
+            var membre = _context.Membres
+                       .Where(b => b.Id == Id)
+                       .Include(b => b.Sexe)
+                       .Include(b => b.Adresse)
+                       .FirstOrDefault();
+
             if (membre == null)
             {
 
                 return NotFound();
-}
+            }
+            ViewBag.sexe = membre.Sexe.NomSexe;
 
             return View(membre);
 
