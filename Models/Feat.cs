@@ -40,13 +40,13 @@ namespace Pandami.Models
         public DateTime? ClotureDate { get; set; }
 
         [DataType(DataType.Currency)]
-        public DateTime? SommePrevoir { get; set; }
+        public float? SommePrevoir { get; set; }
 
         [DataType(DataType.Currency)]
         public float? SommeAvancee { get; set; }
 
         [DataType(DataType.Date)]
-        public float? SommeRembourseeDate { get; set; }
+        public DateTime? SommeRembourseeDate { get; set; }
 
         [DataType(DataType.Date)]
         public DateTime? AnnulationDate { get; set; }
@@ -71,58 +71,58 @@ namespace Pandami.Models
 
 
 
-        [NotMapped]
-        public class CreationFeat
-        {
-            [DataType(DataType.Date)]
-            public DateTime CreationDate { get; set; }
-
-            [DataType(DataType.Date)]
-            public DateTime RealisationDate { get; set; }
-
-            [DataType(DataType.Time)]
-            public DateTime HeureDebut { get; set; }
-
-            [DataType(DataType.Time)]
-            public DateTime HeureFin { get; set; }
-
-            [DataType(DataType.Date)]
-            public DateTime? AcceptationDate { get; set; }
-
-            [DataType(DataType.Time)]
-            public DateTime? EnCoursRealisation { get; set; }
-
-            [DataType(DataType.Time)]
-            public DateTime? SurPlace { get; set; }
-
-            [DataType(DataType.Time)]
-            public DateTime? FinFeatHelper { get; set; }
-
-            [DataType(DataType.Date)]
-            public DateTime? ClotureDate { get; set; }
-
-            [DataType(DataType.Currency)]
-            public DateTime? SommePrevoir { get; set; }
-
-            [DataType(DataType.Currency)]
-            public float? SommeAvancee { get; set; }
-
-            [DataType(DataType.Date)]
-            public float? SommeRembourseeDate { get; set; }
-
-            [DataType(DataType.Date)]
-            public DateTime? AnnulationDate { get; set; }
-
-            public Boolean EchangeMonetaire { get; set; }
-
-            public SelectList TypesAide { get; set; }
-
-            public string AideChoisie { get; set; }
-
-           // public SelectList IndoorOutdoorList { get; set; }
-
-            //public string IndoorOutdoorChoisie { get; set; }
-        }
+      [NotMapped]
+      public class CreationFeat
+      {
+          [DataType(DataType.Date)]
+          public DateTime CreationDate { get; set; }
+    
+          [DataType(DataType.Date)]
+          public DateTime RealisationDate { get; set; }
+    
+          [DataType(DataType.Time)]
+          public DateTime HeureDebut { get; set; }
+    
+          [DataType(DataType.Time)]
+          public DateTime HeureFin { get; set; }
+    
+          [DataType(DataType.Date)]
+          public DateTime? AcceptationDate { get; set; }
+    
+          [DataType(DataType.Time)]
+          public DateTime? EnCoursRealisation { get; set; }
+    
+          [DataType(DataType.Time)]
+          public DateTime? SurPlace { get; set; }
+    
+          [DataType(DataType.Time)]
+          public DateTime? FinFeatHelper { get; set; }
+    
+          [DataType(DataType.Date)]
+          public DateTime? ClotureDate { get; set; }
+    
+          [DataType(DataType.Currency)]
+          public DateTime? SommePrevoir { get; set; }
+    
+          [DataType(DataType.Currency)]
+          public float? SommeAvancee { get; set; }
+    
+          [DataType(DataType.Currency)]
+          public float? SommeRembourseeDate { get; set; }
+    
+          [DataType(DataType.Date)]
+          public DateTime? AnnulationDate { get; set; }
+    
+          public Boolean EchangeMonetaire { get; set; }
+    
+          public SelectList TypesAide { get; set; }
+    
+          public string AideChoisie { get; set; }
+    
+         // public SelectList IndoorOutdoorList { get; set; }
+    
+          //public string IndoorOutdoorChoisie { get; set; }
+      }
         
 
 

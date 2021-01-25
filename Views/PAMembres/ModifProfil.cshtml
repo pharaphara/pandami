@@ -38,21 +38,33 @@
                 <input asp-for="Telephone" class="form-control" />
                 <span asp-validation-for="Telephone" class="text-danger"></span>
             </div>
-            
+            <div class="form-group">
+                <label asp-for="Sexe" class="control-label"></label>
+                <select asp-for="Sexe" asp-items=@ViewBag.ListSexe>
+                </select>
+                <span asp-validation-for="Sexe" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Adresse" class="control-label"></label>
+                <select asp-for="Adresse" asp-items=@ViewBag.ListAdresse>
+                </select>
+                <span asp-validation-for="Adresse" class="text-danger"></span>
+            </div>
+
             <div class="form-group">
                 <label asp-for="Mdp" class="control-label"></label>
                 <input asp-for="Mdp" class="form-control" />
                 <span asp-validation-for="Mdp" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Save" class="btn btn-primary" asp-route-id="@Model.Id" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-controller="PAFeats" asp-action="HomeFeatsHome" asp-route-id="@Model.Id">Retour Home Feat Home</a>
 </div>
 
 @section Scripts {

@@ -97,22 +97,28 @@ namespace Pandami.Controllers
             return View(membre);
         }
 
+        public  IActionResult Login()
+        {
+
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login([Bind("Id, Email, Mdp")] Membre membreLogin)
         {
 
-            var membreLogged = await(from m in _context.Membres
-                                     where m.Email.Equals(membreLogin.Email)
-                                     select m).FirstOrDefaultAsync();
+            var membreLogged = await (from m in _context.Membres
+                                      where m.Email.Equals(membreLogin.Email)
+                                      select m).FirstOrDefaultAsync();
             ViewBag.Id = null;
 
             if (membreLogged != null && membreLogged.Mdp.Equals(membreLogin.Mdp))
             {
                 ViewBag.Id = membreLogged.Id;
-                ViewBag.Nom = membreLogged.Nom;
-                ViewBag.Prenom = membreLogged.Prenom;
-                ViewBag.Membre = membreLogged;
+
             }
-            
+
             return View();
         }
 
@@ -140,9 +146,9 @@ namespace Pandami.Controllers
             if (Id == null)
             {
                 return NotFound();
-                }
+            }
 
-           // var membre = _context.Membres.Find(Id);
+            // var membre = _context.Membres.Find(Id);
 
             var membre = _context.Membres
                        .Where(b => b.Id == Id)
@@ -155,14 +161,85 @@ namespace Pandami.Controllers
 
                 return NotFound();
             }
-            ViewBag.sexe = membre.Sexe.NomSexe;
+            //ViewBag.sexe = membre.Sexe.NomSexe;
 
             return View(membre);
 
         }
 
+        public async Task<IActionResult> ModifProfil(int? Id)
+        {
 
-    } 
+
+            if (Id == null)
+            {
+                return NotFound();
+            }
+
+
+
+            var membre = _context.Membres
+                       .Where(b => b.Id == Id)
+                       .Include(b => b.Sexe)
+                       .Include(b => b.Adresse)
+                       .FirstOrDefault();
+
+            if (membre == null)
+            {
+
+                return NotFound();
+            }
+            IQueryable<string> RecupGenre = from m in _context.Sexes
+                                            orderby m.NomSexe
+                                            select m.NomSexe;
+
+
+            IQueryable<string> RecupAdresse = from m in _context.Adresses
+                                              orderby m.NomDeVoie
+                                              select m.NomDeVoie;
+
+
+
+            ViewBag.ListSexe = new SelectList(await RecupGenre.Distinct().ToListAsync());
+            ViewBag.ListAdresse = new SelectList(await RecupAdresse.Distinct().ToListAsync());
+
+
+
+            return View(membre);
+
+
+
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EnrModif([Bind("Id,Email,Nom,Prenom,Naissance,Telephone,Inscription, SexeChoisi, adresseChoisie, Mdp")] Membre modifMembre, int? Id)
+        {
+            if (Id == null)
+            {
+                return NotFound();
+            }
+
+
+
+            var membre = await (from m in _context.Membres
+                                where m.Id.Equals(Id)
+                                select m).FirstOrDefaultAsync();
+
+            if (membre == null)
+            {
+
+                return NotFound();
+            };
+
+            //membre.Nom == modifMembre.Nom ? membre.Nom = membre.Nom : membre.Nom = modifMembre.Nom;
+            //membre.Prenom == modifMembre.Prenom ? membre.Prenom = membre.Prenom.ToString() : membre.Prenom = modifMembre.Prenom.ToString();
+
+
+
+            return View();
+        }
+    }
 }
     
 
