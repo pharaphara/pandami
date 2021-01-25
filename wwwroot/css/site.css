@@ -6,7 +6,9 @@ a.navbar-brand {
   text-align: center;
   word-break: break-all;
 }
-
+.pb-3 {
+   // background-color: darkgoldenrod;
+}
 thead {
     /*background-color: darkslategrey;*/
     color: deeppink;
@@ -65,8 +67,11 @@ html {
 }
 
 body {
-  /* Margin bottom by footer height */
-  margin-bottom: 60px;
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
+    background: linear-gradient(to top left, #4c7155, #4c7155);
+  /*  background-image: url("https://zupimages.net/up/21/03/prs3.jpg");*/
+    color: whitesmoke;
 }
 .footer {
   position: absolute;
