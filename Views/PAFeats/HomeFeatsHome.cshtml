@@ -8,28 +8,31 @@
 <h1>Hello hello</h1>
 <div>@DateTime.Now</div>
 <div>
-    <a asp-action="Creation" asp-route-id="@ViewBag.IdMembre">Créer un Feat</a>
+    <a asp-action="Creation" asp-route-id="@ViewBag.Id">Créer un Feat</a>
 </div>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Createur.Nom)
+                GIFTEE
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Type.NomAide)
+                TYPE D'AIDE DEMANDEE
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.RealisationDate)
+                JOUR DU FEAT
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.HeureDebut)
+                DEBUT DU FEAT
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.HeureFin)
+                FIN DU FEAT
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Id)
+                ADRESSE
+            </th>
+            <th>
+                ID DU FEAT
             </th>
 
         </tr>
@@ -54,14 +57,17 @@
                 @Html.DisplayFor(modelItem => item.HeureFin)
             </td>
             <td>
+                @Html.DisplayFor(modelItem => item.Adresse.NomDeVoie)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.Id)
             </td>
             <td>
-               <!--
+               
                     <a asp-action="Edit" asp-route-id="@@item.Id">Edit</a> 
                     <a asp-action="Details" asp-route-id="@@item.Id"> Details </a>
                     <a asp-action= "Delete" asp-route-id ="@@item.Id"> Delete </a>
-            -->
+            
 
 
             </td>

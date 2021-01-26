@@ -9,7 +9,7 @@
 <h1>Create</h1>
 
 <h4>Feat</h4>
-<div>   Ca va marcher @Model.Createur.Nom </div>
+<div>   Ca va marcher @Model.Createur.Nom @ViewBag.AdresseCreateur </div>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -19,7 +19,6 @@
 
             <div class="form-group">
                 <label class="control-label">Nom du Giftee : @Model.Createur.Nom</label>
-
             </div>
 
             <div class="form-group">
@@ -52,7 +51,10 @@
             </div>
             <div class="form-group">
                 <label asp-for="Adresse" class="control-label"></label>
-                <select asp-for="Adresse" asp-items="@ViewBag.Adresse" id="maListe"></select>
+                <select asp-for="Adresse" asp-items="@ViewBag.Adresse" id="maListe">
+                    <option value="@ViewBag.AdresseCreateur" selected="@ViewBag.AdresseCreateur">@ViewBag.AdresseCreateur</option>
+                </select>
+                <span asp-validation-for="Adresse" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="SommePrevoir" class="control-label"></label>
@@ -60,7 +62,7 @@
                 <span asp-validation-for="SommePrevoir" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Create" class="btn btn-primary"/>
             </div>
         </form>
     </div>

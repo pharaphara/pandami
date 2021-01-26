@@ -30,7 +30,9 @@ namespace Pandami.Controllers
         {
 
 
-            var membre = _context.Membres.Where(m => m.Id == Id).FirstOrDefault();
+            var membre = _context.Membres.Where(m => m.Id == Id)
+                                            .Include(m => m.Adresse)  
+                                            .FirstOrDefault();
 
             Feat newFeat = new Feat()
             {
@@ -45,14 +47,18 @@ namespace Pandami.Controllers
                                                orderby m.NomMateriel
                                                select m.NomMateriel;
 
-            //IQueryable<string> recupAdresse = from m in _context.
+            IQueryable<string> recupAdresse = from m in _context.Adresses
+                                              orderby m.NomDeVoie
+                                              select m.NomDeVoie;
+            
 
             ViewBag.Materiels = new SelectList(await recupMateriel.Distinct().ToListAsync());
 
-
             ViewBag.TypesAide = new SelectList(await recupTypeAide.Distinct().ToListAsync());
             
+            ViewBag.Adresse = new SelectList(await recupAdresse.Distinct().ToListAsync());
 
+            ViewBag.AdresseCreateur = membre.Adresse.NomDeVoie;
 
             return View(newFeat);
         }
@@ -62,13 +68,11 @@ namespace Pandami.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id, CreationDate, RealisatinDate, HeureDebut, HeureFin" +
             "AcceptationDate, EnCoursRealisation, SurPlace, FinFeatHelper, ClotureDate, SommePrevoir, SommeAvancee, SommeRembourseeDate"+
-            "AnnulationDate, EchangeMonetaire, AideChoisie, Materiel")] Feat newFeat, int Createur, string Type, string Materiel, int Adresse)
+            "AnnulationDate, EchangeMonetaire, AideChoisie, Materiel")] Feat newFeat, int Createur, string Type, string Materiel, string Adresse)
         {
             var aideChoisieNewFeat = await (from m in _context.TypeAides
                                             where m.NomAide.Equals(Type)
-                                            select m).FirstOrDefaultAsync();
-
-            
+                                            select m).FirstOrDefaultAsync();           
             
             var membreLogged = await (from m in _context.Membres
                                       where m.Id.Equals(Createur)
@@ -79,7 +83,7 @@ namespace Pandami.Controllers
                                         select m).FirstOrDefaultAsync();
 
             var adresseChoisie = await (from m in _context.Adresses
-                                        where m.Id.Equals(Adresse)
+                                        where m.NomDeVoie.Equals(Adresse)
                                         select m).FirstOrDefaultAsync();
 
             ViewBag.Id = Createur;
@@ -105,7 +109,7 @@ namespace Pandami.Controllers
                 await _context.SaveChangesAsync();
 
 
-                return RedirectToAction("HomeFeatsHome", "PAFeats");
+                return RedirectToAction("MesFeats", "PAFeats", new { @id = ViewBag.Id });
             }
             return RedirectToAction("Profil", "PAMembres");
         }
@@ -121,11 +125,35 @@ namespace Pandami.Controllers
                        .Include(b => b.Createur)
                        .ToList();
 
-            ViewBag.IdMembre = Id;
+            ViewBag.Id = Id;
 
 
 
             return View(listFeats);
+        }
+        public async Task<IActionResult> MesFeats(int Id)
+        {
+            
+            //Eagerly Loading pour charger toutes les entités liées
+             List<Feat> listFeats = _context.Feats
+                       .Where(b => b.Createur.Id == Id)
+                       .Include(b => b.Adresse)
+                       .Include(b => b.Type)
+                       .Include(b => b.Createur)
+                       .ToList();
+
+            ViewBag.Id = Id;
+
+
+
+            return View(listFeats);
+        }
+
+        public IActionResult Details()
+        {
+           
+
+            return View();
         }
     }
 }
