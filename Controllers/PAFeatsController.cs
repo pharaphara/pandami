@@ -26,17 +26,18 @@ namespace Pandami.Controllers
         }
 
 
-        public async Task<IActionResult> Creation([Bind("Id, Email, Mdp")] int Id)
+        public async Task<IActionResult> Creation(int Id)
         {
 
 
             var membre = _context.Membres.Where(m => m.Id == Id)
-                                            .Include(m => m.Adresse)  
+                                            .Include(m => m.Adresse)
                                             .FirstOrDefault();
 
             Feat newFeat = new Feat()
             {
-                Createur = membre
+                Createur = membre,
+               
             };
 
             IQueryable<string> recupTypeAide = from m in _context.TypeAides
@@ -86,7 +87,7 @@ namespace Pandami.Controllers
                                         where m.NomDeVoie.Equals(Adresse)
                                         select m).FirstOrDefaultAsync();
 
-            ViewBag.Id = Createur;
+            ViewBag.IdMembre = Createur;
            
 
             Feat feat = new Feat()
@@ -109,7 +110,7 @@ namespace Pandami.Controllers
                 await _context.SaveChangesAsync();
 
 
-                return RedirectToAction("MesFeats", "PAFeats", new { @id = ViewBag.Id });
+                return RedirectToAction("MesFeats", "PAFeats", new { @id = ViewBag.IdMembre });
             }
             return RedirectToAction("Profil", "PAMembres");
         }
@@ -125,7 +126,7 @@ namespace Pandami.Controllers
                        .Include(b => b.Createur)
                        .ToList();
 
-            ViewBag.Id = Id;
+            ViewBag.IdMembre = Id;
 
 
 
@@ -140,20 +141,66 @@ namespace Pandami.Controllers
                        .Include(b => b.Adresse)
                        .Include(b => b.Type)
                        .Include(b => b.Createur)
+                       .Include(b => b.Materiel)
                        .ToList();
 
-            ViewBag.Id = Id;
+            ViewBag.IdMembre = Id;
 
 
 
             return View(listFeats);
         }
 
-        public IActionResult Details()
+        public async Task<IActionResult> ModifFeat(int Id)              //IdFeat
         {
-           
+            IQueryable<string> recupTypeAide = from m in _context.TypeAides
+                                               orderby m.NomAide
+                                               select m.NomAide;
 
-            return View();
+            IQueryable<string> recupMateriel = from m in _context.Materiels
+                                               orderby m.NomMateriel
+                                               select m.NomMateriel;
+
+            IQueryable<string> recupAdresse = from m in _context.Adresses
+                                              orderby m.NomDeVoie
+                                              select m.NomDeVoie;
+
+
+ 
+
+            Feat featToModify = _context.Feats
+                                .Where(b => b.Id == Id)
+                                .Include(b => b.Createur)
+                                .Include(b => b.Adresse)
+                                .Include(b => b.Materiel)
+                                .Include(b => b.Type)
+                                .FirstOrDefault();
+
+           Membre membreLogged = _context.Membres
+                                .Where(b => b.Id == featToModify.Createur.Id).FirstOrDefault();
+           
+           ViewBag.IdFeat = Id;
+
+           //ViewBag.Id = membreLogged.Id;
+
+            ViewBag.Materiels = new SelectList(await recupMateriel.Distinct().ToListAsync());
+
+            ViewBag.TypesAide = new SelectList(await recupTypeAide.Distinct().ToListAsync());
+
+            ViewBag.Adresse = new SelectList(await recupAdresse.Distinct().ToListAsync());
+
+            //ViewBag.AideChoisie = featToModify.Type.NomAide;
+
+            //ViewBag.MaterielChoisi = featToModify.Materiel.NomMateriel;
+
+
+            //ViewBag.AdresseChoisie = featToModify.Adresse;
+
+
+            return View(featToModify);
         }
+
+
+
     }
 }
