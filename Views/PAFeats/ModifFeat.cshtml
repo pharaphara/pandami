@@ -10,13 +10,13 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Edit">
+        <form asp-action="ModifierMonFeat">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <!--input type="hidden" asp-for="Id" /-->
             <div class="form-group">
                 <label class="control-label">Nom du Giftee : @ViewBag.NomGiftee</label>
             </div>
-
+            <input type="hidden" asp-for="Createur" value="@Model.Createur" />
             <div class="form-group">
                 <label>Activité </label>
                 <label asp-for="Type" class="control-label">Aide demandée</label>
@@ -34,17 +34,17 @@
             </div>
             <div class="form-group">
                 <label asp-for="RealisationDate" class="control-label"></label>
-                <input asp-for="RealisationDate" class="form-control"/>
+                <input asp-for="RealisationDate" class="form-control" />
                 <span asp-validation-for="RealisationDate" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="HeureDebut" class="control-label"></label>
-                <input asp-for="HeureDebut" class="form-control"/>
+                <input asp-for="HeureDebut" class="form-control" />
                 <span asp-validation-for="HeureDebut" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="HeureFin" class="control-label"></label>
-                <input asp-for="HeureFin" class="form-control"/>
+                <input asp-for="HeureFin" class="form-control" />
                 <span asp-validation-for="HeureFin" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -56,13 +56,16 @@
             </div>
             <div class="form-group">
                 <label asp-for="SommePrevoir" class="control-label"></label>
-                <input asp-for="SommePrevoir" class="form-control"/>
+                <input asp-for="SommePrevoir" class="form-control" />
                 <span asp-validation-for="SommePrevoir" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="hidden" name="membreId" value="@Model.Createur.Id" />
+                <input type="hidden" asp-for="Id" value="@Model.Id" />
+                <input type="submit" value="Modifier" class="btn btn-primary" />
             </div>
         </form>
+        
     </div>
 </div>
 
