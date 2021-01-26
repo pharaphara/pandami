@@ -52,7 +52,7 @@
             <div class="form-group">
                 <label asp-for="Adresse" class="control-label"></label>
                 <select asp-for="Adresse" asp-items="@ViewBag.Adresse" id="maListe">
-                    <option value="@ViewBag.AdresseCreateur" selected="@ViewBag.AdresseCreateur">@ViewBag.AdresseCreateur</option>
+                    <option value="@Model.Createur.Adresse.NomDeVoie" selected="@Model.Createur.Adresse.NomDeVoie">@Model.Createur.Adresse.NomDeVoie</option>
                 </select>
                 <span asp-validation-for="Adresse" class="text-danger"></span>
             </div>

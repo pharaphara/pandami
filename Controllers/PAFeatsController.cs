@@ -26,17 +26,18 @@ namespace Pandami.Controllers
         }
 
 
-        public async Task<IActionResult> Creation([Bind("Id, Email, Mdp")] int Id)
+        public async Task<IActionResult> Creation(int Id)
         {
 
 
             var membre = _context.Membres.Where(m => m.Id == Id)
-                                            .Include(m => m.Adresse)  
+                                            .Include(m => m.Adresse)
                                             .FirstOrDefault();
 
             Feat newFeat = new Feat()
             {
-                Createur = membre
+                Createur = membre,
+               
             };
 
             IQueryable<string> recupTypeAide = from m in _context.TypeAides
@@ -86,7 +87,7 @@ namespace Pandami.Controllers
                                         where m.NomDeVoie.Equals(Adresse)
                                         select m).FirstOrDefaultAsync();
 
-            ViewBag.Id = Createur;
+            ViewBag.IdMembre = Createur;
            
 
             Feat feat = new Feat()
@@ -109,7 +110,7 @@ namespace Pandami.Controllers
                 await _context.SaveChangesAsync();
 
 
-                return RedirectToAction("MesFeats", "PAFeats", new { @id = ViewBag.Id });
+                return RedirectToAction("MesFeats", "PAFeats", new { @id = ViewBag.IdMembre });
             }
             return RedirectToAction("Profil", "PAMembres");
         }
@@ -125,7 +126,7 @@ namespace Pandami.Controllers
                        .Include(b => b.Createur)
                        .ToList();
 
-            ViewBag.Id = Id;
+            ViewBag.IdMembre = Id;
 
 
 
@@ -143,7 +144,7 @@ namespace Pandami.Controllers
                        .Include(b => b.Materiel)
                        .ToList();
 
-            ViewBag.Id = Id;
+            ViewBag.IdMembre = Id;
 
 
 

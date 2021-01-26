@@ -111,11 +111,11 @@ namespace Pandami.Controllers
             var membreLogged = await (from m in _context.Membres
                                       where m.Email.Equals(membreLogin.Email)
                                       select m).FirstOrDefaultAsync();
-            ViewBag.Id = null;
+            ViewBag.IdMembre = null;
 
             if (membreLogged != null && membreLogged.Mdp.Equals(membreLogin.Mdp))
             {
-                ViewBag.Id = membreLogged.Id;
+                ViewBag.IdMembre = membreLogged.Id;
 
             }
 
@@ -161,7 +161,7 @@ namespace Pandami.Controllers
 
                 return NotFound();
             }
-            ViewBag.id = membre.Id;
+            ViewBag.idMembre = membre.Id;
 
             return View(membre);
 
@@ -258,7 +258,7 @@ namespace Pandami.Controllers
 
         public async Task<IActionResult> Dispo(int Id)
         {
-            ViewBag.Id = Id;
+            ViewBag.IdMembre = Id;
             List<Disponibilite> listDispo = _context.Disponibilites
                         .Where(b=>b.membre.Id ==Id)
                         //.Where(b => b.ValiditeFinDate >= DateTime.Now)
@@ -274,7 +274,7 @@ namespace Pandami.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Dispo(int dispoId, int membreId)
         {
-            ViewBag.Id = membreId;
+            ViewBag.IdMembre = membreId;
             var dispo = await _context.Disponibilites.FindAsync(dispoId);
            
             _context.Disponibilites.Remove(dispo);
