@@ -140,6 +140,7 @@ namespace Pandami.Controllers
                        .Include(b => b.Adresse)
                        .Include(b => b.Type)
                        .Include(b => b.Createur)
+                       .Include(b => b.Materiel)
                        .ToList();
 
             ViewBag.Id = Id;
@@ -149,11 +150,56 @@ namespace Pandami.Controllers
             return View(listFeats);
         }
 
-        public IActionResult Details()
+        public async Task<IActionResult> ModifFeat(int Id)              //IdFeat
         {
-           
+            IQueryable<string> recupTypeAide = from m in _context.TypeAides
+                                               orderby m.NomAide
+                                               select m.NomAide;
 
-            return View();
+            IQueryable<string> recupMateriel = from m in _context.Materiels
+                                               orderby m.NomMateriel
+                                               select m.NomMateriel;
+
+            IQueryable<string> recupAdresse = from m in _context.Adresses
+                                              orderby m.NomDeVoie
+                                              select m.NomDeVoie;
+
+
+ 
+
+            Feat featToModify = _context.Feats
+                                .Where(b => b.Id == Id)
+                                .Include(b => b.Createur)
+                                .Include(b => b.Adresse)
+                                .Include(b => b.Materiel)
+                                .Include(b => b.Type)
+                                .FirstOrDefault();
+
+           Membre membreLogged = _context.Membres
+                                .Where(b => b.Id == featToModify.Createur.Id).FirstOrDefault();
+           
+           ViewBag.IdFeat = Id;
+
+           //ViewBag.Id = membreLogged.Id;
+
+            ViewBag.Materiels = new SelectList(await recupMateriel.Distinct().ToListAsync());
+
+            ViewBag.TypesAide = new SelectList(await recupTypeAide.Distinct().ToListAsync());
+
+            ViewBag.Adresse = new SelectList(await recupAdresse.Distinct().ToListAsync());
+
+            //ViewBag.AideChoisie = featToModify.Type.NomAide;
+
+            //ViewBag.MaterielChoisi = featToModify.Materiel.NomMateriel;
+
+
+            //ViewBag.AdresseChoisie = featToModify.Adresse;
+
+
+            return View(featToModify);
         }
+
+
+
     }
 }
