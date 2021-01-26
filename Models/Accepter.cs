@@ -6,18 +6,18 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Pandami.Models
 {
-    public class Repondre
+    public class Accepter
     {
-        public Membre Membre { get; set; } //propriété de navigation
-        public int IdMembre { get; set; } //clé étreangère
-
-        public Feat Feat { get; set; } //propriété de navigation
-        public int IdFeat { get; set; } //clé étreangère
+        public int Id { get; set; }
 
         [DataType(DataType.Date)]
         public DateTime AcceptationDate { get; set; }
 
         [DataType(DataType.Date)]
         public DateTime? DesistementDate { get; set; }
+
+        public Membre Membre { get; set; }
+
+        public Feat Feat { get; set; }
     }
 }

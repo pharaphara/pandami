@@ -261,7 +261,7 @@ namespace Pandami.Controllers
             ViewBag.Id = Id;
             List<Disponibilite> listDispo = _context.Disponibilites
                         .Where(b=>b.membre.Id ==Id)
-                        //.Where(b => b.ValiditeFinDate >= DateTime.Now)
+                        //.Where(b => b.ValiditeFinDate >= DateTime.Now) 
                        .Include(b => b.Jour)
                        .Include(b => b.membre)
                        .ToList();
@@ -279,6 +279,13 @@ namespace Pandami.Controllers
            
             _context.Disponibilites.Remove(dispo);
             await _context.SaveChangesAsync();
+
+            List<Disponibilite> listDispo = _context.Disponibilites
+                        .Where(b => b.membre.Id == membreId)
+                       //.Where(b => b.ValiditeFinDate >= DateTime.Now)
+                       .Include(b => b.Jour)
+                       .Include(b => b.membre)
+                       .ToList();
 
             return View();
 
@@ -348,6 +355,19 @@ namespace Pandami.Controllers
             return View();
 
         }
+
+        public async Task<IActionResult> Pref(int Id)
+        {
+            ViewBag.Id = Id;
+            List<PreferenceAide> listPref = _context.PreferenceAides
+                        .Where(b => b.Membre.Id == Id)
+                        .Include(b => b.ListTypeAide.Select(p=>p.NomAide))
+                        .ToList();
+
+            return View(listPref);
+
+        }
+
 
         private bool MembreExists(int id)
         {

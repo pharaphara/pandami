@@ -57,7 +57,7 @@ namespace Pandami.Models
         public Membre Createur { get; set; }
 
         //collection de réponse
-        public IList<Repondre> Reponses { get; set; }
+        public IList<Accepter> Reponses { get; set; }
 
         //posède un type d'aide
         public TypeAide Type { get; set; }
@@ -70,6 +70,8 @@ namespace Pandami.Models
 
         //possède une collection de litige
         public ICollection<Litige> Litiges { get; set; }
+
+       
 
     }
 }

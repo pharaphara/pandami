@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -8,11 +8,14 @@ namespace Pandami.Models
 {
     public class PreferenceAide
     {
-        public Membre Membre { get; set; } //propriété de navigation
-        public int IdMembre { get; set; } //clé étreangère
+        public int Id { get; set; }
 
-        public TypeAide TypeAide { get; set; } //propriété de navigation
-        public int IdTypeAide { get; set; } //clé étreangère
+        public Membre Membre { get; set; } 
+        
+        public ICollection<TypeAide> ListTypeAide { get; set; } 
+
+        public float RayonActionKm { get; set; }
+
 
         [DataType(DataType.Date)]
         public DateTime ValiditeDebut { get; set; }
