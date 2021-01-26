@@ -41,8 +41,18 @@ namespace Pandami.Controllers
                                                orderby m.NomAide
                                                select m.NomAide;
 
+            IQueryable<string> recupMateriel = from m in _context.Materiels
+                                               orderby m.NomMateriel
+                                               select m.NomMateriel;
+
+            //IQueryable<string> recupAdresse = from m in _context.
+
+            ViewBag.Materiels = new SelectList(await recupMateriel.Distinct().ToListAsync());
+
+
             ViewBag.TypesAide = new SelectList(await recupTypeAide.Distinct().ToListAsync());
             
+
 
             return View(newFeat);
         }
@@ -50,10 +60,9 @@ namespace Pandami.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-
         public async Task<IActionResult> Create([Bind("Id, CreationDate, RealisatinDate, HeureDebut, HeureFin" +
             "AcceptationDate, EnCoursRealisation, SurPlace, FinFeatHelper, ClotureDate, SommePrevoir, SommeAvancee, SommeRembourseeDate"+
-            "AnnulationDate, EchangeMonetaire, AideChoisie")] Feat newFeat, int Createur, string Type)
+            "AnnulationDate, EchangeMonetaire, AideChoisie, Materiel")] Feat newFeat, int Createur, string Type, string Materiel, int Adresse)
         {
             var aideChoisieNewFeat = await (from m in _context.TypeAides
                                             where m.NomAide.Equals(Type)
@@ -65,7 +74,16 @@ namespace Pandami.Controllers
                                       where m.Id.Equals(Createur)
                                       select m).FirstOrDefaultAsync();
 
+            var materielChoisi = await (from m in _context.Materiels
+                                        where m.NomMateriel.Equals(Materiel)
+                                        select m).FirstOrDefaultAsync();
+
+            var adresseChoisie = await (from m in _context.Adresses
+                                        where m.Id.Equals(Adresse)
+                                        select m).FirstOrDefaultAsync();
+
             ViewBag.Id = Createur;
+           
 
             Feat feat = new Feat()
             {
@@ -73,19 +91,12 @@ namespace Pandami.Controllers
                 RealisationDate = newFeat.RealisationDate,
                 HeureDebut = newFeat.HeureDebut,
                 HeureFin = newFeat.HeureFin,
-                AcceptationDate = null,
-                EnCoursRealisation = null,
-                SurPlace = null,
-                FinFeatHelper = null,
-                ClotureDate = null,
                 SommePrevoir = newFeat.SommePrevoir,
-                SommeAvancee = null,
-                SommeRembourseeDate = null,
-                AnnulationDate = null,
                 EchangeMonetaire = newFeat.EchangeMonetaire,
                 Type = aideChoisieNewFeat,
-                Createur = membreLogged
-                
+                Createur = membreLogged,
+                Materiel = materielChoisi,
+                Adresse = adresseChoisie
             };
 
             if (ModelState.IsValid)

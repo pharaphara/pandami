@@ -11,5 +11,7 @@ namespace Pandami.Models
 
         public string NomMateriel { get; set; }
 
+        public ICollection<Feat>feats { get; set; }
+
     }
 }

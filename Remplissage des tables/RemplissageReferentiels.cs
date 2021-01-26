@@ -192,7 +192,43 @@ public static void Initialize(IServiceProvider serviceProvider)
 
 
                 );
-               
+
+                if (context.Materiels.Any())
+                {
+                    return;   // DB has been seeded
+                }
+
+                context.Materiels.AddRange(
+                    new Materiel
+                    {
+                        NomMateriel = "Voiture"
+
+                    },
+
+                    new Materiel
+                    {
+                        NomMateriel = "KitMenage"
+
+                    },
+
+                    new Materiel
+                    {
+                        NomMateriel = "KitBricolage"
+
+                    },
+
+                    new Materiel
+                    {
+                        NomMateriel = "KitJardinage"
+
+                    },
+
+                    new Materiel
+                    {
+                        NomMateriel = "Ordinateur"
+
+                    }
+                );
 
 
 

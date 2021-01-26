@@ -21,8 +21,6 @@ namespace Pandami.Models
         //possède une catégorie
         public CategorieAide CategorieAide { get; set; }
 
-        //posède un matériel
-        public Materiel Materiel { get; set; }
 
         //possède une collection de préférence
         public ICollection<PreferenceAide> PreferenceAides { get; set; }
