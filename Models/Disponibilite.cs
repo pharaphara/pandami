@@ -24,5 +24,8 @@ namespace Pandami.Models
 
         //une disponibilité possède un jour de la semaine
         public JourDeLaSemaine Jour { get; set; }
+
+        //possède un créateur
+        public Membre membre { get; set; }
     }
 }

@@ -263,16 +263,65 @@ namespace Pandami.Controllers
             
         }
 
-        public async Task<IActionResult> DispoAjout(int? IdMembre)
+        public async Task<IActionResult> DispoAjout(int? Id)
         {
-            ViewBag.IdMembre = IdMembre;
+            ViewBag.IdMembre = Id;
             IQueryable<string> RecupJours = from m in _context.JourDeLaSemaines
                                               orderby m.Id
                                               select m.NomDuJour;
 
 
+            Disponibilite newDispo = new Disponibilite
+            {
+                ValiditeDebutDate = DateTime.Now
+            };
+           
+
 
             ViewBag.ListJour = new SelectList(await RecupJours.Distinct().ToListAsync());
+
+            return View(newDispo);
+
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DispoAjout(int? Id, [Bind("ValiditeDebutDate, ValiditeFinDate")] Disponibilite newDispo, bool matin, bool apresMidi, string Jour, int IdMembre)
+        {
+
+            newDispo.Jour = _context.JourDeLaSemaines.Where((m => m.NomDuJour == Jour)).FirstOrDefault();
+            
+            var membre = _context.Membres.Where(m => m.Id == IdMembre).FirstOrDefault();
+            if (matin & apresMidi)
+            {
+                newDispo.DebutHeure= new System.DateTime(1,1,1,8,0,0);
+                newDispo.FinHeure = new System.DateTime(1, 1, 1, 21, 0, 0);
+            }else if (matin)
+            {
+                newDispo.DebutHeure = new System.DateTime(1, 1, 1, 8, 0, 0);
+                newDispo.FinHeure = new System.DateTime(1, 1, 1, 14, 0, 0);
+            }
+            else if (apresMidi)
+            {
+                newDispo.DebutHeure = new System.DateTime(1, 1, 1, 14, 0, 0);
+                newDispo.FinHeure = new System.DateTime(1, 1, 1, 21, 0, 0);
+            }
+            if (ModelState.IsValid)
+            {
+
+                _context.Add(newDispo);
+                await _context.SaveChangesAsync();
+                
+                
+
+                
+                return View(newDispo);
+            }
+            
+
+           
+
+            
 
             return View();
 
