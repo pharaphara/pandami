@@ -8,8 +8,19 @@
 
 <h4>Disponibilite</h4>
 <hr />
+
+@if (ViewBag.Cree)
+{
+
+<div>Disponibilité Ajoutée</div>
+<div>
+    <a asp-action="Dispo" asp-route-id="@Model.membre.Id">Back to List</a>
+</div>
+}
+else { 
 <div class="row">
     <div class="col-md-4">
+
         <form asp-action="DispoAjout" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" name="IdMembre" value=@ViewBag.IdMembre />
@@ -44,10 +55,11 @@
         </form>
     </div>
 </div>
-
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
+}
+
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

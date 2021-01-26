@@ -256,11 +256,32 @@ namespace Pandami.Controllers
         }
 
 
-        public async Task<IActionResult> Dispo(int? Id)
+        public async Task<IActionResult> Dispo(int Id)
         {
             ViewBag.Id = Id;
-            return View(await _context.Disponibilites.ToListAsync());
+            List<Disponibilite> listDispo = _context.Disponibilites
+                        .Where(b=>b.membre.Id ==Id)
+                        //.Where(b => b.ValiditeFinDate >= DateTime.Now)
+                       .Include(b => b.Jour)
+                       .Include(b => b.membre)
+                       .ToList();
+
+            return View(listDispo);
             
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Dispo(int dispoId, int membreId)
+        {
+            ViewBag.Id = membreId;
+            var dispo = await _context.Disponibilites.FindAsync(dispoId);
+           
+            _context.Disponibilites.Remove(dispo);
+            await _context.SaveChangesAsync();
+
+            return View();
+
         }
 
         public async Task<IActionResult> DispoAjout(int? Id)
@@ -269,7 +290,7 @@ namespace Pandami.Controllers
             IQueryable<string> RecupJours = from m in _context.JourDeLaSemaines
                                               orderby m.Id
                                               select m.NomDuJour;
-
+            ViewBag.Cree = false;
 
             Disponibilite newDispo = new Disponibilite
             {
@@ -288,10 +309,10 @@ namespace Pandami.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DispoAjout(int? Id, [Bind("ValiditeDebutDate, ValiditeFinDate")] Disponibilite newDispo, bool matin, bool apresMidi, string Jour, int IdMembre)
         {
-
+            ViewBag.Cree = false;
             newDispo.Jour = _context.JourDeLaSemaines.Where((m => m.NomDuJour == Jour)).FirstOrDefault();
-            
-            var membre = _context.Membres.Where(m => m.Id == IdMembre).FirstOrDefault();
+
+            newDispo.membre = _context.Membres.Where(m => m.Id == IdMembre).FirstOrDefault();
             if (matin & apresMidi)
             {
                 newDispo.DebutHeure= new System.DateTime(1,1,1,8,0,0);
@@ -311,10 +332,11 @@ namespace Pandami.Controllers
 
                 _context.Add(newDispo);
                 await _context.SaveChangesAsync();
-                
-                
 
-                
+                ViewBag.Cree = true;
+
+
+
                 return View(newDispo);
             }
             

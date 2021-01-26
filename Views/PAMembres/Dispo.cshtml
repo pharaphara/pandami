@@ -13,6 +13,9 @@
     <thead>
         <tr>
             <th>
+                @Html.DisplayNameFor(model => model.Jour)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.DebutHeure)
             </th>
             <th>
@@ -31,6 +34,9 @@
 @foreach (var item in Model) {
         <tr>
             <td>
+                @Html.DisplayFor(modelItem => item.Jour.NomDuJour)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.DebutHeure)
             </td>
             <td>
@@ -43,9 +49,12 @@
                 @Html.DisplayFor(modelItem => item.ValiditeFinDate)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <form asp-action="Dispo" method="post">
+                     <input type="hidden" name ="dispoId" value="@item.Id" />
+                      <input type="hidden" name="membreId" value="@item.membre.Id" />
+                    <input type="submit" value="Delete" class="btn btn-danger" /> |
+                </form>
+                
             </td>
         </tr>
 }
