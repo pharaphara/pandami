@@ -119,6 +119,7 @@ namespace Pandami.Controllers
         {
             //Eagerly Loading pour charger toutes les entités liées
              List<Feat> listFeats = _context.Feats
+                        .Where(b => b.AnnulationDate == null)
                        .Include(b => b.Adresse)
                        .Include(b => b.Type)
                        .Include(b => b.Createur)
