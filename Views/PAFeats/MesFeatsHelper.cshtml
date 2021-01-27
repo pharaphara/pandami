@@ -1,7 +1,7 @@
-﻿@model IEnumerable<Pandami.Models.Feat>
+﻿@model IEnumerable<Pandami.Models.ReponseHelper>
 
 @{
-    ViewData["Title"] = "Mes Feats GIFTEE";
+    ViewData["Title"] = "Mes Feats";
 }
 
 <table class="table">
@@ -9,9 +9,6 @@
         <tr>
             <th>
                 GIFTEE
-            </th>
-            <th>
-                HELPER
             </th>
             <th>
                 TYPE D'AIDE DEMANDEE
@@ -32,7 +29,10 @@
                 SOMME A PREVOIR (ou estimation)
             </th>
             <th>
-                DATE ANNULATION
+                DATE ACCEPTATION
+            </th>
+            <th>
+                NOM HELPER
             </th>
 
         </tr>
@@ -42,34 +42,33 @@
         {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Createur.Nom)
+                @Html.DisplayFor(modelItem => item.Feat.Createur.Nom)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Reponses.FirstOrDefault().Helper.Nom)
+                @Html.DisplayFor(modelItem => item.Feat.Type.NomAide)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Type.NomAide)
+                @Html.DisplayFor(modelItem => item.Feat.RealisationDate)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.RealisationDate)
+                @Html.DisplayFor(modelItem => item.Feat.HeureDebut)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.HeureDebut)
+                @Html.DisplayFor(modelItem => item.Feat.HeureFin)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.HeureFin)
+                @Html.DisplayFor(modelItem => item.Feat.Adresse.NomDeVoie)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Adresse.NomDeVoie)
+                @Html.DisplayFor(modelItem => item.Feat.SommePrevoir)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.SommePrevoir)
+                @Html.DisplayFor(modelItem => item.AcceptationDate)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.AnnulationDate)
+                @Html.DisplayFor(modelItem => item.Helper.Nom)
             </td>
             <td>
-
                 <a asp-action="ModifFeat" asp-route-id="@item.Id">Modification du Feat</a>
                 <a asp-action="Details" asp-route-id="@@item.Id"> Details </a>
                 <a asp-action="AnnulationFeat" asp-route-id="@item.Id"> Delete </a>

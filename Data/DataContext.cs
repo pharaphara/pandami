@@ -23,7 +23,7 @@ namespace Pandami.Data
         public DbSet<Materiel> Materiels { get; set; }
         public DbSet<Membre> Membres { get; set; }
         public DbSet<PreferenceAide> PreferenceAides { get; set; }
-        public DbSet<Accepter> Accepters { get; set; }
+        public DbSet<ReponseHelper> ReponseHelpers { get; set; }
         public DbSet<Sexe> Sexes { get; set; }
         public DbSet<Suspension> Suspensions { get; set; }
         public DbSet<TypeAide> TypeAides { get; set; }

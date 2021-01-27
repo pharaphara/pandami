@@ -28,7 +28,14 @@
             <div class="form-group">
                 <label asp-for="Materiel" class="control-label"></label>
                 <select asp-for="Materiel" asp-items="@ViewBag.Materiels" id="maListe">
-                    <option value="@Model.Materiel.NomMateriel" selected="@Model.Materiel.NomMateriel">@Model.Materiel.NomMateriel</option>
+                    @if (@Model.Materiel != null)
+                    {
+                        <option value="@Model.Materiel.NomMateriel" selected="@Model.Materiel.NomMateriel">@Model.Materiel.NomMateriel</option>
+                    }
+                    else
+                    {
+                        <option value="null">AUCUN</option>
+                    }
                 </select>
                 <span asp-validation-for="Materiel" class="text-danger"></span>
             </div>

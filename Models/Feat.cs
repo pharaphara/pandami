@@ -57,7 +57,7 @@ namespace Pandami.Models
         public Membre Createur { get; set; }
 
         //collection de réponse
-        public IList<Accepter> Reponses { get; set; }
+        public IList<ReponseHelper> Reponses { get; set; }
 
         //posède un type d'aide
         public TypeAide Type { get; set; }

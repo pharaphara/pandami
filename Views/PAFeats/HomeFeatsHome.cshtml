@@ -69,11 +69,13 @@
                 @Html.DisplayFor(modelItem => item.Id)
             </td>
             <td>
-
-                <a asp-action="Details" asp-route-id="@item.Id"> Details </a>
-
-
-
+                <form asp-action="Details">
+                    <div>
+                        <input type="hidden" name="IdMembre" value="@ViewBag.IdMembre" />
+                        <input type="hidden" name="IdFeat" value="@item.Id"/>
+                        <input type="submit" value="Accepter le Feat" class="btn btn-primary"/>
+                    </div>
+                </form>
             </td>
         </tr>
         }

@@ -131,6 +131,7 @@ namespace Pandami.Controllers
 
             return View(listFeats);
         }
+
         public async Task<IActionResult> MesFeats(int Id)
         {
             
@@ -141,14 +142,34 @@ namespace Pandami.Controllers
                        .Include(b => b.Type)
                        .Include(b => b.Createur)
                        .Include(b => b.Materiel)
+                       .Include("Reponses.Helper")
                        .ToList();
+
+            ViewBag.IdMembre = Id;
+
+            return View(listFeats);
+        }
+
+        public async Task<IActionResult> MesFeatsHelper(int Id)
+        {
+            List<ReponseHelper> reponseHelpers = _context.ReponseHelpers
+                                .Where(b => b.Helper.Id == Id)
+                                .Include(b => b.Helper)
+                                .Include(b => b.Feat)
+                                .Include(b => b.Feat.Adresse)
+                                .Include(b => b.Feat.Createur)
+                                .Include(b => b.Feat.Type)
+                                .Include(b => b.Feat.Materiel)
+                                .ToList();
+
 
             ViewBag.IdMembre = Id;
 
 
 
-            return View(listFeats);
+            return View(reponseHelpers);
         }
+
 
         public async Task<IActionResult> ModifFeat(int Id)              //IdFeat
         {
@@ -259,6 +280,51 @@ namespace Pandami.Controllers
 
 
                 return RedirectToAction("MesFeats", "PAFeats", new { @id = IdMembre });
+            }
+            return RedirectToAction("HomeFeatsHome");
+        }
+
+        public async Task<IActionResult> Details(int IdFeat, int IdMembre)  //ID Feat
+        {
+           
+            Feat featEnAttente = _context.Feats
+                                .Where(b => b.Id == IdFeat)
+                                .Include(b => b.Createur)
+                                .Include(b => b.Type)
+                                .FirstOrDefault();
+
+            ViewBag.IdMembre = IdMembre;
+      
+            return View(featEnAttente);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AccepterFeat([Bind("Id, CreationDate, RealisationDate, HeureDebut, HeureFin, AcceptationDate, EnCoursRealisation, SurPlace, FinFeatHelper, ClotureDate, SommePrevoir, SommeAvancee, SommeRembourseeDate, AnnulationDate, EchangeMonetaire, AideChoisie, Materiel")]int IdMembre, int IdFeat)
+        {
+
+            Membre membreLogged = _context.Membres
+                                .Where(b => b.Id == IdMembre)
+                                .FirstOrDefault();
+
+            Feat featEnAttente = _context.Feats
+                                .Where(b => b.Id == IdFeat)
+                                .FirstOrDefault();
+
+            ReponseHelper reponseHelper = new ReponseHelper()
+            {
+                AcceptationDate = DateTime.Now,
+                Helper = membreLogged,
+                Feat = featEnAttente
+            };
+
+            
+            if (ModelState.IsValid)
+            {
+                _context.Add(reponseHelper);
+                await _context.SaveChangesAsync();
+
+                return RedirectToAction("MesFeatsHelper", "PAFeats", new { @id = IdMembre });
             }
             return RedirectToAction("HomeFeatsHome");
         }

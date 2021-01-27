@@ -38,7 +38,7 @@ namespace Pandami.Models
         //Ici commence les relations
 
         //Possède une collection d'inscription
-        public IList<Accepter> Inscriptions { get; set; }
+        public IList<ReponseHelper> Inscriptions { get; set; }
 
         //Possède une liste de feat
         public ICollection<Feat> Feats { get; set; }
