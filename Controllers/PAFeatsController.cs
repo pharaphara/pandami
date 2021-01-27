@@ -67,9 +67,7 @@ namespace Pandami.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id, CreationDate, RealisationDate, HeureDebut, HeureFin" +
-            "AcceptationDate, EnCoursRealisation, SurPlace, FinFeatHelper, ClotureDate, SommePrevoir, SommeAvancee, SommeRembourseeDate"+
-            "AnnulationDate, EchangeMonetaire, AideChoisie, Materiel")] Feat newFeat, int Createur, string Type, string Materiel, string Adresse)
+        public async Task<IActionResult> Create([Bind("Id, CreationDate, RealisationDate, HeureDebut, HeureFin, AcceptationDate, EnCoursRealisation, SurPlace, FinFeatHelper, ClotureDate, SommePrevoir, SommeAvancee, SommeRembourseeDate, AnnulationDate, EchangeMonetaire, AideChoisie, Materiel")] Feat newFeat, int Createur, string Type, string Materiel, string Adresse)
         {
             var aideChoisieNewFeat = await (from m in _context.TypeAides
                                             where m.NomAide.Equals(Type)
@@ -193,7 +191,7 @@ namespace Pandami.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> ModifierMonFeat([Bind("Id, RealisationDate, HeureDebut, HeureFin, Type, AideChoisie, Adresse, SommePrevoir, Materiel")] Feat featToModify, int membreId, string Type, string Materiel, string Adresse)
+        public async Task<IActionResult> ModifierMonFeat([Bind("Id, CreationDate, RealisationDate, HeureDebut, HeureFin, AcceptationDate, EnCoursRealisation, SurPlace, FinFeatHelper, ClotureDate, SommePrevoir, SommeAvancee, SommeRembourseeDate, AnnulationDate, EchangeMonetaire, AideChoisie, Materiel")] Feat featToModify, int IdMembre, string Type, string Materiel, string Adresse)
         {
             var aideChoisie = await (from m in _context.TypeAides
                                             where m.NomAide.Equals(Type)
@@ -211,7 +209,7 @@ namespace Pandami.Controllers
             featToModify.Adresse = adresseChoisie;
             featToModify.Type = aideChoisie;
 
-            ViewBag.IdMembre = membreId;
+            ViewBag.IdMembre = IdMembre;
 
 
 
@@ -222,11 +220,47 @@ namespace Pandami.Controllers
                 await _context.SaveChangesAsync();
 
 
-                return RedirectToAction("MesFeats", "PAFeats", new { @id = membreId });
+                return RedirectToAction("MesFeats", "PAFeats", new { @id = IdMembre });
             }
             return RedirectToAction("HomeFeatsHome");
         }
 
+        public async Task<IActionResult> AnnulationFeat(int Id)  //ID Feat
+        {
+            IQueryable<string> recupTypeAide = from m in _context.TypeAides
+                                               orderby m.NomAide
+                                               select m.NomAide;
+
+            Feat featToCancel = _context.Feats
+                                .Where(b => b.Id == Id)
+                                .Include(b => b.Createur)
+                                .Include(b => b.Type)
+                                .FirstOrDefault();
+
+
+            ViewBag.TypesAide = new SelectList(await recupTypeAide.Distinct().ToListAsync());
+
+            return View(featToCancel);
+        } 
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AnnulerMonFeat([Bind("Id, CreationDate, RealisationDate, HeureDebut, HeureFin, AcceptationDate, EnCoursRealisation, SurPlace, FinFeatHelper, ClotureDate, SommePrevoir, SommeAvancee, SommeRembourseeDate, AnnulationDate, EchangeMonetaire, AideChoisie, Materiel")] Feat featToModify, int IdMembre)
+
+        {
+            featToModify.AnnulationDate = DateTime.Now;
+            // featToModify.ClotureDate = DateTime.Now;
+            if (ModelState.IsValid)
+            {
+                _context.Update(featToModify);
+                await _context.SaveChangesAsync();
+
+
+                return RedirectToAction("MesFeats", "PAFeats", new { @id = IdMembre });
+            }
+            return RedirectToAction("HomeFeatsHome");
+        }
 
     }
 }

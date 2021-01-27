@@ -60,8 +60,9 @@
                 <span asp-validation-for="SommePrevoir" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="hidden" name="membreId" value="@Model.Createur.Id" />
-                <input type="hidden" asp-for="Id" value="@Model.Id" />
+                <input type="hidden" name="IdMembre" value="@Model.Createur.Id" />
+                <input type="hidden" asp-for="Id"/>
+                <input type="hidden" asp-for="CreationDate"/>
                 <input type="submit" value="Modifier" class="btn btn-primary" />
             </div>
         </form>

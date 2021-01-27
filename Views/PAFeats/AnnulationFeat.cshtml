@@ -1,0 +1,51 @@
+﻿@model Pandami.Models.Feat
+@{
+    ViewData["Title"] = "Annuler Mon Feat";
+}
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="AnnulerMonFeat">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+            </div>
+            <div class="form-group">
+                <label>Activité </label>
+                <label asp-for="Type" class="control-label">Aide demandée</label>
+                <select asp-for="Type" asp-items="@ViewBag.TypesAide" id="maListe" disabled="disabled">
+                    <option value="@Model.Type.NomAide" selected="@Model.Type.NomAide">@Model.Type.NomAide</option>
+                </select>
+                <span asp-validation-for="Type" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RealisationDate" class="control-label"></label>
+                <input asp-for="RealisationDate" class="form-control" disabled="disabled"/>
+                <span asp-validation-for="RealisationDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="HeureDebut" class="control-label"></label>
+                <input asp-for="HeureDebut" class="form-control" disabled="disabled"/>
+                <span asp-validation-for="HeureDebut" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="HeureFin" class="control-label"></label>
+                <input asp-for="HeureFin" class="form-control" disabled="disabled"/>
+                <span asp-validation-for="HeureFin" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="hidden" name="IdMembre" value="@Model.Createur.Id" />
+                <input type="hidden" asp-for="Id" value="@Model.Id" />
+                <input type="hidden" asp-for="CreationDate"/>
+                <input type="hidden" asp-for="SommePrevoir"/>
+                <input type="submit" value="Annuler" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

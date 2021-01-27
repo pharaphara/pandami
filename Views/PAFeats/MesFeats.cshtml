@@ -28,44 +28,50 @@
             <th>
                 SOMME A PREVOIR (ou estimation)
             </th>
+            <th>
+                DATE ANNULATION
+            </th>
 
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Createur.Nom)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Type.NomAide)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.RealisationDate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.HeureDebut)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.HeureFin)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Adresse.NomDeVoie)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.SommePrevoir)
-                </td>
-                <td>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Createur.Nom)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Type.NomAide)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RealisationDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HeureDebut)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HeureFin)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Adresse.NomDeVoie)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SommePrevoir)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AnnulationDate)
+            </td>
+            <td>
 
-                    <a asp-action="ModifFeat" asp-route-id="@item.Id">Modification du Feat</a>
-                    <a asp-action="Details" asp-route-id="@@item.Id"> Details </a>
-                    <a asp-action="Delete" asp-route-id="@@item.Id"> Delete </a>
+                <a asp-action="ModifFeat" asp-route-id="@item.Id">Modification du Feat</a>
+                <a asp-action="Details" asp-route-id="@@item.Id"> Details </a>
+                <a asp-action="AnnulationFeat" asp-route-id="@item.Id"> Delete </a>
 
 
 
-                </td>
-            </tr>
+            </td>
+        </tr>
         }
     </tbody>
 </table>
