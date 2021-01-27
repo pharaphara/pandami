@@ -213,7 +213,7 @@ namespace Pandami.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> ModifProfil(int id, [Bind("Id,Email,Nom,Prenom,Naissance,Telephone,Mdp")] Membre membre,string Sexe, string Adresse)
+        public async Task<IActionResult> ModifProfil(int id, [Bind("Id,Email,Nom,Prenom,Naissance,Telephone,Inscription,Mdp")] Membre membre,string Sexe, string Adresse)
         {
             
 
@@ -287,7 +287,7 @@ namespace Pandami.Controllers
                        .Include(b => b.membre)
                        .ToList();
 
-            return View();
+            return View(listDispo);
 
         }
 
@@ -358,15 +358,36 @@ namespace Pandami.Controllers
 
         public async Task<IActionResult> Pref(int Id)
         {
-            ViewBag.Id = Id;
-            List<PreferenceAide> listPref = _context.PreferenceAides
-                        .Where(b => b.Membre.Id == Id)
-                        .Include(b => b.ListTypeAide.Select(p=>p.NomAide))
-                        .ToList();
+            ViewBag.IdMembre = Id;
 
-            return View(listPref);
+            List<SelectListItem> ListCheckType  = await GetTypeAide();
+
+            ViewBag.CheckType = ListCheckType;
+
+
+            return View();
 
         }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Pref(int Id,float RayonActionKm)
+        {
+            ViewBag.IdMembre = Id;
+            PreferenceAide newPref = _context.PreferenceAides
+                        .Where(b => b.Membre.Id == Id)
+                        
+                        .FirstOrDefault();
+
+            if (newPref.Id == 0)
+            {
+                newPref.ValiditeDebut = DateTime.Now;
+                
+            }
+            return View(newPref);
+
+        }
+
+
 
 
         private bool MembreExists(int id)
@@ -374,6 +395,28 @@ namespace Pandami.Controllers
             return _context.Membres.Any(e => e.Id == id);
         }
 
+
+        private async Task<List<SelectListItem>> GetTypeAide()
+        {
+            IQueryable<string> RecupGenre = from m in _context.TypeAides
+                                            orderby m.NomAide
+                                            select m.NomAide;
+
+            List<string> ListTypeAide = new List<string>(await RecupGenre.Distinct().ToListAsync());
+
+            List<SelectListItem> ListCheckType = new List<SelectListItem>();
+
+            foreach (var item in ListTypeAide)
+            {
+
+                ListCheckType.Add(new SelectListItem { Text = item, Value = item });
+            }
+
+                                            
+
+
+            return ListCheckType;
+        }
     }
 }
     
