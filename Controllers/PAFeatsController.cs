@@ -67,9 +67,7 @@ namespace Pandami.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id, CreationDate, RealisatinDate, HeureDebut, HeureFin" +
-            "AcceptationDate, EnCoursRealisation, SurPlace, FinFeatHelper, ClotureDate, SommePrevoir, SommeAvancee, SommeRembourseeDate"+
-            "AnnulationDate, EchangeMonetaire, AideChoisie, Materiel")] Feat newFeat, int Createur, string Type, string Materiel, string Adresse)
+        public async Task<IActionResult> Create([Bind("Id, CreationDate, RealisationDate, HeureDebut, HeureFin, AcceptationDate, EnCoursRealisation, SurPlace, FinFeatHelper, ClotureDate, SommePrevoir, SommeAvancee, SommeRembourseeDate, AnnulationDate, EchangeMonetaire, AideChoisie, Materiel")] Feat newFeat, int Createur, string Type, string Materiel, string Adresse)
         {
             var aideChoisieNewFeat = await (from m in _context.TypeAides
                                             where m.NomAide.Equals(Type)
@@ -121,6 +119,7 @@ namespace Pandami.Controllers
         {
             //Eagerly Loading pour charger toutes les entités liées
              List<Feat> listFeats = _context.Feats
+                        .Where(b => b.AnnulationDate == null)
                        .Include(b => b.Adresse)
                        .Include(b => b.Type)
                        .Include(b => b.Createur)
@@ -178,10 +177,9 @@ namespace Pandami.Controllers
 
            Membre membreLogged = _context.Membres
                                 .Where(b => b.Id == featToModify.Createur.Id).FirstOrDefault();
-           
-           ViewBag.IdFeat = Id;
+            ViewBag.IdMembre = membreLogged.Id;
 
-           //ViewBag.Id = membreLogged.Id;
+            ViewBag.IdFeat = Id;
 
             ViewBag.Materiels = new SelectList(await recupMateriel.Distinct().ToListAsync());
 
@@ -189,18 +187,81 @@ namespace Pandami.Controllers
 
             ViewBag.Adresse = new SelectList(await recupAdresse.Distinct().ToListAsync());
 
-            //ViewBag.AideChoisie = featToModify.Type.NomAide;
-
-            //ViewBag.MaterielChoisi = featToModify.Materiel.NomMateriel;
-
-
-            //ViewBag.AdresseChoisie = featToModify.Adresse;
-
-
             return View(featToModify);
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ModifierMonFeat([Bind("Id, CreationDate, RealisationDate, HeureDebut, HeureFin, AcceptationDate, EnCoursRealisation, SurPlace, FinFeatHelper, ClotureDate, SommePrevoir, SommeAvancee, SommeRembourseeDate, AnnulationDate, EchangeMonetaire, AideChoisie, Materiel")] Feat featToModify, int IdMembre, string Type, string Materiel, string Adresse)
+        {
+            var aideChoisie = await (from m in _context.TypeAides
+                                            where m.NomAide.Equals(Type)
+                                            select m).FirstOrDefaultAsync();
 
+
+            var materielChoisi = await (from m in _context.Materiels
+                                        where m.NomMateriel.Equals(Materiel)
+                                        select m).FirstOrDefaultAsync();
+
+            var adresseChoisie = await (from m in _context.Adresses
+                                        where m.NomDeVoie.Equals(Adresse)
+                                        select m).FirstOrDefaultAsync();
+            featToModify.Materiel = materielChoisi;
+            featToModify.Adresse = adresseChoisie;
+            featToModify.Type = aideChoisie;
+
+            ViewBag.IdMembre = IdMembre;
+
+
+
+
+            if (ModelState.IsValid)
+            {
+                _context.Update(featToModify);
+                await _context.SaveChangesAsync();
+
+
+                return RedirectToAction("MesFeats", "PAFeats", new { @id = IdMembre });
+            }
+            return RedirectToAction("HomeFeatsHome");
+        }
+
+        public async Task<IActionResult> AnnulationFeat(int Id)  //ID Feat
+        {
+            IQueryable<string> recupTypeAide = from m in _context.TypeAides
+                                               orderby m.NomAide
+                                               select m.NomAide;
+
+            Feat featToCancel = _context.Feats
+                                .Where(b => b.Id == Id)
+                                .Include(b => b.Createur)
+                                .Include(b => b.Type)
+                                .FirstOrDefault();
+
+
+            ViewBag.TypesAide = new SelectList(await recupTypeAide.Distinct().ToListAsync());
+
+            return View(featToCancel);
+        } 
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AnnulerMonFeat([Bind("Id, CreationDate, RealisationDate, HeureDebut, HeureFin, AcceptationDate, EnCoursRealisation, SurPlace, FinFeatHelper, ClotureDate, SommePrevoir, SommeAvancee, SommeRembourseeDate, AnnulationDate, EchangeMonetaire, AideChoisie, Materiel")] Feat featToModify, int IdMembre)
+
+        {
+            featToModify.AnnulationDate = DateTime.Now;
+            // featToModify.ClotureDate = DateTime.Now;
+            if (ModelState.IsValid)
+            {
+                _context.Update(featToModify);
+                await _context.SaveChangesAsync();
+
+
+                return RedirectToAction("MesFeats", "PAFeats", new { @id = IdMembre });
+            }
+            return RedirectToAction("HomeFeatsHome");
+        }
 
     }
 }
