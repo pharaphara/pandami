@@ -416,7 +416,7 @@ namespace Pandami.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         
-        public async Task<IActionResult> ModifierMonFeatHelper ([Bind("Id, CreationDate, RealisationDate, HeureDebut, HeureFin, AcceptationDate, EnCoursRealisation, SurPlace, FinFeatHelper, ClotureDate, SommePrevoir, SommeAvancee, SommeRembourseeDate, AnnulationDate, EchangeMonetaire, AideChoisie, Materiel")] Feat featToModify, int IdMembre, string Type, string Materiel, string Adresse, int IdFeat)
+        public async Task<IActionResult> ModifierMonFeatHelper ([Bind("Id, CreationDate, RealisationDate, HeureDebut, HeureFin, AcceptationDate, EnCoursRealisation, SurPlace, FinFeatHelper, ClotureDate, SommePrevoir, SommeAvancee, SommeRembourseeDate, AnnulationDate, EchangeMonetaire, AideChoisie, Materiel")] Feat featToModify, int IdMembre, string Type, string Materiel, string Adresse, int Id)
         {
             var aideChoisie = await (from m in _context.TypeAides
                                      where m.NomAide.Equals(Type)
@@ -446,6 +446,85 @@ namespace Pandami.Controllers
                 return RedirectToAction("MesFeatsHelper", "PAFeats", new { @id = IdMembre });
             }
             return RedirectToAction("HomeFeatsHome");
+        }
+        public async Task<IActionResult> ModifFeatGiftee(int Id , int IdMembre)              //IdFeat
+        {
+            IQueryable<string> recupTypeAide = from m in _context.TypeAides
+                                               orderby m.NomAide
+                                               select m.NomAide;
+
+            IQueryable<string> recupMateriel = from m in _context.Materiels
+                                               orderby m.NomMateriel
+                                               select m.NomMateriel;
+
+            IQueryable<string> recupAdresse = from m in _context.Adresses
+                                              orderby m.NomDeVoie
+                                              select m.NomDeVoie;
+
+
+
+
+            Feat featToModify = _context.Feats
+                                .Where(b => b.Id == Id)
+                                .Include(b => b.Createur)
+                                .Include(b => b.Adresse)
+                                .Include(b => b.Materiel)
+                                .Include(b => b.Type)
+                                .FirstOrDefault();
+
+
+            
+
+            ViewBag.Materiels = new SelectList(await recupMateriel.Distinct().ToListAsync());
+
+            ViewBag.TypesAide = new SelectList(await recupTypeAide.Distinct().ToListAsync());
+
+            ViewBag.Adresse = new SelectList(await recupAdresse.Distinct().ToListAsync());
+
+            return View(featToModify);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+
+        public async Task<IActionResult> ModifierMonFeatGiftee([Bind("Id, CreationDate, RealisationDate, HeureDebut, HeureFin, AcceptationDate, EnCoursRealisation, SurPlace, FinFeatHelper, ClotureDate, SommePrevoir, SommeAvancee, SommeRembourseeDate, AnnulationDate, EchangeMonetaire, AideChoisie, Materiel")] Feat featToModify, int IdMembre, string Type, string Materiel, string Adresse, int Id)
+        {
+            featToModify = _context.Feats
+                       .Where(b => b.Id == Id)
+                       .Include(b => b.Createur)
+                       .Include(b => b.Adresse)
+                       .Include(b => b.Materiel)
+                       .Include(b => b.Type)
+                       .FirstOrDefault();
+
+
+            ReponseHelper reponseDuFeat = _context.ReponseHelpers
+                                        .Where(b => b.Feat.Id == Id)
+                                        .Include(b => b.Helper)
+                                        .FirstOrDefault();
+
+            Negociation negocProposee = new Negociation()
+            {
+                DateCreationNegociation = DateTime.Now,
+                NewDateProposee = featToModify.RealisationDate,
+                HeureDbtProposee = featToModify.HeureDebut,
+                HeureFinProposee = featToModify.HeureFin,
+                DemandeurId = IdMembre,
+                RepondeurId = reponseDuFeat.Helper.Id,
+                feat = featToModify
+                //IsAccepted = false
+            };
+
+            if (ModelState.IsValid)
+            {
+                _context.Add(negocProposee);
+                await _context.SaveChangesAsync();
+
+
+                return RedirectToAction("MesFeats", "PAFeats", new { @id = IdMembre });
+            }
+            return RedirectToAction("HomeFeatsHome");
+
         }
     }
 }

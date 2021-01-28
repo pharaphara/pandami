@@ -43,43 +43,49 @@
     <tbody>
         @foreach (var item in Model)
         {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Createur.Nom)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Reponses.FirstOrDefault().Helper.Nom)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Type.NomAide)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.RealisationDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.HeureDebut)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.HeureFin)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Adresse.NomDeVoie)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SommePrevoir)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AnnulationDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Id)
-            </td>
-            <td>
-                <a asp-action="ModifFeat" asp-route-id="@item.Id">Modification du Feat</a>
-                <a asp-action="Details" asp-route-id="@@item.Id"> Details </a>
-                <a asp-action="AnnulationFeat" asp-route-id="@item.Id"> Delete </a>
-            </td>
-        </tr>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Createur.Nom)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Reponses.FirstOrDefault().Helper.Nom)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Type.NomAide)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RealisationDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.HeureDebut)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.HeureFin)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Adresse.NomDeVoie)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SommePrevoir)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AnnulationDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @if (item.AcceptationDate == null)
+                    {
+                        <a asp-action="ModifFeat" asp-route-id="@item.Id">Modification du Feat en attente</a>
+                    }
+                    else
+                    {
+                        <a asp-action="ModifFeatGiftee" asp-route-id="@item.Id">Modification du Feat accepté</a>
+                    }
+                    <a asp-action="AnnulationFeat" asp-route-id="@item.Id"> Delete </a>
+                </td>
+            </tr>
         }
     </tbody>
 </table>
