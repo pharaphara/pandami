@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Pandami.Models.ReponseHelper>
+﻿@model IEnumerable<Pandami.Models.Feat>
 
 @{
     ViewData["Title"] = "Mes Feats en tant que Helper";
@@ -48,49 +48,61 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Feat.Createur.Nom)
+                    @Html.DisplayFor(modelItem => item.Createur.Nom)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Feat.Type.NomAide)
+                    @Html.DisplayFor(modelItem => item.Type.NomAide)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Feat.RealisationDate)
+                    @Html.DisplayFor(modelItem => item.RealisationDate)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Feat.HeureDebut)
+                    @Html.DisplayFor(modelItem => item.HeureDebut)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Feat.HeureFin)
+                    @Html.DisplayFor(modelItem => item.HeureFin)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Feat.Adresse.NomDeVoie)
+                    @Html.DisplayFor(modelItem => item.Adresse.NomDeVoie)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Feat.SommePrevoir)
+                    @Html.DisplayFor(modelItem => item.SommePrevoir)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.AcceptationDate)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Helper.Nom)
+                    @Html.DisplayFor(modelItem => item.Reponses.FirstOrDefault().Helper.Nom)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Feat.AnnulationDate)
+                    @Html.DisplayFor(modelItem => item.AnnulationDate)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Feat.Id)
+                    @Html.DisplayFor(modelItem => item.Id)
                 </td>
                 <td>
                     <a asp-action="DesistementFeat" asp-route-id="@item.Id"> Me désister du Feat </a>
                 </td>
-                <td>
-                    <form asp-action="ModifFeatHelper">
-                        <input type="hidden" name="IdReponse" value="@item.Id" />
-                        <input type="hidden" name="IdFeat" value="@item.Feat.Id" />
-                        <input type="hidden" name="IdMembre" value="@item.Helper.Id" />
-                        <input type="submit" value="Modifier le Feat" class="btn btn-danger" />
-                    </form>
-                </td>
+                <div>
+                    <td>
+                        <form asp-action="ModifFeatHelper">
+                            <input type="hidden" name="IdReponse" value="@item.Id" />
+                            <input type="hidden" name="IdFeat" value="@item.Id" />
+                            <input type="hidden" name="IdMembre" value="@item.Id" />
+                            <input type="submit" value="Modifier le Feat" class="btn btn-danger" />
+                        </form>
+                    </td>
+                    @if (@ViewBag.ListIdNegociationsEnCours.Contains(item.Id))
+                    {
+                        <td>
+                            <form asp-action="VisualiserNegociation">
+                                <input type="hidden" name="IdFeat" value="@item.Id" />
+                                <input type="hidden" name="IdMembre" value="@item.Id" />
+                                <input type="submit" value="Négociation du Feat" class="btn btn-danger" />
+                            </form>
+                        </td>
+                    }
+                </div>
             </tr>
         }
 
