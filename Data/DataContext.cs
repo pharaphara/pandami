@@ -28,7 +28,17 @@ namespace Pandami.Data
         public DbSet<Suspension> Suspensions { get; set; }
         public DbSet<TypeAide> TypeAides { get; set; }
         public DbSet<TypeLitige> TypeLitiges { get; set; }
+        public DbSet<Negociation> Negociations { get; set; }
 
-        
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Membre>().HasMany(t => t.DemandesDeNegociation)
+                .WithOne(g => g.Demandeur)
+                .HasForeignKey(g => g.DemandeurId);
+            modelBuilder.Entity<Membre>().HasMany(t => t.ReponsesDeNegociation)
+                .WithOne(g => g.Repondeur)
+                .HasForeignKey(g => g.RepondeurId).OnDelete(DeleteBehavior.Restrict);
+        }
+
     }
 }

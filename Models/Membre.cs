@@ -61,7 +61,12 @@ namespace Pandami.Models
         //possède une adresse
         public Adresse Adresse { get; set; }
 
-        
+        //possede une collection de demandes de negociation
+        public ICollection<Negociation> DemandesDeNegociation { get; set; }
+
+        //possede une collection de reponses de negociation
+        public ICollection<Negociation> ReponsesDeNegociation { get; set; }
+
 
         [NotMapped]
         public  class CreationMembre

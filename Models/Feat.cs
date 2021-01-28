@@ -68,10 +68,11 @@ namespace Pandami.Models
         //possède une adresse
         public Adresse Adresse { get; set; }
 
-        //possède une collection de litige
+        //possède une collection de litiges
         public ICollection<Litige> Litiges { get; set; }
 
-       
+       //possède une collection de négociations
+       public ICollection<Negociation> Negociations { get; set; }
 
     }
 }
