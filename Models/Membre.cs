@@ -61,18 +61,17 @@ namespace Pandami.Models
         //possède une adresse
         public Adresse Adresse { get; set; }
 
-<<<<<<< HEAD
+
         //possède une liste de rayon d'action
         public ICollection<RayonAction> RayonAction { get; set; }
 
 
-=======
+
         //possede une collection de demandes de negociation
         public ICollection<Negociation> DemandesDeNegociation { get; set; }
 
         //possede une collection de reponses de negociation
         public ICollection<Negociation> ReponsesDeNegociation { get; set; }
->>>>>>> 1642c2d7313e89d60735a9969fd5a7aa68ccbce3
 
 
         [NotMapped]

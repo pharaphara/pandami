@@ -17,17 +17,5 @@
     <PackageReference Include="NodaTime" Version="3.0.5" />
   </ItemGroup>
 
-<<<<<<< HEAD
-  <ItemGroup>
-    <Folder Include="Migrations\" />
-  </ItemGroup>
 
-  <ItemGroup>
-    <Compile Update="Controllers\PAMembresController.cs">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Compile>
-  </ItemGroup>
-
-=======
->>>>>>> 1642c2d7313e89d60735a9969fd5a7aa68ccbce3
 </Project>
