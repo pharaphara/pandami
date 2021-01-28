@@ -6,91 +6,105 @@
 
 <h1>Details</h1>
 
-<div>
-    <h4>Feat</h4>
+
+<h4>Feat</h4>
+<hr />
+      Id du Membre Inch Hallah    @ViewBag.IdMembre
     <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CreationDate)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CreationDate)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.RealisationDate)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.RealisationDate)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.HeureDebut)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.HeureDebut)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.HeureFin)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.HeureFin)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.AcceptationDate)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.AcceptationDate)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.EnCoursRealisation)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.EnCoursRealisation)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.SurPlace)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.SurPlace)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.FinFeatHelper)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.FinFeatHelper)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ClotureDate)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ClotureDate)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.SommePrevoir)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.SommePrevoir)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.SommeAvancee)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.SommeAvancee)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.SommeRembourseeDate)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.SommeRembourseeDate)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.AnnulationDate)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.AnnulationDate)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
+Id du Feat @Model.Id
+    <div>
+
+        <dl class="row">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.CreationDate)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.CreationDate)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.RealisationDate)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.RealisationDate)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.HeureDebut)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.HeureDebut)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.HeureFin)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.HeureFin)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.AcceptationDate)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.AcceptationDate)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.EnCoursRealisation)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.EnCoursRealisation)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.SurPlace)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.SurPlace)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.FinFeatHelper)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.FinFeatHelper)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.ClotureDate)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.ClotureDate)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.SommePrevoir)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.SommePrevoir)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.SommeAvancee)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.SommeAvancee)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.SommeRembourseeDate)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.SommeRembourseeDate)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.AnnulationDate)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.AnnulationDate)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Type.NomAide)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Type.NomAide)
+            </dd>
+        </dl>
+        <form asp-action="AccepterFeat" method="post">
+            <div>
+                <input type="hidden" name="IdMembre" value="@ViewBag.IdMembre" />
+                <input type="hidden" name="IdFeat" value="@Model.Id" />
+                <input type="submit" value="Accepter le Feat" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>

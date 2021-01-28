@@ -1,14 +1,17 @@
 ﻿@model IEnumerable<Pandami.Models.Feat>
 
 @{
-    ViewData["Title"] = "Mes Feats";
+    ViewData["Title"] = "Mes Feats GIFTEE";
 }
-
+<h1>MES FEATS EN TANT QUE GIFTEE</h1>
 <table class="table">
     <thead>
         <tr>
             <th>
                 GIFTEE
+            </th>
+            <th>
+                HELPER
             </th>
             <th>
                 TYPE D'AIDE DEMANDEE
@@ -31,6 +34,9 @@
             <th>
                 DATE ANNULATION
             </th>
+            <th>
+                ID FEAT
+            </th>
 
         </tr>
     </thead>
@@ -40,6 +46,9 @@
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Createur.Nom)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Reponses.FirstOrDefault().Helper.Nom)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Type.NomAide)
@@ -63,13 +72,12 @@
                 @Html.DisplayFor(modelItem => item.AnnulationDate)
             </td>
             <td>
-
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
                 <a asp-action="ModifFeat" asp-route-id="@item.Id">Modification du Feat</a>
                 <a asp-action="Details" asp-route-id="@@item.Id"> Details </a>
                 <a asp-action="AnnulationFeat" asp-route-id="@item.Id"> Delete </a>
-
-
-
             </td>
         </tr>
         }

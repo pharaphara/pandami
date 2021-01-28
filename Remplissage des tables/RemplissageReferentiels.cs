@@ -11,13 +11,13 @@ namespace Pandami.Remplissage_des_tables
 {
     public class RemplissageReferentiels
     {
-public static void Initialize(IServiceProvider serviceProvider)
+        public static void Initialize(IServiceProvider serviceProvider)
         {
             using (var context = new DataContext(
                 serviceProvider.GetRequiredService<
                     DbContextOptions<DataContext>>()))
             {
-                
+
                 if (context.Sexes.Any())
                 {
                     return;   // DB has been seeded
@@ -27,7 +27,7 @@ public static void Initialize(IServiceProvider serviceProvider)
                     new Sexe
                     {
                         NomSexe = "Homme"
-                       },
+                    },
 
                     new Sexe
                     {
@@ -108,13 +108,13 @@ public static void Initialize(IServiceProvider serviceProvider)
                 context.SaveChanges();
 
                 var exterieur = (from m in context.CategorieAides
-                                               where m.Id.Equals(2)
-                                               select m).FirstOrDefault();
+                                 where m.Id.Equals(2)
+                                 select m).FirstOrDefault();
 
                 var interieur = (from m in context.CategorieAides
                                  where m.Id.Equals(1)
                                  select m).FirstOrDefault();
-             
+
 
                 context.TypeAides.AddRange(
                     new TypeAide
@@ -156,8 +156,8 @@ public static void Initialize(IServiceProvider serviceProvider)
 
                     new TypeAide
                     {
-                         NomAide = "Aide pour se déplacer",
-                         CategorieAide = exterieur
+                        NomAide = "Aide pour se déplacer",
+                        CategorieAide = exterieur
                     },
 
                     new TypeAide
@@ -207,19 +207,19 @@ public static void Initialize(IServiceProvider serviceProvider)
 
                     new Materiel
                     {
-                        NomMateriel = "KitMenage"
+                        NomMateriel = "Kit Ménage"
 
                     },
 
                     new Materiel
                     {
-                        NomMateriel = "KitBricolage"
+                        NomMateriel = "Kit Bricolage"
 
                     },
 
                     new Materiel
                     {
-                        NomMateriel = "KitJardinage"
+                        NomMateriel = "Kit Jardinage"
 
                     },
 
@@ -227,7 +227,15 @@ public static void Initialize(IServiceProvider serviceProvider)
                     {
                         NomMateriel = "Ordinateur"
 
+                    },
+                    
+                    new Materiel
+                    {
+                        NomMateriel = "Aucun"
+
                     }
+
+
                 );
 
 

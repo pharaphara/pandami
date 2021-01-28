@@ -5,7 +5,7 @@
     ViewData["Title"] = "Home Feats Home";
 }
 <link rel="stylesheet" href="~/css/site.css" />
-<h1>Hello hello</h1>
+<h1>FEATS EN ATTENTE</h1>
 <div>@DateTime.Now</div>
 <div>
     <a asp-action="Creation" asp-route-id="@ViewBag.IdMembre">Créer un Feat</a>
@@ -37,7 +37,6 @@
             <th>
                 ID
             </th>
-
         </tr>
     </thead>
     <tbody>
@@ -69,11 +68,13 @@
                 @Html.DisplayFor(modelItem => item.Id)
             </td>
             <td>
-
-                <a asp-action="Details" asp-route-id="@item.Id"> Details </a>
-
-
-
+                <form asp-action="Details">
+                    <div>
+                        <input type="hidden" name="IdMembre" value="@ViewBag.IdMembre" />
+                        <input type="hidden" name="IdFeat" value="@item.Id"/>
+                        <input type="submit" value="Accepter le Feat" class="btn btn-primary"/>
+                    </div>
+                </form>
             </td>
         </tr>
         }
