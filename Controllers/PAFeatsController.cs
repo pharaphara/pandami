@@ -153,7 +153,7 @@ namespace Pandami.Controllers
         public async Task<IActionResult> MesFeatsHelper(int Id)
         {
             List<ReponseHelper> reponseHelpers = _context.ReponseHelpers
-                                .Where(b => b.Helper.Id == Id && b.DesistementDate == null)
+                                .Where(p => p.Reponses == _context.ReponseHelpers.Where(p => p.Helper.Id == Id).Where(p => p.DesistementDate != null))
                                 .Include(b => b.Helper)
                                 .Include(b => b.Feat)
                                 .Include(b => b.Feat.Adresse)
@@ -330,15 +330,25 @@ namespace Pandami.Controllers
             public async Task<IActionResult> Details(int IdFeat, int IdMembre)  //ID Feat
         {
            
-            Feat featEnAttente = _context.Feats
+            Feat feat = _context.Feats
                                 .Where(b => b.Id == IdFeat)
                                 .Include(b => b.Createur)
+                                .Include(b => b.Reponses)
                                 .Include(b => b.Type)
                                 .FirstOrDefault();
 
             ViewBag.IdMembre = IdMembre;
+
+            if (feat.Createur.Id == IdMembre) 
+            {
+                ViewBag.Affichage = 1;
+            }
+            else
+            {
+                ViewBag.Affichage = 2;
+            }
       
-            return View(featEnAttente);
+            return View(feat);
         }
 
         [HttpPost]

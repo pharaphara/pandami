@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Pandami.Models.ReponseHelper>
+﻿@model IEnumerable<Pandami.Models.Feat>
 
 @{
     ViewData["Title"] = "Mes Feats en tant que Helper";
@@ -84,11 +84,11 @@
                     <a asp-action="DesistementFeat" asp-route-id="@item.Id"> Me désister du Feat </a>
                 </td>
                 <td>
-                    <form asp-action="ModifFeatHelper">
-                        <input type="hidden" name="IdReponse" value="@item.Id" />
+                    <form asp-action="Details">
                         <input type="hidden" name="IdFeat" value="@item.Feat.Id" />
-                        <input type="hidden" name="IdMembre" value="@item.Helper.Id" />
-                        <input type="submit" value="Modifier le Feat" class="btn btn-danger" />
+                        <input type="hidden" name="IdMembre" value="@ViewBag.IdMembre" />
+                        
+                        <input type="submit" value="Information du Feat" class="btn btn-primary" />
                     </form>
                 </td>
             </tr>
