@@ -17,5 +17,7 @@ namespace Pandami.Models
 
         [DataType(DataType.Date)]
         public DateTime? ValiditeFin { get; set; }
+
+        public Membre Membre { get; set; }
     }
 }

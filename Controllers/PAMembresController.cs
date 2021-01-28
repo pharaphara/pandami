@@ -97,7 +97,7 @@ namespace Pandami.Controllers
             return View(membre);
         }
 
-        public  IActionResult Login()
+        public IActionResult Login()
         {
 
             return View();
@@ -213,9 +213,9 @@ namespace Pandami.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> ModifProfil(int id, [Bind("Id,Email,Nom,Prenom,Naissance,Telephone,Inscription,Mdp")] Membre membre,string Sexe, string Adresse)
+        public async Task<IActionResult> ModifProfil(int id, [Bind("Id,Email,Nom,Prenom,Naissance,Telephone,Inscription,Mdp")] Membre membre, string Sexe, string Adresse)
         {
-            
+
 
 
             if (id != membre.Id)
@@ -223,12 +223,12 @@ namespace Pandami.Controllers
                 return NotFound();
             }
             var sexeMembre = await (from m in _context.Sexes
-                                       where m.NomSexe.Contains(Sexe)
-                                       select m).FirstOrDefaultAsync();
+                                    where m.NomSexe.Contains(Sexe)
+                                    select m).FirstOrDefaultAsync();
 
             var adresseMembre = await (from m in _context.Adresses
-                                          where m.NomDeVoie.Contains(Adresse)
-                                          select m).FirstOrDefaultAsync();
+                                       where m.NomDeVoie.Contains(Adresse)
+                                       select m).FirstOrDefaultAsync();
             membre.Sexe = sexeMembre;
             membre.Adresse = adresseMembre;
 
@@ -260,14 +260,14 @@ namespace Pandami.Controllers
         {
             ViewBag.IdMembre = Id;
             List<Disponibilite> listDispo = _context.Disponibilites
-                        .Where(b=>b.membre.Id ==Id)
-                        //.Where(b => b.ValiditeFinDate >= DateTime.Now) 
+                        .Where(b => b.membre.Id == Id)
+                       //.Where(b => b.ValiditeFinDate >= DateTime.Now) 
                        .Include(b => b.Jour)
                        .Include(b => b.membre)
                        .ToList();
 
             return View(listDispo);
-            
+
         }
 
         [HttpPost]
@@ -276,7 +276,7 @@ namespace Pandami.Controllers
         {
             ViewBag.IdMembre = membreId;
             var dispo = await _context.Disponibilites.FindAsync(dispoId);
-           
+
             _context.Disponibilites.Remove(dispo);
             await _context.SaveChangesAsync();
 
@@ -295,15 +295,15 @@ namespace Pandami.Controllers
         {
             ViewBag.IdMembre = Id;
             IQueryable<string> RecupJours = from m in _context.JourDeLaSemaines
-                                              orderby m.Id
-                                              select m.NomDuJour;
+                                            orderby m.Id
+                                            select m.NomDuJour;
             ViewBag.Cree = false;
 
             Disponibilite newDispo = new Disponibilite
             {
                 ValiditeDebutDate = DateTime.Now
             };
-           
+
 
 
             ViewBag.ListJour = new SelectList(await RecupJours.Distinct().ToListAsync());
@@ -322,9 +322,10 @@ namespace Pandami.Controllers
             newDispo.membre = _context.Membres.Where(m => m.Id == IdMembre).FirstOrDefault();
             if (matin & apresMidi)
             {
-                newDispo.DebutHeure= new System.DateTime(1,1,1,8,0,0);
+                newDispo.DebutHeure = new System.DateTime(1, 1, 1, 8, 0, 0);
                 newDispo.FinHeure = new System.DateTime(1, 1, 1, 21, 0, 0);
-            }else if (matin)
+            }
+            else if (matin)
             {
                 newDispo.DebutHeure = new System.DateTime(1, 1, 1, 8, 0, 0);
                 newDispo.FinHeure = new System.DateTime(1, 1, 1, 14, 0, 0);
@@ -346,11 +347,11 @@ namespace Pandami.Controllers
 
                 return View(newDispo);
             }
-            
 
-           
 
-            
+
+
+
 
             return View();
 
@@ -360,42 +361,176 @@ namespace Pandami.Controllers
         {
             ViewBag.IdMembre = Id;
 
-            List<SelectListItem> ListCheckType  = await GetTypeAide();
+            List<SelectListItem> ListCheckType = await GetTypeAide();
+            List<string> ListSelectedType = GetTypeAideChoisi(Id);
 
             ViewBag.CheckType = ListCheckType;
+            ViewBag.SelectType = ListSelectedType;
+
+
+            var oldRayon = GetTRayonAction(Id);
+            if (oldRayon.Count == 0)
+            {
+                ViewBag.rayon = 0;
+            }else
+            {
+                ViewBag.rayon = oldRayon.FirstOrDefault().Rayon;
+            }
+
+
+            
+            ViewBag.Verif = 0;
+            if (ListSelectedType.Count > 0)
+            {
+                ViewBag.Verif = 1;
+            }
+
 
 
             return View();
 
         }
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Pref(int Id,float RayonActionKm)
+        public async Task<IActionResult> Pref(int membreId, string[] CheckBoxes, float rayon )
         {
-            ViewBag.IdMembre = Id;
-            PreferenceAide newPref = _context.PreferenceAides
-                        .Where(b => b.Membre.Id == Id)
-                        
-                        .FirstOrDefault();
+            ViewBag.IdMembre = membreId;
+            Membre membre = GetMembre(membreId);
+            IList<PreferenceAide> NewPref = new List<PreferenceAide>();
 
-            if (newPref.Id == 0)
+            IList<PreferenceAide> OldPref = await (from m in _context.PreferenceAides
+                                                   where m.Membre.Id.Equals(membreId)
+                                                   where m.ValiditeFin == null
+                                                   orderby m.Id
+                                                   select m)
+                                                   .Include(p => p.TypeAide)
+                                                   .ToListAsync();
+
+            foreach (string item in CheckBoxes)
             {
-                newPref.ValiditeDebut = DateTime.Now;
-                
+                var typeChoisi = await (from m in _context.TypeAides
+                                        where m.NomAide.Contains(item)
+                                        select m).FirstOrDefaultAsync();
+
+                PreferenceAide preferenceAide = new PreferenceAide
+                {
+                    Membre = membre,
+                    TypeAide = typeChoisi,
+                    ValiditeDebut = DateTime.Now
+                };
+
+                NewPref.Add(preferenceAide);
             }
-            return View(newPref);
+
+
+
+
+            for (int i = 0; i < NewPref.Count; i++)
+            {
+                for (int j = 0; j < OldPref.Count; j++)
+                {
+
+                    if (NewPref[i].TypeAide.Id == OldPref[j].TypeAide.Id)
+                    {
+                        NewPref.Remove(NewPref[i]);
+                        OldPref.Remove(OldPref[j]);
+                    }
+                }
+            }
+            if (OldPref.Count > 0)
+            {
+                foreach (var item in OldPref)
+                {
+                    item.ValiditeFin = DateTime.Now;
+
+                    _context.Update(item);
+                    await _context.SaveChangesAsync();
+
+                }
+            }
+
+            if (NewPref.Count > 0)
+            {
+                foreach (var item in NewPref)
+                {
+
+
+                    _context.Add(item);
+                    await _context.SaveChangesAsync();
+
+                }
+            }
+            RayonAction newRayon = new RayonAction
+            {
+                Membre = GetMembre(membreId),
+                ValiditeDebut = DateTime.Now,
+                Rayon = rayon
+
+            };
+            var oldRayon = GetTRayonAction(membreId);
+            if (oldRayon.Count == 0&& rayon!=0)
+            {
+                _context.Add(newRayon);
+                await _context.SaveChangesAsync();
+            }
+            else
+            {
+                if (oldRayon.FirstOrDefault().Rayon!=newRayon.Rayon)
+                {
+                    oldRayon.FirstOrDefault().ValiditeFin = DateTime.Now;
+                    _context.Update(oldRayon.FirstOrDefault());
+                    _context.Add(newRayon);
+                    await _context.SaveChangesAsync();
+                }
+            }
+                
+            
+
+
+            return RedirectToAction("Profil", "PaMembres", new { @id = membreId }); ;
 
         }
 
-
-
-
-        private bool MembreExists(int id)
+        private Membre GetMembre(int idmembre)
         {
-            return _context.Membres.Any(e => e.Id == id);
+            return (_context.Membres.Where(m => m.Id == idmembre).FirstOrDefault());
         }
 
+        private List<string> GetTypeAideChoisi(int Id)
+        {
 
+
+            List<string> ListTypeAideChoisie = _context.PreferenceAides
+                                              .Where(p => p.Membre.Id == Id)
+                                              .Where(p => p.ValiditeFin == null)
+                                              .Include(p => p.TypeAide)
+                                              .Select(p => p.TypeAide.NomAide)
+
+                                              .ToList();
+
+
+
+
+
+            return ListTypeAideChoisie;
+        }
+        private List<RayonAction> GetTRayonAction(int Id)
+        {
+            List<RayonAction> rayonAction = new List<RayonAction>();
+
+            if (_context.RayonActions.Any())
+            {
+                 rayonAction = _context.RayonActions
+                                                  .Where(p => p.Membre.Id == Id)
+                                                  .Where(p => p.ValiditeFin == null)
+
+                                                  .ToList();
+
+            }
+
+
+
+            return rayonAction;
+        }
         private async Task<List<SelectListItem>> GetTypeAide()
         {
             IQueryable<string> RecupGenre = from m in _context.TypeAides
@@ -412,14 +547,27 @@ namespace Pandami.Controllers
                 ListCheckType.Add(new SelectListItem { Text = item, Value = item });
             }
 
-                                            
+
 
 
             return ListCheckType;
         }
+
+
+
+
+
+
+        private bool MembreExists(int id)
+        {
+            return _context.Membres.Any(e => e.Id == id);
+        }
+
+
+
     }
 }
-    
 
-    
+
+
 
