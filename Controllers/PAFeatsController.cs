@@ -152,22 +152,34 @@ namespace Pandami.Controllers
 
         public async Task<IActionResult> MesFeatsHelper(int Id)
         {
-            List<ReponseHelper> reponseHelpers = _context.ReponseHelpers
-                                .Where(p => p.Reponses == _context.ReponseHelpers.Where(p => p.Helper.Id == Id).Where(p => p.DesistementDate != null))
-                                .Include(b => b.Helper)
-                                .Include(b => b.Feat)
-                                .Include(b => b.Feat.Adresse)
-                                .Include(b => b.Feat.Createur)
-                                .Include(b => b.Feat.Type)
-                                .Include(b => b.Feat.Materiel)
-                                .ToList();
+            List<ReponseHelper> reponsesHelper = _context.ReponseHelpers
+                                                .Where(p => p.Helper.Id == Id && p.DesistementDate == null)
+                                                .Include(p => p.Feat)
+                                                .Include(p => p.Feat.Type)                                                
+                                                .Include(p => p.Feat.Materiel)
+                                                .Include(p => p.Feat.Createur)
+                                                .Include(p => p.Feat.Adresse)
+                                                .Include(p => p.Feat.Negociations)
+                                                .ToList();
 
+            var negociationsEnCours = _context.Negociations
+                                                    .Where(n => n.IsAccepted == false && n.DateClotureNegociation == null)
+                                                    .Select(n => n.feat.Id)
+                                                    .ToList();
+
+
+            var feats = from h in reponsesHelper
+                        join m in _context.Membres on h.Helper.Id equals m.Id
+                        where m.Id == Id
+                        select h.Feat;
+
+            //feats = feats.Distinct();
 
             ViewBag.IdMembre = Id;
+            ViewBag.ListIdNegociationsEnCours = negociationsEnCours;
 
 
-
-            return View(reponseHelpers);
+            return View(feats);
         }
 
 
@@ -535,6 +547,103 @@ namespace Pandami.Controllers
             }
             return RedirectToAction("HomeFeatsHome");
 
+        }
+
+
+
+
+
+
+        public async Task<IActionResult> VisualiserNegociation (int IdFeat, int IdMembre)
+        {
+
+
+            Negociation negocProposee = _context.Negociations
+                .Where(b => b.feat.Id == IdFeat)
+                .Include(b => b.feat)
+                .Include(b => b.Demandeur)
+                .Include(b => b.Repondeur)
+                .Include(b => b.feat.Type)
+                .Include(b => b.feat.Createur)
+                .Include(b => b.feat.Materiel)
+                .FirstOrDefault();
+
+            return View(negocProposee);
+
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AccepterNegociation([Bind("Id, DateClotureNegociation, NewDateProposee, HeureDbtProposee, HeurFinProposee, IsAccepted, DateCreationNegociation")]Negociation negocProposee, int Id, int IdMembre, int IdFeat)
+        {
+            negocProposee = _context.Negociations
+                .Where(b => b.Id == Id)
+                .Include(b => b.feat)
+                .Include(b => b.Demandeur)
+                .Include(b => b.Repondeur)
+                .Include(b => b.feat.Type)
+                .Include(b => b.feat.Createur)
+                .Include(b => b.feat.Materiel)
+                .FirstOrDefault();
+
+          Feat featToModify = _context.Feats
+                       .Where(b => b.Id == IdFeat)
+                       .Include(b => b.Createur)
+                       .Include(b => b.Adresse)
+                       .Include(b => b.Materiel)
+                       .Include(b => b.Type)
+                       .FirstOrDefault();
+
+            negocProposee.IsAccepted = true;
+            negocProposee.DateClotureNegociation = DateTime.Now;
+
+            featToModify.RealisationDate = negocProposee.NewDateProposee;
+            featToModify.HeureDebut = negocProposee.HeureDbtProposee;
+            featToModify.HeureFin = negocProposee.HeureFinProposee;
+            
+
+            if (ModelState.IsValid)
+            {
+                _context.Update(negocProposee);
+                _context.Update(featToModify);
+
+                await _context.SaveChangesAsync();
+
+
+                return RedirectToAction("MesFeats", "PAFeats", new { @id = IdMembre });
+            }
+            return RedirectToAction("HomeFeatsHome");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> RefuserNegociation([Bind("Id, DateClotureNegociation, NewDateProposee, HeureDbtProposee, HeurFinProposee, IsAccepted, DateCreationNegociation")] Negociation negocProposee, int Id, int IdMembre, int IdFeat)
+        {
+            negocProposee = _context.Negociations
+                .Where(b => b.Id == Id)
+                .Include(b => b.feat)
+                .Include(b => b.Demandeur)
+                .Include(b => b.Repondeur)
+                .Include(b => b.feat.Type)
+                .Include(b => b.feat.Createur)
+                .Include(b => b.feat.Materiel)
+                .FirstOrDefault();
+
+            negocProposee.IsAccepted = false;
+            negocProposee.DateClotureNegociation = DateTime.Now;
+
+
+
+            if (ModelState.IsValid)
+            {
+                _context.Update(negocProposee);
+
+                await _context.SaveChangesAsync();
+
+
+                return RedirectToAction("MesFeats", "PAFeats", new { @id = IdMembre });
+            }
+            return RedirectToAction("HomeFeatsHome");
         }
     }
 }
