@@ -37,7 +37,9 @@ namespace Pandami.Controllers
             Feat newFeat = new Feat()
             {
                 Createur = membre,
-               
+                RealisationDate = DateTime.Now,
+
+
             };
 
             IQueryable<string> recupTypeAide = from m in _context.TypeAides
@@ -51,19 +53,19 @@ namespace Pandami.Controllers
             IQueryable<string> recupAdresse = from m in _context.Adresses
                                               orderby m.NomDeVoie
                                               select m.NomDeVoie;
-            
+
 
             ViewBag.Materiels = new SelectList(await recupMateriel.Distinct().ToListAsync());
 
             ViewBag.TypesAide = new SelectList(await recupTypeAide.Distinct().ToListAsync());
-            
+
             ViewBag.Adresse = new SelectList(await recupAdresse.Distinct().ToListAsync());
 
             ViewBag.AdresseCreateur = membre.Adresse.NomDeVoie;
 
             return View(newFeat);
         }
-       
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -71,8 +73,8 @@ namespace Pandami.Controllers
         {
             var aideChoisieNewFeat = await (from m in _context.TypeAides
                                             where m.NomAide.Equals(Type)
-                                            select m).FirstOrDefaultAsync();           
-            
+                                            select m).FirstOrDefaultAsync();
+
             var membreLogged = await (from m in _context.Membres
                                       where m.Id.Equals(Createur)
                                       select m).FirstOrDefaultAsync();
@@ -86,7 +88,7 @@ namespace Pandami.Controllers
                                         select m).FirstOrDefaultAsync();
 
             ViewBag.IdMembre = Createur;
-           
+
 
             Feat feat = new Feat()
             {
@@ -118,12 +120,12 @@ namespace Pandami.Controllers
         public async Task<IActionResult> HomeFeatsHome(int Id)
         {
             //Eagerly Loading pour charger toutes les entités liées
-             List<Feat> listFeats = _context.Feats
-                        .Where(b => b.AnnulationDate == null && b.Createur.Id != Id && b.ClotureDate == null && b.AcceptationDate == null)
-                       .Include(b => b.Adresse)
-                       .Include(b => b.Type)
-                       .Include(b => b.Createur)
-                       .ToList();
+            List<Feat> listFeats = _context.Feats
+                       .Where(b => b.AnnulationDate == null && b.Createur.Id != Id && b.ClotureDate == null && b.AcceptationDate == null)
+                      .Include(b => b.Adresse)
+                      .Include(b => b.Type)
+                      .Include(b => b.Createur)
+                      .ToList();
 
             ViewBag.IdMembre = Id;
 
@@ -131,19 +133,82 @@ namespace Pandami.Controllers
 
             return View(listFeats);
         }
+        public async Task<IActionResult> HomeFeatsHome2(int Id)
+        {
+            //Eagerly Loading pour charger toutes les entités liées
+            List<Feat> listFeats = _context.Feats
+                       .Where(b => b.AnnulationDate == null && b.Createur.Id != Id && b.ClotureDate == null && b.AcceptationDate == null)
+                      .Include(b => b.Adresse)
+                      .Include(b => b.Type)
+                      .Include(b => b.Createur)
+                      .ToList();
 
+            List<PreferenceAide> listPrefs = _context.PreferenceAides
+                                               .Where(p => p.Membre.Id == Id)
+                                               .Where(p => p.ValiditeFin == null)
+                                               .Where(p => p.ValiditeDebut < DateTime.Now)
+                                               .ToList();
+
+            List<Disponibilite> listDispos = _context.Disponibilites
+                                                .Where(p => p.membre.Id == Id)
+                                               .Where(p => p.ValiditeFinDate > DateTime.Now || p.ValiditeFinDate == null)
+                                               .Where(p => p.ValiditeDebutDate < DateTime.Now)
+                                               .Include(p => p.Jour)
+                                               .ToList();
+
+
+
+
+            List<Feat> feats = (from p in listPrefs
+                                join f in listFeats on p.TypeAide equals f.Type
+                                select f).ToList();
+
+            feats = (from f in feats
+                     join d in listDispos on (int)f.RealisationDate.DayOfWeek equals (d.Jour.Id - 1) //-1 pour matcher le système de jour anglais
+                     where d.ValiditeDebutDate < f.RealisationDate && (d.ValiditeFinDate == null || d.ValiditeFinDate > f.RealisationDate)
+                     where f.HeureDebut.TimeOfDay >= d.DebutHeure.TimeOfDay
+                     where f.HeureFin.TimeOfDay <= d.FinHeure.TimeOfDay
+                     select f).ToList();
+
+
+            ViewBag.NoResult = false;
+
+            if (feats.Count == 0)
+            {
+                feats = listFeats;
+                ViewBag.NoResult = true;
+            }
+
+
+
+
+            ViewBag.IdMembre = Id;
+
+
+
+            return View(feats);
+        }
         public async Task<IActionResult> MesFeats(int Id)
         {
-            
+
             //Eagerly Loading pour charger toutes les entités liées
-             List<Feat> listFeats = _context.Feats
-                       .Where(b => b.Createur.Id == Id)
-                       .Include(b => b.Adresse)
-                       .Include(b => b.Type)
-                       .Include(b => b.Createur)
-                       .Include(b => b.Materiel)
-                       .Include("Reponses.Helper")
-                       .ToList();
+            List<Feat> listFeats = _context.Feats
+                      .Where(b => b.Createur.Id == Id)
+                      .Include(b => b.Adresse)
+                      .Include(b => b.Type)
+                      .Include(b => b.Createur)
+                      .Include(b => b.Materiel)
+                      .Include("Reponses.Helper")
+                      .ToList();
+
+
+            var negociationsEnCours = _context.Negociations
+                                                    .Where(n => n.IsAccepted == false && n.DateClotureNegociation == null)
+                                                    .Select(n => n.feat.Id)
+                                                    .ToList();
+
+
+            ViewBag.ListIdNegociationsEnCours = negociationsEnCours;
 
             ViewBag.IdMembre = Id;
 
@@ -155,7 +220,7 @@ namespace Pandami.Controllers
             List<ReponseHelper> reponsesHelper = _context.ReponseHelpers
                                                 .Where(p => p.Helper.Id == Id && p.DesistementDate == null)
                                                 .Include(p => p.Feat)
-                                                .Include(p => p.Feat.Type)                                                
+                                                .Include(p => p.Feat.Type)
                                                 .Include(p => p.Feat.Materiel)
                                                 .Include(p => p.Feat.Createur)
                                                 .Include(p => p.Feat.Adresse)
@@ -198,7 +263,7 @@ namespace Pandami.Controllers
                                               select m.NomDeVoie;
 
 
- 
+
 
             Feat featToModify = _context.Feats
                                 .Where(b => b.Id == Id)
@@ -208,8 +273,8 @@ namespace Pandami.Controllers
                                 .Include(b => b.Type)
                                 .FirstOrDefault();
 
-           Membre membreLogged = _context.Membres
-                                .Where(b => b.Id == featToModify.Createur.Id).FirstOrDefault();
+            Membre membreLogged = _context.Membres
+                                 .Where(b => b.Id == featToModify.Createur.Id).FirstOrDefault();
             ViewBag.IdMembre = membreLogged.Id;
 
             ViewBag.IdFeat = Id;
@@ -230,8 +295,8 @@ namespace Pandami.Controllers
         public async Task<IActionResult> ModifierMonFeat([Bind("Id, CreationDate, RealisationDate, HeureDebut, HeureFin, AcceptationDate, EnCoursRealisation, SurPlace, FinFeatHelper, ClotureDate, SommePrevoir, SommeAvancee, SommeRembourseeDate, AnnulationDate, EchangeMonetaire, AideChoisie, Materiel")] Feat featToModify, int IdMembre, string Type, string Materiel, string Adresse)
         {
             var aideChoisie = await (from m in _context.TypeAides
-                                            where m.NomAide.Equals(Type)
-                                            select m).FirstOrDefaultAsync();
+                                     where m.NomAide.Equals(Type)
+                                     select m).FirstOrDefaultAsync();
 
 
             var materielChoisi = await (from m in _context.Materiels
@@ -277,7 +342,7 @@ namespace Pandami.Controllers
             ViewBag.TypesAide = new SelectList(await recupTypeAide.Distinct().ToListAsync());
 
             return View(featToCancel);
-        } 
+        }
 
 
         [HttpPost]
@@ -298,17 +363,25 @@ namespace Pandami.Controllers
             return RedirectToAction("HomeFeatsHome");
         }
 
-        public async Task<IActionResult> DesistementFeat(int Id)
-        {
-            ReponseHelper reponseFeatDesistement = _context.ReponseHelpers
-                                                .Where(b => b.Id == Id)
-                                                .Include(b => b.Helper)
-                                                .Include(b => b.Feat)
-                                                .Include(b => b.Feat.Type)
-                                                .Include(b => b.Feat.Createur)
-                                                .FirstOrDefault();
 
-            return View(reponseFeatDesistement);
+        public ActionResult DesistementFeat(int IdMembre, int IdFeat)
+        {
+
+
+            ReponseHelper reponseFeatDesistement = _context.ReponseHelpers
+                                                .Where(b => b.Feat.Id == IdFeat)
+                                                .Where(b => b.DesistementDate == null)
+                                                .FirstOrDefault();
+            Feat feat = GetFeat(IdFeat);
+            feat.AcceptationDate = null;
+
+            reponseFeatDesistement.DesistementDate = DateTime.Now;
+
+
+            _context.UpdateRange(reponseFeatDesistement, feat);
+            _context.SaveChanges();
+
+            return RedirectToAction("MesFeatsHelper", "PAFeats", new { @id = IdMembre });
         }
 
         [HttpPost]
@@ -323,7 +396,7 @@ namespace Pandami.Controllers
                                 .Include(b => b.Materiel)
                                 .FirstOrDefault();
 
-            featDesistement.AcceptationDate = null;            
+            featDesistement.AcceptationDate = null;
             reponseFeatDesistement.DesistementDate = DateTime.Now;
             if (ModelState.IsValid)
             {
@@ -333,32 +406,32 @@ namespace Pandami.Controllers
                 return RedirectToAction("MesFeatsHelper", "PAFeats", new { @id = IdMembre });
             }
             return View("HomeFeatsHome");
-            
+
         }
 
 
 
 
-            public async Task<IActionResult> Details(int IdFeat, int IdMembre)  //ID Feat
+        public async Task<IActionResult> Details(int IdFeat, int IdMembre)  //ID Feat
         {
-           
+
             Feat feat = _context.Feats
                                 .Where(b => b.Id == IdFeat)
                                 .Include(b => b.Createur)
-                                
+
                                 .Include(b => b.Type)
                                 .FirstOrDefault();
 
-            var reponseActive = _context.ReponseHelpers
+            var Reponses = _context.ReponseHelpers
                                 .Where(b => b.Feat.Id == IdFeat)
-                                .Where(b => b.Helper.Id == IdMembre)
+
                                 .Where(b => b.DesistementDate == null)
                                 .ToList();
 
             ViewBag.IdMembre = IdMembre;
-            ViewBag.Reponses = reponseActive;
+            ViewBag.Reponses = Reponses;
 
-            if (feat.Createur.Id == IdMembre) 
+            if (feat.Createur.Id == IdMembre)
             {
                 ViewBag.Affichage = 1;
             }
@@ -366,13 +439,13 @@ namespace Pandami.Controllers
             {
                 ViewBag.Affichage = 2;
             }
-      
+
             return View(feat);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> AccepterFeat([Bind("Id, CreationDate, RealisationDate, HeureDebut, HeureFin, AcceptationDate, EnCoursRealisation, SurPlace, FinFeatHelper, ClotureDate, SommePrevoir, SommeAvancee, SommeRembourseeDate, AnnulationDate, EchangeMonetaire, AideChoisie, Materiel")]int IdMembre, int IdFeat)
+        public async Task<IActionResult> AccepterFeat([Bind("Id, CreationDate, RealisationDate, HeureDebut, HeureFin, AcceptationDate, EnCoursRealisation, SurPlace, FinFeatHelper, ClotureDate, SommePrevoir, SommeAvancee, SommeRembourseeDate, AnnulationDate, EchangeMonetaire, AideChoisie, Materiel")] int IdMembre, int IdFeat)
         {
 
             Membre membreLogged = _context.Membres
@@ -392,9 +465,9 @@ namespace Pandami.Controllers
                 Feat = featEnAttente
             };
 
-            
+
             if (ModelState.IsValid)
-            {   
+            {
                 _context.Add(reponseHelper);
                 _context.Update(featEnAttente);
                 await _context.SaveChangesAsync();
@@ -444,8 +517,8 @@ namespace Pandami.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        
-        public async Task<IActionResult> ModifierMonFeatHelper ([Bind("Id, CreationDate, RealisationDate, HeureDebut, HeureFin, AcceptationDate, EnCoursRealisation, SurPlace, FinFeatHelper, ClotureDate, SommePrevoir, SommeAvancee, SommeRembourseeDate, AnnulationDate, EchangeMonetaire, AideChoisie, Materiel")] Feat featToModify, int IdMembre, string Type, string Materiel, string Adresse, int Id)
+
+        public async Task<IActionResult> ModifierMonFeatHelper([Bind("Id, CreationDate, RealisationDate, HeureDebut, HeureFin, AcceptationDate, EnCoursRealisation, SurPlace, FinFeatHelper, ClotureDate, SommePrevoir, SommeAvancee, SommeRembourseeDate, AnnulationDate, EchangeMonetaire, AideChoisie, Materiel")] Feat featToModify, int IdMembre, string Type, string Materiel, string Adresse, int Id)
         {
             var aideChoisie = await (from m in _context.TypeAides
                                      where m.NomAide.Equals(Type)
@@ -476,7 +549,8 @@ namespace Pandami.Controllers
             }
             return RedirectToAction("HomeFeatsHome");
         }
-        public async Task<IActionResult> ModifFeatGiftee(int Id , int IdMembre)              //IdFeat
+
+        public async Task<IActionResult> ModifFeatGiftee(int IdFeat, int IdMembre, int JeSuis)              //IdFeat
         {
             IQueryable<string> recupTypeAide = from m in _context.TypeAides
                                                orderby m.NomAide
@@ -494,7 +568,7 @@ namespace Pandami.Controllers
 
 
             Feat featToModify = _context.Feats
-                                .Where(b => b.Id == Id)
+                                .Where(b => b.Id == IdFeat)
                                 .Include(b => b.Createur)
                                 .Include(b => b.Adresse)
                                 .Include(b => b.Materiel)
@@ -502,7 +576,8 @@ namespace Pandami.Controllers
                                 .FirstOrDefault();
 
 
-            
+            ViewBag.IdMembre = IdMembre;
+            ViewBag.JeSuis = JeSuis;
 
             ViewBag.Materiels = new SelectList(await recupMateriel.Distinct().ToListAsync());
 
@@ -516,41 +591,63 @@ namespace Pandami.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
 
-        public async Task<IActionResult> ModifierMonFeatGiftee([Bind("Id, CreationDate, RealisationDate, HeureDebut, HeureFin, AcceptationDate, EnCoursRealisation, SurPlace, FinFeatHelper, ClotureDate, SommePrevoir, SommeAvancee, SommeRembourseeDate, AnnulationDate, EchangeMonetaire, AideChoisie, Materiel")] Feat featToModify, int IdMembre, string Type, string Materiel, string Adresse, int Id)
+        public async Task<IActionResult> ModifierMonFeatGiftee([Bind("Id, CreationDate, RealisationDate, HeureDebut, HeureFin, AcceptationDate, EnCoursRealisation, SurPlace, FinFeatHelper, ClotureDate, SommePrevoir, SommeAvancee, SommeRembourseeDate, AnnulationDate, EchangeMonetaire, AideChoisie, Materiel")] Feat featToModify, int JeSuis, int IdMembre)
         {
-            featToModify = _context.Feats
-                       .Where(b => b.Id == Id)
-                       .Include(b => b.Createur)
-                       .Include(b => b.Adresse)
-                       .Include(b => b.Materiel)
-                       .Include(b => b.Type)
-                       .FirstOrDefault();
 
 
-            ReponseHelper reponseDuFeat = _context.ReponseHelpers
-                                        .Where(b => b.Feat.Id == Id)
+
+            Feat oldFeat = GetFeat(featToModify.Id);
+
+            var ReponseValide = _context.ReponseHelpers
+                                        .Where(b => b.Feat.Id == featToModify.Id)
+                                        .Where(b => b.DesistementDate == null)
                                         .Include(b => b.Helper)
                                         .FirstOrDefault();
 
-            Negociation negocProposee = new Negociation()
+
+
+            Negociation newNegociation = new Negociation();
+
+            if (oldFeat.HeureDebut != featToModify.HeureDebut || oldFeat.HeureFin != featToModify.HeureFin || oldFeat.RealisationDate != featToModify.RealisationDate)
             {
-                DateCreationNegociation = DateTime.Now,
-                NewDateProposee = featToModify.RealisationDate,
-                HeureDbtProposee = featToModify.HeureDebut,
-                HeureFinProposee = featToModify.HeureFin,
-                DemandeurId = IdMembre,
-                RepondeurId = reponseDuFeat.Helper.Id,
-                feat = featToModify
-                //IsAccepted = false
-            };
+
+                var newDate = featToModify.RealisationDate;
+                var newHeureDeb = featToModify.HeureDebut;
+                var newHeureFin = featToModify.HeureFin;
+                featToModify = new Feat();
+
+                newNegociation = new Negociation()
+                {
+                    DateCreationNegociation = DateTime.Now,
+                    NewDateProposee = newDate,
+                    HeureDbtProposee = newHeureDeb,
+                    HeureFinProposee = newHeureFin,
+                    feat = oldFeat,
+                    IsAccepted = false
+
+                };
+
+                if (JeSuis==1)
+                {
+                    newNegociation.DemandeurId = oldFeat.Createur.Id;
+                    newNegociation.RepondeurId = ReponseValide.Helper.Id;
+                }
+                else
+                {
+                    newNegociation.DemandeurId = ReponseValide.Helper.Id;
+                    newNegociation.RepondeurId = oldFeat.Createur.Id;
+                }
+            }
+
+            // _context.Entry(featToModify).Reference(p => p.Createur).Load();
 
             if (ModelState.IsValid)
             {
-                _context.Add(negocProposee);
+                _context.Add(newNegociation);
                 await _context.SaveChangesAsync();
 
 
-                return RedirectToAction("MesFeats", "PAFeats", new { @id = IdMembre });
+                return RedirectToAction("MesFeats", "PAFeats", new { @id = IdMembre  });
             }
             return RedirectToAction("HomeFeatsHome");
 
@@ -561,12 +658,13 @@ namespace Pandami.Controllers
 
 
 
-        public async Task<IActionResult> VisualiserNegociation (int IdFeat, int IdMembre)
+        public async Task<IActionResult> VisualiserNegociation(int IdFeat, int IdMembre)
         {
 
 
             Negociation negocProposee = _context.Negociations
                 .Where(b => b.feat.Id == IdFeat)
+                .Where(b => b.DateClotureNegociation==null)
                 .Include(b => b.feat)
                 .Include(b => b.Demandeur)
                 .Include(b => b.Repondeur)
@@ -575,13 +673,15 @@ namespace Pandami.Controllers
                 .Include(b => b.feat.Materiel)
                 .FirstOrDefault();
 
+            ViewBag.IdMembre = IdMembre;
+
             return View(negocProposee);
 
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> AccepterNegociation([Bind("Id, DateClotureNegociation, NewDateProposee, HeureDbtProposee, HeurFinProposee, IsAccepted, DateCreationNegociation")]Negociation negocProposee, int Id, int IdMembre, int IdFeat)
+        public async Task<IActionResult> AccepterNegociation([Bind("Id, DateClotureNegociation, NewDateProposee, HeureDbtProposee, HeurFinProposee, IsAccepted, DateCreationNegociation")] Negociation negocProposee, int Id, int IdMembre, int IdFeat)
         {
             negocProposee = _context.Negociations
                 .Where(b => b.Id == Id)
@@ -593,13 +693,13 @@ namespace Pandami.Controllers
                 .Include(b => b.feat.Materiel)
                 .FirstOrDefault();
 
-          Feat featToModify = _context.Feats
-                       .Where(b => b.Id == IdFeat)
-                       .Include(b => b.Createur)
-                       .Include(b => b.Adresse)
-                       .Include(b => b.Materiel)
-                       .Include(b => b.Type)
-                       .FirstOrDefault();
+            Feat featToModify = _context.Feats
+                         .Where(b => b.Id == IdFeat)
+                         .Include(b => b.Createur)
+                         .Include(b => b.Adresse)
+                         .Include(b => b.Materiel)
+                         .Include(b => b.Type)
+                         .FirstOrDefault();
 
             negocProposee.IsAccepted = true;
             negocProposee.DateClotureNegociation = DateTime.Now;
@@ -607,14 +707,12 @@ namespace Pandami.Controllers
             featToModify.RealisationDate = negocProposee.NewDateProposee;
             featToModify.HeureDebut = negocProposee.HeureDbtProposee;
             featToModify.HeureFin = negocProposee.HeureFinProposee;
-            
+
 
             if (ModelState.IsValid)
             {
-                _context.Update(negocProposee);
-                _context.Update(featToModify);
-
-                await _context.SaveChangesAsync();
+                _context.UpdateRange(negocProposee,featToModify);
+                _context.SaveChanges();
 
 
                 return RedirectToAction("MesFeats", "PAFeats", new { @id = IdMembre });
@@ -651,6 +749,17 @@ namespace Pandami.Controllers
                 return RedirectToAction("MesFeats", "PAFeats", new { @id = IdMembre });
             }
             return RedirectToAction("HomeFeatsHome");
+        }
+        private Membre GetMembre(int idmembre)
+        {
+            return (_context.Membres.Where(m => m.Id == idmembre).FirstOrDefault());
+        }
+        private Feat GetFeat(int idFeat)
+        {
+            return (_context.Feats.Where(m => m.Id == idFeat)
+                .Include(p => p.Createur)
+
+                .FirstOrDefault());
         }
     }
 }

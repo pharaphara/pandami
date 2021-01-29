@@ -27,20 +27,50 @@ namespace Pandami.Controllers
                 Feat = GetFeat(IdFeat)
             };
 
-             ViewBag.TypeLitige= new SelectList((from m in _context.TypeLitiges
-                                                         orderby m.Libelle
-                                                         select m.Libelle).ToList().Distinct());
+            ViewBag.TypeLitige = new SelectList((from m in _context.TypeLitiges
+                                                 orderby m.Libelle
+                                                 select m.Libelle).ToList().Distinct());
 
             return View(newLitige);
         }
         [HttpPost]
-        public ActionResult Litige(int Id, [Bind("Id, CreationDate,ClotureDate,Commentaire,TypeLitige,Createur,Feat")] Litige newLitige)
+        public ActionResult LitigePost(int Id, [Bind("Id, CreationDate,ClotureDate,Commentaire,TypeLitige,Createur,Feat")] Litige newLitige)
         {
-           
+
 
             return View(newLitige);
         }
+        public ActionResult MajFeat(int IdFeat, int IdMembre)
+        {
+            Feat feat = GetFeat(IdFeat);
+            if (feat.EnCoursRealisation == null)
+            {
+                feat.EnCoursRealisation = DateTime.Now;
+            }
+            else if (feat.SurPlace == null)
+            {
 
+                feat.SurPlace = DateTime.Now;
+
+            }
+            else if (feat.FinFeatHelper == null)
+            {
+
+                feat.FinFeatHelper = DateTime.Now;
+
+            }
+            else if (feat.ClotureDate == null)
+            {
+
+                feat.ClotureDate= DateTime.Now;
+                _context.Update(feat);
+                _context.SaveChanges();
+                return RedirectToAction("MesFeats", "PAFeats", new { @id = IdMembre });
+            }
+            _context.Update(feat);
+            _context.SaveChanges();
+            return RedirectToAction("MesFeatsHelper", "PAFeats", new { @id = IdMembre });
+        }
 
         private Membre GetMembre(int idmembre)
         {

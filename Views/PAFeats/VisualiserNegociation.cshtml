@@ -6,7 +6,7 @@
 
 <h1>Negociation</h1>
 
-Id du Feat  @Model.feat.Id Id du Demandeur @Model.DemandeurId 
+Id du Feat  @Model.feat.Id Id du Demandeur @Model.DemandeurId
 <div>
     <dl class="row">
         <dt class="col-sm-2">
@@ -58,20 +58,25 @@ Id du Feat  @Model.feat.Id Id du Demandeur @Model.DemandeurId
             @Html.DisplayFor(model => model.feat.Type.NomAide)
         </dd>
     </dl>
-    <form asp-action="AccepterNegociation" method="post">
-        <div>
-            <input type="hidden" name="IdMembre" value="@Model.RepondeurId" />
-            <input type="hidden" name="IdFeat" value="@Model.feat.Id" />
-            <input type="hidden" name="Id" value="@Model.Id" />
-            <input type="submit" value="Accepter la modification demandée" class="btn btn-primary" />
-        </div>
-    </form>
-    <form asp-action="RefuserNegociation" method="post">
-        <div>
-            <input type="hidden" name="IdMembre" value="@Model.RepondeurId" />
-            <input type="hidden" name="IdFeat" value="@Model.feat.Id" />
-            <input type="hidden" name="Id" value="@Model.Id" />
-            <input type="submit" value="Refuser la modification demandée" class="btn btn-primary" />
-        </div>
-    </form>
+    @if (Model.DemandeurId!=ViewBag.IdMembre)
+    {
+
+
+        <form asp-action="AccepterNegociation" method="post">
+            <div>
+                <input type="hidden" name="IdMembre" value="@Model.RepondeurId" />
+                <input type="hidden" name="IdFeat" value="@Model.feat.Id" />
+                <input type="hidden" name="Id" value="@Model.Id" />
+                <input type="submit" value="Accepter la modification demandée" class="btn btn-primary" />
+            </div>
+        </form>
+        <form asp-action="RefuserNegociation" method="post">
+            <div>
+                <input type="hidden" name="IdMembre" value="@Model.RepondeurId" />
+                <input type="hidden" name="IdFeat" value="@Model.feat.Id" />
+                <input type="hidden" name="Id" value="@Model.Id" />
+                <input type="submit" value="Refuser la modification demandée" class="btn btn-primary" />
+            </div>
+        </form>
+    }
 </div>

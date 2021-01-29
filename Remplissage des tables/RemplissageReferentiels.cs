@@ -41,7 +41,14 @@ namespace Pandami.Remplissage_des_tables
                 }
 
                 context.JourDeLaSemaines.AddRange(
+
+
                     new JourDeLaSemaine
+                    {
+                        NomDuJour = "Dimanche",
+                    },
+
+                        new JourDeLaSemaine
                     {
                         NomDuJour = "Lundi"
 
@@ -75,13 +82,11 @@ namespace Pandami.Remplissage_des_tables
                     {
                         NomDuJour = "Samedi"
 
-                    },
-
-                    new JourDeLaSemaine
-                    {
-                        NomDuJour = "Dimanche"
-
                     }
+                        
+                        
+
+                    
                 );
 
                 if (context.CategorieAides.Any())

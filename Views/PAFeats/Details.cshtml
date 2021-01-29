@@ -9,10 +9,52 @@
 
 <h4>Feat</h4>
 <hr />
-      Id du Membre Inch Hallah    @ViewBag.IdMembre
+      Id du Membre    @ViewBag.IdMembre
     <hr />
     Id du Feat @Model.Id
 <div>
+    @if (@ViewBag.Affichage == 2 && @ViewBag.Reponses.Count > 0 && Model.RealisationDate.Date == DateTime.Now.Date && Model.FinFeatHelper == null)
+    {
+        <form asp-action="MajFeat" asp-controller="Side" method="post">
+            <div>
+                <input type="hidden" name="IdMembre" value="@ViewBag.IdMembre" />
+                <input type="hidden" name="IdFeat" value="@Model.Id" />
+                @{
+                    string phrase = "";
+                    if (true)
+                    {
+                        if (Model.EnCoursRealisation == null)
+                        {
+                            phrase = "Commencer le feat";
+                        }
+                        else if (Model.SurPlace == null)
+                        {
+
+                            phrase = "Je suis sur place";
+
+                        }
+                        else if (Model.FinFeatHelper == null)
+                        {
+
+                            phrase = "J'ai fini"; ;
+
+                        }
+                    }
+                }
+                <input type="submit" value="@phrase" class="btn btn-secondary" />
+            </div>
+        </form>
+    }
+    @if (@ViewBag.Affichage == 1 && Model.RealisationDate.Date == DateTime.Now.Date && Model.FinFeatHelper != null)
+    {
+        <form asp-action="MajFeat" asp-controller="Side" method="post">
+            <div>
+                <input type="hidden" name="IdMembre" value="@ViewBag.IdMembre" />
+                <input type="hidden" name="IdFeat" value="@Model.Id" />
+                <input type="submit" value="Cloturer le Feat" class="btn btn-secondary" />
+            </div>
+        </form>
+    }
 
     <dl class="row">
         <dt class="col-sm-2">
@@ -100,7 +142,7 @@
             @Html.DisplayFor(model => model.Type.NomAide)
         </dd>
     </dl>
-    @if (ViewBag.Reponses.Count == 0)
+    @if (@ViewBag.Reponses.Count == 0 && Model.Createur.Id != @ViewBag.IdMembre)
     {
         <form asp-action="AccepterFeat" method="post">
             <div>
@@ -110,27 +152,39 @@
             </div>
         </form>
     }
-    @if (@ViewBag.Affichage == 1)
+    
+    @if (@ViewBag.Affichage == 1)//giftee
     {
         <form asp-action="ModifFeatGiftee" method="post">
             <div>
+                <input type="hidden" name="JeSuis" value="@ViewBag.Affichage" />
                 <input type="hidden" name="IdMembre" value="@ViewBag.IdMembre" />
                 <input type="hidden" name="IdFeat" value="@Model.Id" />
                 <input type="submit" value="ModifGiftee" class="btn btn-primary" />
             </div>
         </form>
     }
-    @if (@ViewBag.Affichage == 2 && @ViewBag.Reponses.Count > 0)
+    @if (@ViewBag.Affichage == 2 && @ViewBag.Reponses.Count > 0) //helper
     {
-        <form asp-action="ModifFeatHelper" method="post">
+        <form asp-action="ModifFeatGiftee" method="post">
             <div>
+                <input type="hidden" name="JeSuis" value="@ViewBag.Affichage" />
                 <input type="hidden" name="IdMembre" value="@ViewBag.IdMembre" />
                 <input type="hidden" name="IdFeat" value="@Model.Id" />
                 <input type="submit" value="ModifHelper" class="btn btn-secondary" />
             </div>
         </form>
+        
+        <form asp-action="DesistementFeat" method="post">
+            <div>
+                <input type="hidden" name="IdMembre" value="@ViewBag.IdMembre" />
+                <input type="hidden" name="IdFeat" value="@Model.Id" />
+                <input type="submit" value="Me désister du Feat" class="btn btn-outline-danger" />
+            </div>
+        </form>
+
     }
-    @if (true)
+    @if (@ViewBag.Reponses.Count > 0)
     {
         <form asp-controller="Side" asp-action="Litige" method="post">
             <div>
@@ -140,5 +194,6 @@
             </div>
         </form>
     }
+
 
 </div>
