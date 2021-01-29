@@ -1,0 +1,44 @@
+﻿@model Pandami.Models.Litige
+
+@{
+    ViewData["Title"] = "Litige";
+}
+
+<h1>Litige</h1>
+
+<h4>Litige</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Litige">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="TypeLitige" class="control-label"></label>
+                <select asp-for="TypeLitige" asp-items=@ViewBag.TypeLitige>
+                </select>
+                <span asp-validation-for="TypeLitige" class="text-danger"></span>
+            </div>
+
+
+            <div class="form-group">
+                <label asp-for="Commentaire" class="control-label"></label>
+                <input asp-for="Commentaire" type="text" size="80" class="form-control" />
+                <span asp-validation-for="Commentaire" class="text-danger"></span>
+            </div>
+            <input type="hidden" asp-for="Feat" />
+            <input type="hidden" asp-for="CreationDate" />
+            <input type="hidden" asp-for="Createur" />
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -100,7 +100,7 @@
             @Html.DisplayFor(model => model.Type.NomAide)
         </dd>
     </dl>
-    @if (Model.Reponses.Count == 0)
+    @if (ViewBag.Reponses.Count == 0)
     {
         <form asp-action="AccepterFeat" method="post">
             <div>
@@ -110,7 +110,7 @@
             </div>
         </form>
     }
-    @if (ViewBag.Affichage==1)
+    @if (@ViewBag.Affichage == 1)
     {
         <form asp-action="ModifFeatGiftee" method="post">
             <div>
@@ -120,13 +120,23 @@
             </div>
         </form>
     }
-    @if (ViewBag.Affichage==2 && Model.Reponses)
+    @if (@ViewBag.Affichage == 2 && @ViewBag.Reponses.Count > 0)
     {
         <form asp-action="ModifFeatHelper" method="post">
             <div>
                 <input type="hidden" name="IdMembre" value="@ViewBag.IdMembre" />
                 <input type="hidden" name="IdFeat" value="@Model.Id" />
                 <input type="submit" value="ModifHelper" class="btn btn-secondary" />
+            </div>
+        </form>
+    }
+    @if (true)
+    {
+        <form asp-controller="Side" asp-action="Litige" method="post">
+            <div>
+                <input type="hidden" name="IdMembre" value="@ViewBag.IdMembre" />
+                <input type="hidden" name="IdFeat" value="@Model.Id" />
+                <input type="submit" value="Litige" class="btn btn-outline-success" />
             </div>
         </form>
     }

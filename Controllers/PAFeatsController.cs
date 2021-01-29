@@ -345,11 +345,18 @@ namespace Pandami.Controllers
             Feat feat = _context.Feats
                                 .Where(b => b.Id == IdFeat)
                                 .Include(b => b.Createur)
-                                .Include(b => b.Reponses)
+                                
                                 .Include(b => b.Type)
                                 .FirstOrDefault();
 
+            var reponseActive = _context.ReponseHelpers
+                                .Where(b => b.Feat.Id == IdFeat)
+                                .Where(b => b.Helper.Id == IdMembre)
+                                .Where(b => b.DesistementDate == null)
+                                .ToList();
+
             ViewBag.IdMembre = IdMembre;
+            ViewBag.Reponses = reponseActive;
 
             if (feat.Createur.Id == IdMembre) 
             {

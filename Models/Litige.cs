@@ -15,7 +15,15 @@ namespace Pandami.Models
         //possède un type 
         public TypeLitige TypeLitige { get; set; }
 
-        
+        //possède un créateur
+        public Membre Createur { get; set; }
+
+        //possède un feat
+        public Feat Feat { get; set; }
+
+
+
+
 
 
     }
