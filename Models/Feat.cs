@@ -14,8 +14,9 @@ namespace Pandami.Models
 
         [DataType(DataType.Date)]
         public DateTime CreationDate { get; set; }
-
+        
         [DataType(DataType.Date)]
+        [Display(Name = "JOUR DU FEAT")]
         public DateTime RealisationDate { get; set; }
 
         [DataType(DataType.Time)]
@@ -54,12 +55,14 @@ namespace Pandami.Models
         public Boolean EchangeMonetaire { get; set; }
 
         //posède un créateur
+        [Display(Name ="GIFTEE")]
         public Membre Createur { get; set; }
 
         //collection de réponse
         public IList<ReponseHelper> Reponses { get; set; }
 
         //posède un type d'aide
+        [Display(Name = "TYPE DE FEAT")]
         public TypeAide Type { get; set; }
 
         //possède un matériel

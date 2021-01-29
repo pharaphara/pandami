@@ -8,13 +8,13 @@
     <thead>
         <tr>
             <th>
-                GIFTEE
+                @Html.DisplayNameFor(model => model.Createur)
             </th>
             <th>
-                TYPE D'AIDE DEMANDEE
+                @Html.DisplayNameFor(model => model.Type)
             </th>
             <th>
-                JOUR DU FEAT
+                @Html.DisplayNameFor(model => model.RealisationDate)
             </th>
             <th>
                 DEBUT DU FEAT
@@ -86,7 +86,7 @@
                 <div>
                     <td>
                         <form asp-action="ModifFeatHelper">
-                            <input type="hidden" name="IdReponse" value="@item.Id" />
+                            <input type="hidden" name="IdReponse" value="@item.Reponses.FirstOrDefault().Id" />
                             <input type="hidden" name="IdFeat" value="@item.Id" />
                             <input type="hidden" name="IdMembre" value="@item.Id" />
                             <input type="submit" value="Modifier le Feat" class="btn btn-danger" />
