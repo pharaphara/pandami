@@ -26,6 +26,7 @@ namespace Pandami.Models
         public DateTime Naissance { get; set; }
 
         [DataType(DataType.PhoneNumber)]
+        [Display(Name = "N° Tel")]
         public string Telephone { get; set; }
 
 

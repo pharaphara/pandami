@@ -16,34 +16,42 @@ namespace Pandami.Models
         public DateTime CreationDate { get; set; }
         
         [DataType(DataType.Date)]
-        [Display(Name = "JOUR DU FEAT")]
+        [Display(Name = "Jour du FEAT")]
         public DateTime RealisationDate { get; set; }
 
         [DataType(DataType.Time)]
+        [Display(Name = "Début du FEAT")]
         public DateTime HeureDebut { get; set; }
 
         [DataType(DataType.Time)]
+        [Display(Name = "Fin du FEAT")]
         public DateTime HeureFin { get; set; }
 
         [DataType(DataType.Date)]
         public DateTime? AcceptationDate { get; set; }
 
         [DataType(DataType.Time)]
+        [Display(Name = "En cours")]
         public DateTime? EnCoursRealisation { get; set; }
 
         [DataType(DataType.Time)]
+        [Display(Name = "Helper sur place")]
         public DateTime? SurPlace { get; set; }
 
         [DataType(DataType.Time)]
+        [Display(Name = "Feat terminé (Helper)")]
         public DateTime? FinFeatHelper { get; set; }
 
         [DataType(DataType.Date)]
+        [Display(Name = "Feat terminé")]
         public DateTime? ClotureDate { get; set; }
 
         [DataType(DataType.Currency)]
+        [Display(Name = "Somme à prévoir")]
         public float? SommePrevoir { get; set; }
 
         [DataType(DataType.Currency)]
+        [Display(Name = "Somme avancée par le Helper")]
         public float? SommeAvancee { get; set; }
 
         [DataType(DataType.Date)]

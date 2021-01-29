@@ -3,36 +3,36 @@
 @{
     ViewData["Title"] = "Mes Feats GIFTEE";
 }
+
 <h1>MES FEATS EN TANT QUE GIFTEE</h1>
 <table class="table">
     <thead>
         <tr>
             <th>
-                GIFTEE
+                @Html.DisplayNameFor(model => model.Createur)
             </th>
             <th>
-                HELPER
+                @Html.DisplayNameFor(model => model.Reponses.FirstOrDefault().Helper.Nom)
             </th>
             <th>
-                TYPE D'AIDE DEMANDEE
+                @Html.DisplayNameFor(model => model.Type.NomAide)
             </th>
             <th>
-                JOUR DU FEAT
+                @Html.DisplayNameFor(model => model.RealisationDate)
             </th>
             <th>
-                DEBUT DU FEAT
+                @Html.DisplayNameFor(model => model.HeureDebut)
             </th>
             <th>
-                FIN DU FEAT
+                @Html.DisplayNameFor(model => model.HeureFin)
             </th>
             <th>
-                ADRESSE
+                @Html.DisplayNameFor(model => model.Adresse)
             </th>
             <th>
-                SOMME A PREVOIR (ou estimation)
-            </th>
+                @Html.DisplayNameFor(model => model.SommePrevoir)
             <th>
-                DATE ANNULATION
+                @Html.DisplayNameFor(model => model.AnnulationDate)
             </th>
             <th>
                 ID FEAT
@@ -63,7 +63,9 @@
                     @Html.DisplayFor(modelItem => item.HeureFin)
                 </td>
                 <td>
+                    @Html.DisplayFor(modelItem => item.Adresse.NumeroDeVoie)
                     @Html.DisplayFor(modelItem => item.Adresse.NomDeVoie)
+                    @Html.DisplayFor(modelItem => item.Adresse.Ville)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.SommePrevoir)
@@ -86,7 +88,6 @@
                     <a asp-action="AnnulationFeat" asp-route-id="@item.Id"> Delete </a>
                 </td>
                 <td>
-                    
                 </td>
             </tr>
         }
