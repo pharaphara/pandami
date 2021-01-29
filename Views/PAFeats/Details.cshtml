@@ -9,97 +9,141 @@
 
 <h4>Feat</h4>
 <hr />
-      Id du Membre Inch Hallah    @ViewBag.IdMembre
+      Id du Membre    @ViewBag.IdMembre
     <hr />
-Id du Feat @Model.Id
-    <div>
+    Id du Feat @Model.Id
+<div>
+    @if (@ViewBag.Affichage == 2 && @ViewBag.Reponses.Count > 0 && Model.RealisationDate.Date == DateTime.Now.Date && Model.FinFeatHelper == null)
+    {
+        <form asp-action="MajFeat" asp-controller="Side" method="post">
+            <div>
+                <input type="hidden" name="IdMembre" value="@ViewBag.IdMembre" />
+                <input type="hidden" name="IdFeat" value="@Model.Id" />
+                @{
+                    string phrase = "";
+                    if (true)
+                    {
+                        if (Model.EnCoursRealisation == null)
+                        {
+                            phrase = "Commencer le feat";
+                        }
+                        else if (Model.SurPlace == null)
+                        {
 
-        <dl class="row">
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.CreationDate)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.CreationDate)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.RealisationDate)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.RealisationDate)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.HeureDebut)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.HeureDebut)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.HeureFin)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.HeureFin)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.AcceptationDate)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.AcceptationDate)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.EnCoursRealisation)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.EnCoursRealisation)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.SurPlace)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.SurPlace)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.FinFeatHelper)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.FinFeatHelper)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.ClotureDate)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.ClotureDate)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.SommePrevoir)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.SommePrevoir)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.SommeAvancee)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.SommeAvancee)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.SommeRembourseeDate)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.SommeRembourseeDate)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.AnnulationDate)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.AnnulationDate)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.Type.NomAide)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.Type.NomAide)
-            </dd>
-        </dl>
+                            phrase = "Je suis sur place";
+
+                        }
+                        else if (Model.FinFeatHelper == null)
+                        {
+
+                            phrase = "J'ai fini"; ;
+
+                        }
+                    }
+                }
+                <input type="submit" value="@phrase" class="btn btn-secondary" />
+            </div>
+        </form>
+    }
+    @if (@ViewBag.Affichage == 1 && Model.RealisationDate.Date == DateTime.Now.Date && Model.FinFeatHelper != null)
+    {
+        <form asp-action="MajFeat" asp-controller="Side" method="post">
+            <div>
+                <input type="hidden" name="IdMembre" value="@ViewBag.IdMembre" />
+                <input type="hidden" name="IdFeat" value="@Model.Id" />
+                <input type="submit" value="Cloturer le Feat" class="btn btn-secondary" />
+            </div>
+        </form>
+    }
+
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.CreationDate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.CreationDate)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.RealisationDate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.RealisationDate)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.HeureDebut)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.HeureDebut)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.HeureFin)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.HeureFin)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.AcceptationDate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.AcceptationDate)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.EnCoursRealisation)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.EnCoursRealisation)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.SurPlace)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.SurPlace)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.FinFeatHelper)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.FinFeatHelper)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ClotureDate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ClotureDate)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.SommePrevoir)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.SommePrevoir)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.SommeAvancee)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.SommeAvancee)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.SommeRembourseeDate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.SommeRembourseeDate)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.AnnulationDate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.AnnulationDate)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Type.NomAide)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Type.NomAide)
+        </dd>
+    </dl>
+    @if (@ViewBag.Reponses.Count == 0 && Model.Createur.Id != @ViewBag.IdMembre)
+    {
         <form asp-action="AccepterFeat" method="post">
             <div>
                 <input type="hidden" name="IdMembre" value="@ViewBag.IdMembre" />
@@ -107,4 +151,49 @@ Id du Feat @Model.Id
                 <input type="submit" value="Accepter le Feat" class="btn btn-primary" />
             </div>
         </form>
-    </div>
+    }
+    
+    @if (@ViewBag.Affichage == 1)//giftee
+    {
+        <form asp-action="ModifFeatGiftee" method="post">
+            <div>
+                <input type="hidden" name="JeSuis" value="@ViewBag.Affichage" />
+                <input type="hidden" name="IdMembre" value="@ViewBag.IdMembre" />
+                <input type="hidden" name="IdFeat" value="@Model.Id" />
+                <input type="submit" value="ModifGiftee" class="btn btn-primary" />
+            </div>
+        </form>
+    }
+    @if (@ViewBag.Affichage == 2 && @ViewBag.Reponses.Count > 0) //helper
+    {
+        <form asp-action="ModifFeatGiftee" method="post">
+            <div>
+                <input type="hidden" name="JeSuis" value="@ViewBag.Affichage" />
+                <input type="hidden" name="IdMembre" value="@ViewBag.IdMembre" />
+                <input type="hidden" name="IdFeat" value="@Model.Id" />
+                <input type="submit" value="ModifHelper" class="btn btn-secondary" />
+            </div>
+        </form>
+        
+        <form asp-action="DesistementFeat" method="post">
+            <div>
+                <input type="hidden" name="IdMembre" value="@ViewBag.IdMembre" />
+                <input type="hidden" name="IdFeat" value="@Model.Id" />
+                <input type="submit" value="Me désister du Feat" class="btn btn-outline-danger" />
+            </div>
+        </form>
+
+    }
+    @if (@ViewBag.Reponses.Count > 0)
+    {
+        <form asp-controller="Side" asp-action="Litige" method="post">
+            <div>
+                <input type="hidden" name="IdMembre" value="@ViewBag.IdMembre" />
+                <input type="hidden" name="IdFeat" value="@Model.Id" />
+                <input type="submit" value="Litige" class="btn btn-outline-success" />
+            </div>
+        </form>
+    }
+
+
+</div>

@@ -5,41 +5,31 @@
 }
 
 <h1>Edit</h1>
-<label>Id du Feat @Model.Id  Id du membre @Model.Createur.Id</label>
+<label>Id du Feat @Model.Id  Id du créateur @Model.Createur.Id  Id ud membre = @ViewBag.IdMembre</label>
 <h4>Feat</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="ModifierMonFeatGiftee">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <!--input type="hidden" asp-for="Id" /-->
+          
             <div class="form-group">
-                <label class="control-label">Nom du Giftee : @ViewBag.NomGiftee</label>
+                <label class="control-label">Nom du Giftee : @Model.Createur.Nom</label>
             </div>
-            <input type="hidden" asp-for="Createur" value="@Model.Createur" />
+            
+            
             <div class="form-group">
                 <label>Activité </label>
 
-                <label asp-for="Type" class="control-label">Aide demandée</label>
-                    <select asp-for="Type" asp-items="@ViewBag.TypesAide" id="maListe">
-                        <option value="@Model.Type.NomAide" selected="@Model.Type.NomAide">@Model.Type.NomAide</option>
-                    </select>
-                    <input type="hidden" asp-for="Type.NomAide" />
-                <span asp-validation-for="Type" class="text-danger"></span>
+                <label asp-for="Type" class="control-label">Aide demandée = @Model.Type.NomAide</label>
+
+                
+
             </div>
             <div class="form-group">
-                <label asp-for="Materiel" class="control-label"></label>
-                <select asp-for="Materiel" asp-items="@ViewBag.Materiels" id="maListe">
-                    @if (@Model.Materiel != null)
-                    {
-                        <option value="@Model.Materiel.NomMateriel" selected="@Model.Materiel.NomMateriel">@Model.Materiel.NomMateriel</option>
-                    }
-                    else
-                    {
-                        <option value="null">AUCUN</option>
-                    }
-                </select>
-                <span asp-validation-for="Materiel" class="text-danger"></span>
+                <label asp-for="Materiel" class="control-label"> = @Model.Materiel.NomMateriel</label>
+                
+
             </div>
             <div class="form-group">
                 <label asp-for="RealisationDate" class="control-label"></label>
@@ -57,28 +47,31 @@
                 <span asp-validation-for="HeureFin" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Adresse" class="control-label"></label>
-                    <select asp-for="Adresse" asp-items="@ViewBag.Adresse" id="maListe">
-                        <option value="@Model.Adresse.NomDeVoie" selected="@Model.Adresse.NomDeVoie">@Model.Adresse.NomDeVoie</option>
-                    </select>
-                    <input type="hidden" asp-for="Adresse" />
-                <span asp-validation-for="Adresse" class="text-danger"></span>
+                <label asp-for="Adresse" class="control-label"> Adresse du feat = @Model.Adresse.NumeroDeVoie @Model.Adresse.NomDeVoie @Model.Adresse.Ville </label>
+                
+                
+                
             </div>
             <div class="form-group">
                 <label asp-for="SommePrevoir" class="control-label"></label>
-                    <input asp-for="SommePrevoir" class="form-control"/>
-                    <input type="hidden" asp-for="SommePrevoir" />
+                <input asp-for="SommePrevoir" class="form-control" />
+                <input type="hidden" asp-for="SommePrevoir" />
                 <span asp-validation-for="SommePrevoir" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="hidden" name="IdMembre" value="@Model.Createur.Id" />
-                <input type="hidden" asp-for="Id"/>
-                <input type="hidden" asp-for="CreationDate"/>
-                <input type="hidden" asp-for="AcceptationDate"/>
+                <input type="hidden" name="JeSuis" value="@ViewBag.JeSuis" />
+                <input type="hidden" name="IdMembre" value="@ViewBag.IdMembre"/>
+                <input type="hidden" asp-for="Adresse" />
+                <input type="hidden" asp-for="Type" />
+                <input type="hidden" asp-for="Materiel" />
+                <input type="hidden" asp-for="Createur" />
+                <input type="hidden" asp-for="Id" />
+                <input type="hidden" asp-for="CreationDate" />
+                <input type="hidden" asp-for="AcceptationDate" />
                 <input type="submit" value="Modifier" class="btn btn-primary" />
             </div>
         </form>
-        
+
     </div>
 </div>
 

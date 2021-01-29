@@ -41,7 +41,14 @@ namespace Pandami.Remplissage_des_tables
                 }
 
                 context.JourDeLaSemaines.AddRange(
+
+
                     new JourDeLaSemaine
+                    {
+                        NomDuJour = "Dimanche",
+                    },
+
+                        new JourDeLaSemaine
                     {
                         NomDuJour = "Lundi"
 
@@ -75,13 +82,11 @@ namespace Pandami.Remplissage_des_tables
                     {
                         NomDuJour = "Samedi"
 
-                    },
-
-                    new JourDeLaSemaine
-                    {
-                        NomDuJour = "Dimanche"
-
                     }
+                        
+                        
+
+                    
                 );
 
                 if (context.CategorieAides.Any())
@@ -228,7 +233,7 @@ namespace Pandami.Remplissage_des_tables
                         NomMateriel = "Ordinateur"
 
                     },
-                    
+
                     new Materiel
                     {
                         NomMateriel = "Aucun"
@@ -237,8 +242,31 @@ namespace Pandami.Remplissage_des_tables
 
 
                 );
+                if (context.TypeLitiges.Any())
+                {
+                    return;   // DB has been seeded
+                }
 
+                context.TypeLitiges.AddRange(
 
+                    new TypeLitige
+                    {
+                        Libelle = "Helper ne s'est pas présenter"
+                    },
+
+                    new TypeLitige
+                    {
+                        Libelle = "Giftee absent"
+                    },
+                    new TypeLitige
+                    {
+                        Libelle = "Casse"
+                    },
+                    new TypeLitige
+                    {
+                        Libelle = "Vol"
+                    }
+                    );
 
 
                 context.SaveChanges();
