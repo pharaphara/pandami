@@ -12,7 +12,7 @@ namespace Pandami.Models
     {
         public int Id { get; set; }
 
-
+        [Display(Name = "Aide demandée")]
         public string NomAide { get; set; }
 
 

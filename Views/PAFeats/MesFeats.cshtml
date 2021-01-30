@@ -33,73 +33,118 @@
                 @Html.DisplayNameFor(model => model.Adresse)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.SommePrevoir)
-            <th>
-                @Html.DisplayNameFor(model => model.AnnulationDate)
+                @Html.DisplayNameFor(model => model.ClotureDate)
             </th>
-
+            <th>
+                                                                          
+            </th>
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model)
         {
-        <tr>
-            <td>
-                Feat n°
-                @Html.DisplayFor(modelItem => item.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Createur.Nom)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Reponses.FirstOrDefault().Helper.Nom)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Type.NomAide)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.RealisationDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.HeureDebut)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.HeureFin)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Adresse.NumeroDeVoie)
-                @Html.DisplayFor(modelItem => item.Adresse.NomDeVoie)
-                @Html.DisplayFor(modelItem => item.Adresse.Ville)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SommePrevoir)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AnnulationDate)
-            </td>
-            <td>
+            @if (item.ClotureDate != null)
+            {
+                <tr class="realisedFeat">
+                    <td>
+                        Feat n°
+                        @Html.DisplayFor(modelItem => item.Id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Createur.Nom)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Reponses.FirstOrDefault().Helper.Nom)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Type.NomAide)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.RealisationDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.HeureDebut)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.HeureFin)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Adresse.NumeroDeVoie)
+                        @Html.DisplayFor(modelItem => item.Adresse.NomDeVoie)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ClotureDate)
+                    </td>
+                    <td>
+                        <form asp-action="Details">
 
-                <form asp-action="Details">
+                            <input type="hidden" name="IdFeat" value="@item.Id" />
+                            <input type="hidden" name="IdMembre" value="@item.Id" />
+                            <input type="submit" value="Détails du Feat" class="btn btn-primary" />
+                        </form>
+                        <a asp-action="AnnulationFeat" asp-route-id="@item.Id"> Delete </a>
+                        @if (@ViewBag.ListIdNegociationsEnCours.Contains(item.Id))
+                        {
+                            <form asp-action="VisualiserNegociation">
+                                <input type="hidden" name="IdFeat" value="@item.Id" />
+                                <input type="hidden" name="IdMembre" value="@item.Createur.Id" />
+                                <input type="submit" value="Négociation du Feat" class="btn btn-success" />
+                            </form>
+                        }
+                    </td>
+                </tr>
+            }
+            else
+            {
+            <tr>
+                <td>
+                    Feat n°
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Createur.Nom)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Reponses.FirstOrDefault().Helper.Nom)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Type.NomAide)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RealisationDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.HeureDebut)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.HeureFin)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Adresse.NumeroDeVoie)
+                    @Html.DisplayFor(modelItem => item.Adresse.NomDeVoie)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ClotureDate)
+                </td>
+                <td>
+                    <form asp-action="Details">
 
-                    <input type="hidden" name="IdFeat" value="@item.Id" />
-                    <input type="hidden" name="IdMembre" value="@item.Id" />
-                    <input type="submit" value="Modifier le Feat" class="btn btn-primary" />
-                </form>
-                <a asp-action="AnnulationFeat" asp-route-id="@item.Id"> Delete </a>
-                @if (@ViewBag.ListIdNegociationsEnCours.Contains(item.Id))
-                {
-
-                    <form asp-action="VisualiserNegociation">
                         <input type="hidden" name="IdFeat" value="@item.Id" />
-                        <input type="hidden" name="IdMembre" value="@item.Createur.Id" />
-                        <input type="submit" value="Négociation du Feat" class="btn btn-success" />
+                        <input type="hidden" name="IdMembre" value="@item.Id" />
+                        <input type="submit" value="Détails du Feat" class="btn btn-primary" />
                     </form>
-
-                }
-            </td>
-            <td>
-            </td>
-        </tr>
+                    <a asp-action="AnnulationFeat" asp-route-id="@item.Id"> Delete </a>
+                    @if (@ViewBag.ListIdNegociationsEnCours.Contains(item.Id))
+                    {
+                        <form asp-action="VisualiserNegociation">
+                            <input type="hidden" name="IdFeat" value="@item.Id" />
+                            <input type="hidden" name="IdMembre" value="@item.Createur.Id" />
+                            <input type="submit" value="Négociation du Feat" class="btn btn-success" />
+                        </form>
+                    }
+                </td>
+            </tr>
+            }
         }
     </tbody>
 </table>

@@ -17,15 +17,15 @@ namespace Pandami.Models
         public DateTime CreationDate { get; set; }
         
         [DataType(DataType.Date)]
-        [Display(Name = "Jour du Feat")]
+        [Display(Name = "Date du Feat")]
         public DateTime RealisationDate { get; set; }
 
         [DataType(DataType.Time)]
-        [Display(Name = "Début du Feat")]
+        [Display(Name = "Début")]
         public DateTime HeureDebut { get; set; }
 
         [DataType(DataType.Time)]
-        [Display(Name = "Fin du Feat")]
+        [Display(Name = "Fin")]
         public DateTime HeureFin { get; set; }
 
         [DataType(DataType.Date)]
@@ -44,7 +44,7 @@ namespace Pandami.Models
         public DateTime? FinFeatHelper { get; set; }
 
         [DataType(DataType.Date)]
-        [Display(Name = "Feat terminé")]
+        [Display(Name = "Feat réalisé")]
         public DateTime? ClotureDate { get; set; }
 
         [DataType(DataType.Currency)]
