@@ -12,9 +12,18 @@
         <select name="recherche" asp-items="@ViewBag.Type">
             <option value="">Tous les types d'aide</option>
         </select>
+        <input type="hidden" name="IdMembre" value="@ViewBag.IdMembre" />
 
-        
+
+
+        <label for="start">Jour du Feat :</label>
+
+        <input type="date" name="date"
+               value="@DateTime.Now.Date"
+               min="@DateTime.Now.Date" max="2030-12-31">
+
         <input type="submit" value="Filtrer" />
+
     </p>
 </form>
 

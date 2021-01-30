@@ -8,20 +8,36 @@
 
             @foreach (var item in @ViewBag.CheckType)
             {
-                <div class="checkbox">
+                <div class="form-check">
                     <label>
                         <input type="checkbox"
                                name="CheckBoxes"
+                               class="form-check-input"
                                value="@item.Value"
-                               @if (@ViewBag.Verif > 0) { @if (@ViewBag.SelectType.Contains(item.Value)) { <text> checked </text>  }  } /> - @item.Text
+                               @if (@ViewBag.Verif > 0) { @if (@ViewBag.SelectType.Contains(item.Value)) { <text> checked </text> } } /> - @item.Text
                         </label>
                     </div>
 
                 }
+
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                <label class="form-check-label" for="flexCheckDefault">
+                    Default checkbox
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+                <label class="form-check-label" for="flexCheckChecked">
+                    Checked checkbox
+                </label>
+            </div>
+
+
             <div class="form-group">
-                <label >Rayon d'action en kilomètre</label>
-                <input name="rayon" size="30" value="@ViewBag.rayon"/>
-                
+                <label>Rayon d'action en kilomètre</label>
+                <input name="rayon" size="30" value="@ViewBag.rayon" />
+
             </div>
 
             <div class="form-group text-center">
