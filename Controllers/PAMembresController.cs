@@ -372,13 +372,14 @@ namespace Pandami.Controllers
             if (oldRayon.Count == 0)
             {
                 ViewBag.rayon = 0;
-            }else
+            }
+            else
             {
                 ViewBag.rayon = oldRayon.FirstOrDefault().Rayon;
             }
 
 
-            
+
             ViewBag.Verif = 0;
             if (ListSelectedType.Count > 0)
             {
@@ -391,7 +392,7 @@ namespace Pandami.Controllers
 
         }
         [HttpPost]
-        public async Task<IActionResult> Pref(int membreId, string[] CheckBoxes, float rayon )
+        public async Task<IActionResult> Pref(int membreId, string[] CheckBoxes, float rayon)
         {
             ViewBag.IdMembre = membreId;
             Membre membre = GetMembre(membreId);
@@ -467,23 +468,27 @@ namespace Pandami.Controllers
 
             };
             var oldRayon = GetTRayonAction(membreId);
-            if (oldRayon.Count == 0&& rayon!=0)
+            if (rayon != 0)
             {
-                _context.Add(newRayon);
-                await _context.SaveChangesAsync();
-            }
-            else
-            {
-                if (oldRayon.FirstOrDefault().Rayon!=newRayon.Rayon)
+
+
+                if (oldRayon.Count == 0 && rayon != 0)
                 {
-                    oldRayon.FirstOrDefault().ValiditeFin = DateTime.Now;
-                    _context.Update(oldRayon.FirstOrDefault());
                     _context.Add(newRayon);
                     await _context.SaveChangesAsync();
                 }
+                else
+                {
+                    if (oldRayon.FirstOrDefault().Rayon != newRayon.Rayon)
+                    {
+                        oldRayon.FirstOrDefault().ValiditeFin = DateTime.Now;
+                        _context.Update(oldRayon.FirstOrDefault());
+                        _context.Add(newRayon);
+                        await _context.SaveChangesAsync();
+                    }
+                }
             }
-                
-            
+
 
 
             return RedirectToAction("Profil", "PaMembres", new { @id = membreId }); ;
@@ -519,11 +524,11 @@ namespace Pandami.Controllers
 
             if (_context.RayonActions.Any())
             {
-                 rayonAction = _context.RayonActions
-                                                  .Where(p => p.Membre.Id == Id)
-                                                  .Where(p => p.ValiditeFin == null)
+                rayonAction = _context.RayonActions
+                                                 .Where(p => p.Membre.Id == Id)
+                                                 .Where(p => p.ValiditeFin == null)
 
-                                                  .ToList();
+                                                 .ToList();
 
             }
 
