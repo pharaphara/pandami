@@ -1,15 +1,12 @@
 ﻿@model Pandami.Models.Feat
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Créer un Feat";
 
 }
 
 <p></p>
-<h1>Create</h1>
-
-<h4>Feat</h4>
-<div>   Ca va marcher @Model.Createur.Nom @ViewBag.AdresseCreateur </div>
+<h1>Créer un Feat</h1>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -18,20 +15,16 @@
             <input type="hidden" asp-for="Createur" value="@Model.Createur.Id" />
 
             <div class="form-group">
-                <label class="control-label">Nom du Giftee : @Model.Createur.Nom</label>
-            </div>
-
-            <div class="form-group">
-                <label>Activité </label>
                 <label asp-for="Type" class="control-label">Aide demandée</label>
                 <select asp-for="Type" asp-items="@ViewBag.TypesAide" id="maListe">
+                    <option>Sélectionnez un type de Feat</option>
                 </select>
                 <span asp-validation-for="Type" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Materiel" class="control-label"></label>
                 <select asp-for="Materiel" asp-items="@ViewBag.Materiels" id="maListe">
-                    <option value="null">      </option>
+                    <option value="Aucun">Sélectionnez le matériel (si nécessaire)</option>
                 </select>
                 <span asp-validation-for="Materiel" class="text-danger"></span>
             </div>
@@ -63,12 +56,12 @@
                 <span asp-validation-for="SommePrevoir" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary"/>
+                <input type="submit" value="Créer le Feat" class="btn btn-primary"/>
             </div>
         </form>
     </div>
 </div>
-
+ 
 <div>
     <a asp-action="HomeFeatsHome">Back to List</a>
 </div>

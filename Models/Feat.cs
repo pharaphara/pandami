@@ -10,21 +10,22 @@ namespace Pandami.Models
 {
     public class Feat
     {
+        [Display(Name = "N° du Feat")]
         public int Id { get; set; }
 
         [DataType(DataType.Date)]
         public DateTime CreationDate { get; set; }
         
         [DataType(DataType.Date)]
-        [Display(Name = "Jour du FEAT")]
+        [Display(Name = "Jour du Feat")]
         public DateTime RealisationDate { get; set; }
 
         [DataType(DataType.Time)]
-        [Display(Name = "Début du FEAT")]
+        [Display(Name = "Début du Feat")]
         public DateTime HeureDebut { get; set; }
 
         [DataType(DataType.Time)]
-        [Display(Name = "Fin du FEAT")]
+        [Display(Name = "Fin du Feat")]
         public DateTime HeureFin { get; set; }
 
         [DataType(DataType.Date)]
@@ -35,7 +36,7 @@ namespace Pandami.Models
         public DateTime? EnCoursRealisation { get; set; }
 
         [DataType(DataType.Time)]
-        [Display(Name = "Helper sur place")]
+        [Display(Name = "Helper sur lieu du Feat")]
         public DateTime? SurPlace { get; set; }
 
         [DataType(DataType.Time)]
@@ -63,7 +64,7 @@ namespace Pandami.Models
         public Boolean EchangeMonetaire { get; set; }
 
         //posède un créateur
-        [Display(Name ="GIFTEE")]
+        [Display(Name ="Giftee")]
         public Membre Createur { get; set; }
 
         //collection de réponse

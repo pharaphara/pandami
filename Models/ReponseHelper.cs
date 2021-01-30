@@ -16,6 +16,7 @@ namespace Pandami.Models
         [DataType(DataType.Date)]
         public DateTime? DesistementDate { get; set; }
 
+        [Display(Name = "Helper")]
         public Membre Helper { get; set; }
 
         public Feat Feat { get; set; }
