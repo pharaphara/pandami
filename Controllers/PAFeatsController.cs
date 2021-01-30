@@ -117,16 +117,22 @@ namespace Pandami.Controllers
 
 
 
-        public async Task<IActionResult> HomeFeatsHome(int Id)
+        public async Task<IActionResult> HomeFeatsHome(int Id, string recherche)
         {
             //Eagerly Loading pour charger toutes les entités liées
-            List<Feat> listFeats = _context.Feats
+            IList<Feat> listFeats = _context.Feats
                        .Where(b => b.AnnulationDate == null && b.Createur.Id != Id && b.ClotureDate == null && b.AcceptationDate == null)
                       .Include(b => b.Adresse)
                       .Include(b => b.Type)
                       .Include(b => b.Createur)
                       .ToList();
 
+            if (!String.IsNullOrEmpty(recherche))
+            {
+                listFeats = listFeats.Where(s => s.Type.NomAide.Contains(recherche)).ToList();
+            }
+
+            ViewBag.Type = new SelectList( (from m in _context.TypeAides select m.NomAide).Distinct().ToList());
             ViewBag.IdMembre = Id;
 
 

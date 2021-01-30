@@ -17,5 +17,7 @@
     <PackageReference Include="NodaTime" Version="3.0.5" />
   </ItemGroup>
 
+  <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>
+
 
 </Project>
