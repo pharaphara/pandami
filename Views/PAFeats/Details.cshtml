@@ -5,6 +5,7 @@
 }
 
 <h1>Feat n°@Model.Id</h1>
+<h4 align="right">Membre connecté : @ViewBag.PrenomMembre @ViewBag.NomMembre</h4>
 <div>
     @if (@ViewBag.Affichage == 2 && @ViewBag.Reponses.Count > 0 && Model.RealisationDate.Date == DateTime.Now.Date && Model.FinFeatHelper == null)
     {
@@ -34,7 +35,7 @@
                         }
                     }
                 }
-                <input type="submit" value="@phrase" class="btn btn-primary" />
+                <input type="submit" value="@phrase" class="btnDeroulement" />
             </div>
         </form>
     }
@@ -49,134 +50,151 @@
         </form>
     }
 
-<dl class="row">
-    <dt class="col-sm-2">
-        Giftee
-    </dt>
-    <dd class="col-sm-10">
-        @Html.DisplayFor(model => model.Createur.Prenom)  @Html.DisplayFor(model => model.Createur.Nom)
-    </dd>
-    <dt class="col-sm-2">
-        Helper
-    </dt>
-    <dd class="col-sm-10">
-        @Html.DisplayFor(model => model.Reponses.FirstOrDefault().Helper.Prenom) @Html.DisplayFor(model => model.Reponses.FirstOrDefault().Helper.Nom)
-    </dd>
-    <dt class="col-sm-2">
-        @Html.DisplayNameFor(model => model.Type.NomAide)
-    </dt>
-    <dd class="col-sm-10">
-        @Html.DisplayFor(model => model.Type.NomAide)
-    </dd>
-    <dt class="col-sm-2">
-        @Html.DisplayNameFor(model => model.Materiel.NomMateriel)
-    </dt>
-    <dd class="col-sm-10">
-        @Html.DisplayFor(model => model.Materiel.NomMateriel)
-    </dd>
-    <dt class="col-sm-2">
-        @Html.DisplayNameFor(model => model.Adresse)
-    </dt>
-    <dd class="col-sm-10">
-        @Html.DisplayFor(model => model.Adresse.NomDeVoie)
-    </dd>
-    <dt class="col-sm-2">
-        @Html.DisplayNameFor(model => model.RealisationDate)
-    </dt>
-    <dd class="col-sm-10">
-        @Html.DisplayFor(model => model.RealisationDate)
-    </dd>
-    <dt class="col-sm-2">
-        @Html.DisplayNameFor(model => model.HeureDebut)
-    </dt>
-    <dd class="col-sm-10">
-        @Html.DisplayFor(model => model.HeureDebut)
-    </dd>
-    <dt class="col-sm-2">
-        @Html.DisplayNameFor(model => model.HeureFin)
-    </dt>
-    <dd class="col-sm-10">
-        @Html.DisplayFor(model => model.HeureFin)
-    </dd>
-    <dt class="col-sm-2">
-        @Html.DisplayNameFor(model => model.SommePrevoir)
-    </dt>
-    <dd class="col-sm-10">
-        @Html.DisplayFor(model => model.SommePrevoir)
-    </dd>
-    <dt class="col-sm-2">
-        @Html.DisplayNameFor(model => model.AnnulationDate)
-    </dt>
-    <dd class="col-sm-10">
-        @Html.DisplayFor(model => model.AnnulationDate)
-    </dd>
-    <dt class="col-sm-2">
-        @Html.DisplayNameFor(model => model.ClotureDate)
-    </dt>
-    <dd class="col-sm-10">
-        @Html.DisplayFor(model => model.ClotureDate)
-    </dd>
-</dl>
-    @if (@ViewBag.Reponses.Count == 0 && Model.Createur.Id != @ViewBag.IdMembre)
-    {
-        <form asp-action="AccepterFeat" method="post">
-            <div>
-                <input type="hidden" name="IdMembre" value="@ViewBag.IdMembre" />
-                <input type="hidden" name="IdFeat" value="@Model.Id" />
-                <input type="submit" value="Accepter le Feat" class="btn btn-primary" />
-            </div>
-        </form>
-    }
+    <dl class="row">
+        <dt class="col-sm-2">
+            Giftee
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Createur.Prenom)  @Html.DisplayFor(model => model.Createur.Nom)
+        </dd>
+        <dt class="col-sm-2">
+            Helper
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Reponses.FirstOrDefault().Helper.Prenom) @Html.DisplayFor(model => model.Reponses.FirstOrDefault().Helper.Nom)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Type.NomAide)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Type.NomAide)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Materiel.NomMateriel)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Materiel.NomMateriel)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Adresse)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Adresse.NomDeVoie)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.RealisationDate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.RealisationDate)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.HeureDebut)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.HeureDebut)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.HeureFin)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.HeureFin)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.SommePrevoir)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.SommePrevoir)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.AnnulationDate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.AnnulationDate)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ClotureDate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ClotureDate)
+        </dd>
+    </dl>
+    <table class="tableBouton">
+        <thead>
+            <tr>
+                @if (@ViewBag.Reponses.Count == 0 && Model.Createur.Id != @ViewBag.IdMembre)
+                {
+                    <th>
+                        <form asp-action="AccepterFeat" method="post">
+                            <div>
+                                <input type="hidden" name="IdMembre" value="@ViewBag.IdMembre" />
+                                <input type="hidden" name="IdFeat" value="@Model.Id" />
+                                <input type="submit" value="Accepter le Feat" class="btn btn-primary" />
+                            </div>
+                        </form>
+                    </th>
+                }
 
-    @if (@ViewBag.Affichage == 1 && Model.AnnulationDate == null)//giftee
-    {
-        <form asp-action="ModifFeatGiftee" method="post">
-            <div>
-                <input type="hidden" name="JeSuis" value="@ViewBag.Affichage" />
-                <input type="hidden" name="IdMembre" value="@ViewBag.IdMembre" />
-                <input type="hidden" name="IdFeat" value="@Model.Id" />
-                <input type="submit" value="Modifier le Feat" class="btn btn-primary" />
-            </div>
-        </form>
-        <form asp-action="AnnulationFeat" method="post">
-            <div>
-                <input type="hidden" name="JeSuis" value="@ViewBag.Affichage" />
-                <input type="hidden" name="IdMembre" value="@ViewBag.IdMembre" />
-                <input type="hidden" name="Id" value="@Model.Id" />
-                <input type="submit" value="Annuler le Feat" class="btn btn-danger" />
-            </div>
-        </form>
-    }
-    @if (@ViewBag.Affichage == 2 && @ViewBag.Reponses.Count > 0) //helper
-    {
-        <form asp-action="ModifFeatGiftee" method="post">
-            <div>
-                <input type="hidden" name="JeSuis" value="@ViewBag.Affichage" />
-                <input type="hidden" name="IdMembre" value="@ViewBag.IdMembre" />
-                <input type="hidden" name="IdFeat" value="@Model.Id" />
-                <input type="submit" value="Modifier le Feat" class="btn btn-primary" />
-            </div>
-        </form>
+                @if (@ViewBag.Affichage == 1 && Model.AnnulationDate == null)//giftee
+                {
+                    <th>
+                        <form asp-action="ModifFeatGiftee" method="post">
+                            <div>
+                                <input type="hidden" name="JeSuis" value="@ViewBag.Affichage" />
+                                <input type="hidden" name="IdMembre" value="@ViewBag.IdMembre" />
+                                <input type="hidden" name="IdFeat" value="@Model.Id" />
+                                <input type="submit" value="Modifier le Feat" class="btn btn-primary" />
+                            </div>
+                        </form>
+                    </th>
+                    <th>
+                        <form asp-action="AnnulationFeat" method="post">
+                            <div>
+                                <input type="hidden" name="JeSuis" value="@ViewBag.Affichage" />
+                                <input type="hidden" name="IdMembre" value="@ViewBag.IdMembre" />
+                                <input type="hidden" name="Id" value="@Model.Id" />
+                                <input type="submit" value="Annuler le Feat" class="btn btn-danger" />
+                            </div>
+                        </form>
+                    </th>
+                }
+                @if (@ViewBag.Affichage == 2 && @ViewBag.Reponses.Count > 0) //helper
+                {
+                    <th>
+                        <form asp-action="ModifFeatGiftee" method="post">
+                            <div>
+                                <input type="hidden" name="JeSuis" value="@ViewBag.Affichage" />
+                                <input type="hidden" name="IdMembre" value="@ViewBag.IdMembre" />
+                                <input type="hidden" name="IdFeat" value="@Model.Id" />
+                                <input type="submit" value="Modifier" class="btn btn-primary" />
+                            </div>
+                        </form>
+                    </th>
+                    <th>
+                        <form asp-action="DesistementFeat" method="post">
+                            <div>
+                                <input type="hidden" name="IdMembre" value="@ViewBag.IdMembre" />
+                                <input type="hidden" name="IdFeat" value="@Model.Id" />
+                                <input type="submit" value="Me désister" class="btn btn-danger" />
+                            </div>
+                        </form>
+                    </th>
 
-        <form asp-action="DesistementFeat" method="post">
-            <div>
-                <input type="hidden" name="IdMembre" value="@ViewBag.IdMembre" />
-                <input type="hidden" name="IdFeat" value="@Model.Id" />
-                <input type="submit" value="Me désister du Feat" class="btn btn-danger" />
-            </div>
-        </form>
-
-    }
-    @if (@ViewBag.Reponses.Count > 0)
-    {
-        <form asp-controller="Side" asp-action="Litige" method="post">
-            <div>
-                <input type="hidden" name="IdMembre" value="@ViewBag.IdMembre" />
-                <input type="hidden" name="IdFeat" value="@Model.Id" />
-                <input type="submit" value="Litige" class="btn btn-secondary" />
-            </div>
-        </form>
-    }
+                }
+                @if (@ViewBag.Reponses.Count > 0)
+                {
+                    <th>
+                        <form asp-controller="Side" asp-action="Litige" method="post">
+                            <div>
+                                <input type="hidden" name="IdMembre" value="@ViewBag.IdMembre" />
+                                <input type="hidden" name="IdFeat" value="@Model.Id" />
+                                <input type="submit" value="Litige" class="btn btn-secondary" />
+                            </div>
+                        </form>
+                    </th>
+                }
+            </tr>
+        </thead>
+    </table>
 
 
 </div>

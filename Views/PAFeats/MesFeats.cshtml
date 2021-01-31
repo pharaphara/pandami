@@ -1,11 +1,10 @@
 ﻿@model IEnumerable<Pandami.Models.Feat>
 
 @{
-    ViewData["Title"] = "Mes Feats GIFTEE";
+    ViewData["Title"] = "Mes Feats Giftee";
 }
 
-<h1>MES FEATS EN TANT QUE GIFTEE
-    </h1>
+<h1>Mes Feats (Giftee)</h1>
 <h4 align="right">Membre connecté : @ViewBag.PrenomMembre @ViewBag.NomMembre</h4>
 <table class="table">
     <thead>
@@ -132,7 +131,7 @@
 
                             <input type="hidden" name="IdFeat" value="@item.Id" />
                             <input type="hidden" name="IdMembre" value="@item.Createur.Id" />
-                            <input type="submit" value="Détails du Feat" class="btn btn-primary" />
+                            <input type="submit" value="Détails" class="btn btn-primary" />
                         </form>
                         @if (@ViewBag.ListIdNegociationsEnCours.Contains(item.Id))
                         {

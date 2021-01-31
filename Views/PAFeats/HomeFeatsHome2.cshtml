@@ -5,10 +5,14 @@
 }
 
 <h1>HomeFeatHome2</h1>
+<h4 align="right">Membre connecté : @ViewBag.PrenomMembre @ViewBag.NomMembre</h4>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+    <form asp-action="Creation">
+        <div>
+            <input type="hidden" name="Id" value="@ViewBag.IdMembre" />
+            <input type="submit" value="Créer un Feat" class="btn btn-primary" />
+        </div>
+    </form>
 
 @if(ViewBag.NoResult)
 {

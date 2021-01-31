@@ -8,20 +8,22 @@ a.navbar-brand {
 }
 
 header {
-    background-color: #f2d18a;
+    /*background-color: #f2d18a;*/
+    background-color: #c9d5ac;
 }
 
 body {
     /* Margin bottom by footer height */
     margin-bottom: 60px;
     /*background: linear-gradient(#32ccbc, #32ccbc);*/
-    /*background: linear-gradient(#58b1ba, #a1e9f2);*/
-    background-color: #a1e9f2;
+    /*background: linear-gradient(#58b1ba, #a1e9f2);   couleur v1 #a1e9f2*/
+    background-color: #165d65;
     font-family: Verdana;
+    color: antiquewhite;
 }
 
 h1 {
-    color: #20343f;
+    color: antiquewhite;
 }
 
 .footer {
@@ -111,9 +113,18 @@ html {
     margin: 10px 10px 10px 0px;
 }
 
+.btnDeroulement {
+    color: black;
+    background-color: #c9d5ac;
+    border-color: #9f8a5e;
+    margin: 10px 10px 10px 0px;
+    font-size: 20px;
+    padding: 32px 16px;
+}
+
 .btn-primary {
     color: black;
-    background-color: #f2d18a;
+    background-color: #c9d5ac;
     border-color: #9f8a5e;
     margin: 10px 10px 10px 0px;
 }
@@ -157,7 +168,6 @@ table {
     table-layout: auto;
     width: 100%;
     text-align: center;
-    color: black;
 }
 .table > tbody > tr > td,
 .table > tbody > tr > th,
@@ -169,22 +179,25 @@ table {
 }
 
 table tbody tr:nth-child(odd) {
-    background-color: #c8f9ff;
+    background-color: #558d93;
 }
 
 thead {
     border: 2px solid rgb(100, 100, 100);
     min-width: 100px;
+    color: antiquewhite;
 }
 
 td {
     min-width: 7vw;
     max-width: 12vw;
     vertical-align: middle;
+    color: antiquewhite;
 }
 
 .realisedFeat {
-    opacity: 0.5;
+    opacity: 0.3;
+    color: antiquewhite;
 }
 
 .row {
@@ -192,4 +205,12 @@ td {
     max-width: 600vw;
     vertical-align: middle;
     min-height: 30vw;
+}
+
+.tableBouton {
+    border-collapse: collapse;
+    border: hidden;
+    /*table-layout: auto;*/
+    width: 100%;
+    max-width: 25vw;
 }
