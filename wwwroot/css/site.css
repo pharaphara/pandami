@@ -8,20 +8,20 @@ a.navbar-brand {
 }
 
 header {
-    background-color: #daf7f8;
+    background-color: #f2d18a;
 }
 
 body {
     /* Margin bottom by footer height */
     margin-bottom: 60px;
     /*background: linear-gradient(#32ccbc, #32ccbc);*/
-    background: linear-gradient(#58b1ba, #a1e9f2);
-    color: black;
+    /*background: linear-gradient(#58b1ba, #a1e9f2);*/
+    background-color: #a1e9f2;
     font-family: Verdana;
 }
 
 h1 {
-    color: #3b6272;
+    color: #20343f;
 }
 
 .footer {
@@ -41,15 +41,17 @@ h1 {
 
 /* Provide sufficient contrast against white background */
 a {
-    color: #0366d6;
+    color: rgb(25, 104, 89);
+    font-weight: 500;
 }
 
+    a:hover {
+        color: rgb(25, 104, 89);
+        font-weight: 600;
+    } 
 
-.btn-primary {
-    color: #fff;
-    background-color: #1b6ec2;
-    border-color: #1861ac;
-}
+
+
 
 
 
@@ -101,17 +103,29 @@ html {
     color: darkblue;
 }
 
-.btn-primary {
-    color: #0F4c81;
-    background-color: ghostwhite;
-    border-color: #3b6272;
+.btn-secondary {
+    margin: 10px 10px 10px 0px;
 }
 
+.btn-danger {
+    margin: 10px 10px 10px 0px;
+}
+
+.btn-primary {
+    color: black;
+    background-color: #f2d18a;
+    border-color: #9f8a5e;
+    margin: 10px 10px 10px 0px;
+}
+
+
+
     .btn-primary:hover {
-        color: #fff;
-        background-color: #3b6272;
-        border-color: #3b6272;
+        color: black;
+        background-color: #d9bb7c;
+        border-color: #d9bb7c;
     }
+
 
     .btn-primary:focus, .btn-primary.focus {
         box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.5);
@@ -119,15 +133,15 @@ html {
 
     .btn-primary.disabled, .btn-primary:disabled {
         color: #fff;
-        background-color: #007bff;
+        background-color: #20343f;
         border-color: #007bff;
     }
 
     .btn-primary:not(:disabled):not(.disabled):active, .btn-primary:not(:disabled):not(.disabled).active,
     .show > .btn-primary.dropdown-toggle {
-        color: #fff;
-        background-color: #0062cc;
-        border-color: #005cbf;
+        color: black;
+        background-color: #d9bb7c;
+        border-color: #d9bb7c;
     }
 
     .btn-primary:not(:disabled):not(.disabled):active:focus, .btn-primary:not(:disabled):not(.disabled).active:focus,
@@ -135,9 +149,11 @@ html {
             box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.5);
     }
 
+
+
 table {
     border-collapse: collapse;
-    border: 3px solid #3b6272;
+    border: 3px solid #20343f;
     table-layout: auto;
     width: 100%;
     text-align: center;
@@ -150,6 +166,10 @@ table {
 .table > thead > tr > td,
 .table > thead > tr > th {
     vertical-align: middle;
+}
+
+table tbody tr:nth-child(odd) {
+    background-color: #c8f9ff;
 }
 
 thead {
@@ -165,4 +185,11 @@ td {
 
 .realisedFeat {
     opacity: 0.5;
+}
+
+.row {
+    min-width: 80vw;
+    max-width: 600vw;
+    vertical-align: middle;
+    min-height: 30vw;
 }

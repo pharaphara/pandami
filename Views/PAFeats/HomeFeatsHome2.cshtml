@@ -17,7 +17,18 @@
 <table class="table">
     <thead>
         <tr>
-            
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Createur)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Reponses.FirstOrDefault().Helper)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Type.NomAide)
+            </th>
             <th>
                 @Html.DisplayNameFor(model => model.RealisationDate)
             </th>
@@ -27,89 +38,60 @@
             <th>
                 @Html.DisplayNameFor(model => model.HeureFin)
             </th>
-            
             <th>
-                @Html.DisplayNameFor(model => model.EnCoursRealisation)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.SurPlace)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FinFeatHelper)
+                @Html.DisplayNameFor(model => model.Adresse)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.ClotureDate)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.SommePrevoir)
+
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.SommeAvancee)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.SommeRembourseeDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AnnulationDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.EchangeMonetaire)
-            </th>
-            <th></th>
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CreationDate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.RealisationDate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.HeureDebut)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.HeureFin)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.AcceptationDate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.EnCoursRealisation)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.SurPlace)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.FinFeatHelper)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ClotureDate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.SommePrevoir)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.SommeAvancee)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.SommeRembourseeDate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.AnnulationDate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.EchangeMonetaire)
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                </td>
-            </tr>
+        <tr>
+            <td>
+                Feat n°
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Createur.Nom)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Reponses.FirstOrDefault().Helper.Nom)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Type.NomAide)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RealisationDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HeureDebut)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HeureFin)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Adresse.NumeroDeVoie)
+                @Html.DisplayFor(modelItem => item.Adresse.NomDeVoie)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ClotureDate)
+            </td>
+            <td>
+                <form asp-action="Details">
+                    <div>
+                        <input type="hidden" name="IdMembre" value="@ViewBag.IdMembre" />
+                        <input type="hidden" name="IdFeat" value="@item.Id" />
+                        <input type="submit" value="Accepter le Feat" class="btn btn-primary" />
+                    </div>
+                </form>
+            </td>
+        </tr>
         }
     </tbody>
 </table>

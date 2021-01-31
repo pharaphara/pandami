@@ -63,6 +63,10 @@ namespace Pandami.Controllers
 
             ViewBag.AdresseCreateur = membre.Adresse.NomDeVoie;
 
+
+            ViewBag.PrenomMembre = membre.Prenom;
+            ViewBag.NomMembre = membre.Nom;
+
             return View(newFeat);
         }
 
@@ -125,6 +129,7 @@ namespace Pandami.Controllers
                       .Include(b => b.Adresse)
                       .Include(b => b.Type)
                       .Include(b => b.Createur)
+                      .Include("Reponses.Helper")
                       .ToList();
 
             if (!String.IsNullOrEmpty(recherche))
@@ -141,6 +146,11 @@ namespace Pandami.Controllers
             ViewBag.Type = new SelectList( (from m in _context.TypeAides select m.NomAide).Distinct().ToList());
             ViewBag.IdMembre = Id;
 
+            Membre membre = _context.Membres
+             .Where(b => b.Id == Id)
+             .FirstOrDefault();
+            ViewBag.PrenomMembre = membre.Prenom;
+            ViewBag.NomMembre = membre.Nom;
 
 
             return View(listFeats);
@@ -153,6 +163,7 @@ namespace Pandami.Controllers
                       .Include(b => b.Adresse)
                       .Include(b => b.Type)
                       .Include(b => b.Createur)
+                      .Include("Reponses.Helper")
                       .ToList();
 
             List<PreferenceAide> listPrefs = _context.PreferenceAides
@@ -192,7 +203,11 @@ namespace Pandami.Controllers
             }
 
 
-
+            Membre membre = _context.Membres
+             .Where(b => b.Id == Id)
+             .FirstOrDefault();
+            ViewBag.PrenomMembre = membre.Prenom;
+            ViewBag.NomMembre = membre.Nom;
 
             ViewBag.IdMembre = Id;
 
@@ -220,9 +235,18 @@ namespace Pandami.Controllers
                                                     .ToList();
 
 
+
+
             ViewBag.ListIdNegociationsEnCours = negociationsEnCours;
 
             ViewBag.IdMembre = Id;
+
+            Membre membre = _context.Membres
+                 .Where(b => b.Id == Id)
+                 .FirstOrDefault();
+            ViewBag.PrenomMembre = membre.Prenom;
+            ViewBag.NomMembre = membre.Nom;
+
 
             return View(listFeats);
         }
@@ -254,6 +278,12 @@ namespace Pandami.Controllers
 
             ViewBag.IdMembre = Id;
             ViewBag.ListIdNegociationsEnCours = negociationsEnCours;
+
+            Membre membre = _context.Membres
+              .Where(b => b.Id == Id)
+             .FirstOrDefault();
+            ViewBag.PrenomMembre = membre.Prenom;
+            ViewBag.NomMembre = membre.Nom;
 
 
             return View(feats);
@@ -296,6 +326,10 @@ namespace Pandami.Controllers
             ViewBag.TypesAide = new SelectList(await recupTypeAide.Distinct().ToListAsync());
 
             ViewBag.Adresse = new SelectList(await recupAdresse.Distinct().ToListAsync());
+
+
+            ViewBag.PrenomMembre = membreLogged.Prenom;
+            ViewBag.NomMembre = membreLogged.Nom;
 
             return View(featToModify);
         }
@@ -353,6 +387,12 @@ namespace Pandami.Controllers
 
             ViewBag.TypesAide = new SelectList(await recupTypeAide.Distinct().ToListAsync());
 
+            Membre membre = _context.Membres
+             .Where(b => b.Id == Id)
+             .FirstOrDefault();
+            ViewBag.PrenomMembre = membre.Prenom;
+            ViewBag.NomMembre = membre.Nom;
+
             return View(featToCancel);
         }
 
@@ -393,6 +433,12 @@ namespace Pandami.Controllers
             _context.UpdateRange(reponseFeatDesistement, feat);
             _context.SaveChanges();
 
+            Membre membre = _context.Membres
+             .Where(b => b.Id == IdMembre)
+             .FirstOrDefault();
+            ViewBag.PrenomMembre = membre.Prenom;
+            ViewBag.NomMembre = membre.Nom;
+
             return RedirectToAction("MesFeatsHelper", "PAFeats", new { @id = IdMembre });
         }
 
@@ -430,18 +476,24 @@ namespace Pandami.Controllers
             Feat feat = _context.Feats
                                 .Where(b => b.Id == IdFeat)
                                 .Include(b => b.Createur)
-
+                                .Include("Reponses.Helper")
+                                .Include(b => b.Adresse)
+                                .Include(b => b.Materiel)
                                 .Include(b => b.Type)
                                 .FirstOrDefault();
 
             var Reponses = _context.ReponseHelpers
                                 .Where(b => b.Feat.Id == IdFeat)
-
                                 .Where(b => b.DesistementDate == null)
                                 .ToList();
 
             ViewBag.IdMembre = IdMembre;
             ViewBag.Reponses = Reponses;
+            Membre membre = _context.Membres
+             .Where(b => b.Id == IdMembre)
+             .FirstOrDefault();
+            ViewBag.PrenomMembre = membre.Prenom;
+            ViewBag.NomMembre = membre.Nom;
 
             if (feat.Createur.Id == IdMembre)
             {
@@ -523,6 +575,12 @@ namespace Pandami.Controllers
 
             ViewBag.Adresse = new SelectList(await recupAdresse.Distinct().ToListAsync());
 
+            Membre membre = _context.Membres
+             .Where(b => b.Id == IdMembre)
+             .FirstOrDefault();
+            ViewBag.PrenomMembre = membre.Prenom;
+            ViewBag.NomMembre = membre.Nom;
+
             return View(featToModify);
         }
 
@@ -596,6 +654,12 @@ namespace Pandami.Controllers
             ViewBag.TypesAide = new SelectList(await recupTypeAide.Distinct().ToListAsync());
 
             ViewBag.Adresse = new SelectList(await recupAdresse.Distinct().ToListAsync());
+
+            Membre membre = _context.Membres
+             .Where(b => b.Id == IdMembre)
+             .FirstOrDefault();
+            ViewBag.PrenomMembre = membre.Prenom;
+            ViewBag.NomMembre = membre.Nom;
 
             return View(featToModify);
         }
@@ -686,6 +750,11 @@ namespace Pandami.Controllers
                 .FirstOrDefault();
 
             ViewBag.IdMembre = IdMembre;
+            Membre membre = _context.Membres
+              .Where(b => b.Id == IdMembre)
+             .FirstOrDefault();
+            ViewBag.PrenomMembre = membre.Prenom;
+            ViewBag.NomMembre = membre.Nom;
 
             return View(negocProposee);
 

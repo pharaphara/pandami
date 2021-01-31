@@ -56,9 +56,11 @@ namespace Pandami.Models
         public float? SommeAvancee { get; set; }
 
         [DataType(DataType.Date)]
+        [Display(Name = "Date du remboursement")]
         public DateTime? SommeRembourseeDate { get; set; }
 
         [DataType(DataType.Date)]
+        [Display(Name = "Date d'annulation")]
         public DateTime? AnnulationDate { get; set; }
 
         public Boolean EchangeMonetaire { get; set; }
