@@ -39,7 +39,7 @@ namespace Pandami.Models
         [Display(Name = "Helper sur lieu du Feat")]
         public DateTime? SurPlace { get; set; }
 
-        [DataType(DataType.Time)]
+        [DataType(DataType.Date)]
         [Display(Name = "Feat terminé (Helper)")]
         public DateTime? FinFeatHelper { get; set; }
 

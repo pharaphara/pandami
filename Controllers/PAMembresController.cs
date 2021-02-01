@@ -234,6 +234,7 @@ namespace Pandami.Controllers
                                        select m).FirstOrDefaultAsync();
             membre.Sexe = sexeMembre;
             membre.Adresse = adresseMembre;
+            ViewBag.IdMembre = membre.Id;
 
             if (ModelState.IsValid)
             {
@@ -253,7 +254,7 @@ namespace Pandami.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("profil", "PAMembres", new { @id = ViewBag.IdMembre });
             }
             return View(membre);
         }
