@@ -11,15 +11,19 @@ namespace Pandami.Models
         public int Id { get; set; }
 
         [DataType(DataType.Time)]
+        [Display(Name = "Début")]
         public DateTime DebutHeure { get; set; }
 
         [DataType(DataType.Time)]
+        [Display(Name = "Fin")]
         public DateTime FinHeure { get; set; }
 
         [DataType(DataType.Date)]
+        [Display(Name = "Dispo du")]
         public DateTime ValiditeDebutDate { get; set; }
 
         [DataType(DataType.Date)]
+        [Display(Name = "Au")]
         public DateTime? ValiditeFinDate { get; set; }
 
         //une disponibilité possède un jour de la semaine

@@ -17,6 +17,7 @@ body {
     margin-bottom: 60px;
     /*background: linear-gradient(#32ccbc, #32ccbc);*/
     /*background: linear-gradient(#58b1ba, #a1e9f2);   couleur v1 #a1e9f2*/
+    /*background-color: #165d65;*/
     background-color: #165d65;
     font-family: Verdana;
     color: antiquewhite;
@@ -24,6 +25,11 @@ body {
 
 h1 {
     color: antiquewhite;
+    text-align: center;
+}
+
+h4 {
+    text-align: left;
 }
 
 .footer {
@@ -43,7 +49,8 @@ h1 {
 
 /* Provide sufficient contrast against white background */
 a {
-    color: rgb(25, 104, 89);
+    /*color: rgb(25, 104, 89);*/
+    color:antiquewhite;
     font-weight: 500;
 }
 
@@ -213,4 +220,18 @@ td {
     /*table-layout: auto;*/
     width: 100%;
     max-width: 25vw;
+}
+
+.col-md-4 {
+    min-width: 7vw;
+    max-width:12vw;
+}
+
+.colLeBron {
+    min-width: 8vw;
+    max-width: 14vw;
+}
+
+.col-sm-9 {
+    color: hotpink;
 }

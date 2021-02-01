@@ -4,58 +4,51 @@
     ViewData["Title"] = "Négociation proposée";
 }
 
-<h1>Negociation</h1>
-
-Id du Feat  @Model.feat.Id Id du Demandeur @Model.DemandeurId
-<div>
+<h1>Modification du Feat (négociation)</h1>
+<h4>Membre connecté : @ViewBag.PrenomMembre @ViewBag.NomMembre</h4>
+<hr />
     <dl class="row">
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.feat.RealisationDate)
-            DATE PREVUE
+            @Html.DisplayNameFor(model => model.feat.Type.NomAide)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.feat.Type.NomAide)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.feat.RealisationDate) prévue
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.feat.RealisationDate)
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.NewDateProposee)
-            DATE PROPOSEE
         </dt>
-        <dd class="col-sm-10">
+        <dd class="col-sm-9">
             @Html.DisplayFor(model => model.NewDateProposee)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.feat.HeureDebut)
-            HEURE DBT PREVUE
+            @Html.DisplayNameFor(model => model.feat.HeureDebut) prévue
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.feat.HeureDebut)
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.HeureDbtProposee)
-            HEURE DBT PROPOSEE
         </dt>
-        <dd class="col-sm-10">
+        <dd class="col-sm-9">
             @Html.DisplayFor(model => model.HeureDbtProposee)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.feat.HeureFin)
-            HEURE FIN PREVUE
+            @Html.DisplayNameFor(model => model.feat.HeureFin) prévue
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.feat.HeureFin)
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.HeureFinProposee)
-            HEURE FIN PROPOSEE
         </dt>
-        <dd class="col-sm-10">
+        <dd class="col-sm-9">
             @Html.DisplayFor(model => model.HeureFinProposee)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.feat.Type.NomAide)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.feat.Type.NomAide)
         </dd>
     </dl>
     @if (Model.DemandeurId!=ViewBag.IdMembre)

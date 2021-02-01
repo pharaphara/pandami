@@ -17,12 +17,15 @@ namespace Pandami.Models
         public DateTime? DateClotureNegociation { get; set; }
 
         [DataType(DataType.Date)]
+        [Display(Name = "Date du Feat proposée")]
         public DateTime NewDateProposee { get; set; }
 
         [DataType(DataType.Time)]
+        [Display(Name = "Début proposé")]
         public DateTime HeureDbtProposee { get; set; }
 
         [DataType(DataType.Time)]
+        [Display(Name = "Fin proposée")]
         public DateTime HeureFinProposee { get; set; }
 
         public bool IsAccepted { get; set; }

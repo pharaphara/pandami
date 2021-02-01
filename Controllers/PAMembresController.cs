@@ -162,6 +162,8 @@ namespace Pandami.Controllers
                 return NotFound();
             }
             ViewBag.idMembre = membre.Id;
+            ViewBag.PrenomMembre = membre.Prenom;
+            ViewBag.NomMembre = membre.Nom;
 
             return View(membre);
 
@@ -203,7 +205,8 @@ namespace Pandami.Controllers
             ViewBag.ListSexe = new SelectList(await RecupGenre.Distinct().ToListAsync());
             ViewBag.ListAdresse = new SelectList(await RecupAdresse.Distinct().ToListAsync());
 
-
+            ViewBag.PrenomMembre = membre.Prenom;
+            ViewBag.NomMembre = membre.Nom;
 
             return View(membre);
 
@@ -266,6 +269,12 @@ namespace Pandami.Controllers
                        .Include(b => b.membre)
                        .ToList();
 
+            Membre membre = _context.Membres
+                                .Where(b => b.Id == Id).FirstOrDefault();
+            ViewBag.IdMembre = membre.Id;
+            ViewBag.PrenomMembre = membre.Prenom;
+            ViewBag.NomMembre = membre.Nom;
+
             return View(listDispo);
 
         }
@@ -304,6 +313,11 @@ namespace Pandami.Controllers
                 ValiditeDebutDate = DateTime.Now
             };
 
+            Membre membre = _context.Membres
+                    .Where(b => b.Id == Id).FirstOrDefault();
+            ViewBag.IdMembre = membre.Id;
+            ViewBag.PrenomMembre = membre.Prenom;
+            ViewBag.NomMembre = membre.Nom;
 
 
             ViewBag.ListJour = new SelectList(await RecupJours.Distinct().ToListAsync());
@@ -385,7 +399,11 @@ namespace Pandami.Controllers
             {
                 ViewBag.Verif = 1;
             }
-
+            Membre membre = _context.Membres
+                    .Where(b => b.Id == Id).FirstOrDefault();
+            ViewBag.IdMembre = membre.Id;
+            ViewBag.PrenomMembre = membre.Prenom;
+            ViewBag.NomMembre = membre.Nom;
 
 
             return View();

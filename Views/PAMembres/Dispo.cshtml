@@ -4,8 +4,9 @@
     ViewData["Title"] = "Liste de vos disponibilités";
 }
 
-<h1>Dispo, test id = @ViewBag.IdMembre</h1>
-
+<h1>Mes disponibilités</h1>
+<h4>Membre connecté : @ViewBag.PrenomMembre @ViewBag.NomMembre</h4>
+<hr />
 <p>
     <a asp-action="DispoAjout" asp-route-id=@ViewBag.IdMembre>Ajouter une disponibilité</a>
 </p>

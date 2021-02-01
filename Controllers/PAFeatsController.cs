@@ -643,6 +643,7 @@ namespace Pandami.Controllers
                                 .Include(b => b.Adresse)
                                 .Include(b => b.Materiel)
                                 .Include(b => b.Type)
+                                .Include("Reponses.Helper")
                                 .FirstOrDefault();
 
 

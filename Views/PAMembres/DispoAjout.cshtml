@@ -4,9 +4,8 @@
     ViewData["Title"] = "DispoAjout";
 }
 
-<h1>DispoAjout</h1>
-
-<h4>Disponibilite</h4>
+<h1>Disponibilités</h1>
+<h4>Membre connecté : @ViewBag.PrenomMembre @ViewBag.NomMembre</h4>
 <hr />
 
 @if (ViewBag.Cree)
@@ -50,7 +49,7 @@ else {
             
 
             <div class="form-group">
-                <input type="submit" value="DispoAjout" class="btn btn-primary" />
+                <input type="submit" value="Ajouter" class="btn btn-primary" />
             </div>
         </form>
     </div>

@@ -20,15 +20,15 @@ namespace Pandami
             {
                 var services = scope.ServiceProvider;
 
-               // try
-               // {
-               //     RemplissageReferentiels.Initialize(services);
-               // }
-               // catch (Exception ex)
-               // {
-               //     var logger = services.GetRequiredService<ILogger<Program>>();
-               //     logger.LogError(ex, "An error occurred seeding the DB.");
-               // }
+                try
+                {
+                    RemplissageReferentiels.Initialize(services);
+                }
+                catch (Exception ex)
+                {
+                    var logger = services.GetRequiredService<ILogger<Program>>();
+                    logger.LogError(ex, "An error occurred seeding the DB.");
+                }
             }
 
 

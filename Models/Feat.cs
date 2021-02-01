@@ -77,6 +77,7 @@ namespace Pandami.Models
         public TypeAide Type { get; set; }
 
         //possède un matériel
+        [Display(Name = "Matériel nécessaire")]
         public Materiel Materiel { get; set; }
 
         //possède une adresse

@@ -4,11 +4,10 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
-
+<h1>Mon profil</h1>
+<h4>Membre connecté : @ViewBag.PrenomMembre @ViewBag.NomMembre</h4>
+<hr />
 <div>
-    <h4>Membre</h4>
-    <hr />
     <dl class="row">
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Email)
@@ -64,5 +63,4 @@
     <a asp-action="ModifProfil" asp-route-id="@Model.Id">Modifier</a> |
     <a asp-action="Dispo" asp-route-id="@Model.Id">Voir les Disponibilités</a> |
     <a asp-action="Pref" asp-route-id="@Model.Id">Voir les Préférences</a> |
-    <a asp-action="Profil">Retour au profil</a>
 </div>
