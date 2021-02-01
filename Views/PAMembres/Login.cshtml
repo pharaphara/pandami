@@ -2,7 +2,7 @@
 @{
     ViewData["Title"] = "Login";
 
-    
+
 }
 
 
@@ -10,14 +10,12 @@
 <hr />
 @if (ViewBag.IdMembre != null)
 {
-    <div>   Ca va marcher @ViewBag.IdMembre </div>
-
     <a asp-controller="PAFeats" asp-action="HomeFeatsHome" asp-route-id="@ViewBag.IdMembre">Edit</a>
-   <div> </div>
+    <div> </div>
 }
 else
 {
-    <div class="row">
+    <div class="row centrer">
         <div class="col-md-13">
             <form id="login" asp-action="Login" method="post">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -32,16 +30,18 @@ else
                     <span asp-validation-for="Mdp" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <input type="submit" value="Login" class="btn btn-primary" asp-action="Login"/>
+                    <input type="submit" value="Login" class="btn btn-primary" asp-action="Login" />
+                </div>
+                <div>
+                    <a asp-action="Creation" class="centrer">Créer un Compte</a>
                 </div>
             </form>
         </div>
     </div>
 
+
 }
 
 
-<div>
-    <a asp-action="Creation">Créer un Compte</a>
-</div>
+
 

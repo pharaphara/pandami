@@ -14,32 +14,61 @@ header {
 
 body {
     /* Margin bottom by footer height */
-    margin-bottom: 60px;
+    margin: 0;
     /*background: linear-gradient(#32ccbc, #32ccbc);*/
     /*background: linear-gradient(#58b1ba, #a1e9f2);   couleur v1 #a1e9f2*/
-    /*background-color: #165d65;*/
-    background-color: #165d65;
-    font-family: Verdana;
-    color: antiquewhite;
+    background-color: #e4e9f0;
+    font-family: 'Open Sans', sans-serif;
+    color: black;
 }
 
+.container {
+    background-color: white !important;
+}
+
+.container-main {
+    padding: 30px !important;
+    min-height: 1020px;
+}
+
+
 h1 {
-    color: antiquewhite;
+    color: black;
     text-align: center;
+    padding: 15px;
+    color: rgb(50, 105, 120);
+    font-size: 55px;
 }
 
 h4 {
     text-align: left;
+    font-size: 20px;
+    padding: 13px;
+    color: rgb(56, 90, 113);
 }
 
 .footer {
     position: absolute;
     bottom: 0;
-    width: 100%;
     white-space: nowrap;
     line-height: 60px; /* Vertically center the text there */
 }
 
+.padding-10 {
+    padding: 10px !important;
+}
+
+.centrer {
+    justify-content: center;
+}
+
+.clr-nav {
+    background-color: #c9d5ac !important;
+}
+
+.mb-3, .my-3 {
+    margin-bottom: 0rem !important;
+}
 
 .pb-3 {
     // background-color: darkgoldenrod;
@@ -50,7 +79,7 @@ h4 {
 /* Provide sufficient contrast against white background */
 a {
     /*color: rgb(25, 104, 89);*/
-    color:antiquewhite;
+    color: rgb(56, 90, 113);
     font-weight: 500;
 }
 
@@ -58,10 +87,6 @@ a {
         color: rgb(25, 104, 89);
         font-weight: 600;
     } 
-
-
-
-
 
 
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
@@ -121,13 +146,44 @@ html {
 }
 
 .btnDeroulement {
-    color: black;
-    background-color: #c9d5ac;
-    border-color: #9f8a5e;
+    color: floralwhite;
+    background-color: rgb(56, 90, 113);
+    border-color: rgb(56, 90, 113);
     margin: 10px 10px 10px 0px;
     font-size: 20px;
-    padding: 32px 16px;
+    padding: 16px 16px;
+    border-radius: 5px;
 }
+
+    .btnDeroulement:hover {
+        color: floralwhite;
+        background-color: rgb(50, 105, 120);
+        border-color: rgb(56, 90, 113);
+        margin: 10px 10px 10px 0px;
+        font-size: 20px;
+        padding: 16px 16px;
+        border-radius: 5px;
+    }
+
+.btn-creationFeat {
+    color: floralwhite;
+    background-color: rgb(56, 90, 113);
+    border-color: rgb(56, 90, 113);
+    margin: 10px 10px 10px 0px;
+    font-size: 20px;
+    padding: 16px 16px;
+    border-radius: 5px;
+}
+
+    .btn-creationFeat:hover {
+        color: floralwhite;
+        background-color: rgb(50, 105, 120);
+        border-color: rgb(56, 90, 113);
+        margin: 10px 10px 10px 0px;
+        font-size: 20px;
+        padding: 16px 16px;
+        border-radius: 5px;
+    }
 
 .btn-primary {
     color: black;
@@ -135,6 +191,7 @@ html {
     border-color: #9f8a5e;
     margin: 10px 10px 10px 0px;
 }
+
 
 
 
@@ -171,10 +228,10 @@ html {
 
 table {
     border-collapse: collapse;
-    border: 3px solid #20343f;
     table-layout: auto;
     width: 100%;
     text-align: center;
+    font-size: 15px;
 }
 .table > tbody > tr > td,
 .table > tbody > tr > th,
@@ -199,19 +256,20 @@ td {
     min-width: 7vw;
     max-width: 12vw;
     vertical-align: middle;
-    color: antiquewhite;
+    color: black;
 }
 
 .realisedFeat {
     opacity: 0.3;
-    color: antiquewhite;
 }
 
-.row {
+
+.rowPerso {
     min-width: 80vw;
     max-width: 600vw;
     vertical-align: middle;
     min-height: 30vw;
+    justify-content: center;
 }
 
 .tableBouton {
@@ -223,15 +281,32 @@ td {
 }
 
 .col-md-4 {
-    min-width: 7vw;
-    max-width:12vw;
+    /*min-width: 7vw;
+    max-width:12vw;*/
 }
 
 .colLeBron {
-    min-width: 8vw;
-    max-width: 14vw;
+    /**/
 }
 
 .col-sm-9 {
     color: hotpink;
+}
+
+.padding-sides {
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+}
+
+.padding-left-big {
+    padding-left: 80px !important;
+}
+
+.margin-sides {
+    margin-left: 10px !important;
+    margin-right: 10px !important;
+}
+
+.message {
+    font-size: 18px;
 }

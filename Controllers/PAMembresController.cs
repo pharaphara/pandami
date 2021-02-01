@@ -116,7 +116,7 @@ namespace Pandami.Controllers
             if (membreLogged != null && membreLogged.Mdp.Equals(membreLogin.Mdp))
             {
                 ViewBag.IdMembre = membreLogged.Id;
-                return RedirectToAction("MesFeats", "PAFeats", new { @id = ViewBag.IdMembre });
+                return RedirectToAction("HomeFeatsHome", "PAFeats", new { @id = ViewBag.IdMembre });
             }
 
             return View();

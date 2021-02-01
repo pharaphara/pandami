@@ -4,39 +4,40 @@
 @{
     ViewData["Title"] = "Home Feats Home";
 }
-<link rel="stylesheet" href="~/css/site.css" />
-<h1>FEATS EN ATTENTE</h1>
-<form  asp-action="HomeFeatsHome">
+<h1>Home Feats Home</h1>
+<h4>Membre connecté : @ViewBag.PrenomMembre @ViewBag.NomMembre</h4>
+<hr />
+<div>
+    <form asp-action="Creation">
+        <div>
+            <input type="hidden" name="Id" value="@ViewBag.IdMembre" />
+            <input type="submit" value="Créer un Feat" class="btn-creationFeat" />
+        </div>
+    </form>
+</div>
+<hr />
+<form asp-action="HomeFeatsHome" class="padding-10">
     <p>
-        <select name="recherche" asp-items="@ViewBag.Type">
+        <select name="recherche" asp-items="@ViewBag.Type" class="padding-10">
             <option value="">Tous les types d'aide</option>
         </select>
         <input type="hidden" name="IdMembre" value="@ViewBag.IdMembre" />
 
 
 
-        <label for="start">Jour du Feat :</label>
+        <label for="start" class="padding-left-big">Jour du Feat :</label>
 
         <input type="date" name="date"
                value="@DateTime.Now.Date"
-               min="@DateTime.Now.Date" max="2030-12-31">
+               min="@DateTime.Now.Date" max="2030-12-31" class="padding-10">
 
-        <input type="submit" value="Filtrer" />
+        <input type="submit" value="Filtrer" class="margin-sides btn btn-primary"/>
 
     </p>
 </form>
 
-<div>
-    <form asp-action="Creation">
-        <div>
-            <input type="hidden" name="Id" value="@ViewBag.IdMembre" />
-            <input type="submit" value="Créer un Feat" class="btn btn-primary" />
-        </div>
-    </form>
-</div>
-
-<table class="table">
-    <thead>
+<table class="table table-striped table-hover table-sm table-responsive">
+    <thead class="thead-dark">
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.Id)
@@ -54,16 +55,7 @@
                 @Html.DisplayNameFor(model => model.RealisationDate)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.HeureDebut)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.HeureFin)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.Adresse)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ClotureDate)
             </th>
             <th>
 
@@ -73,46 +65,37 @@
     <tbody>
         @foreach (var item in Model)
         {
-        <tr>
-            <td>
-                Feat n°
-                @Html.DisplayFor(modelItem => item.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Createur.Nom)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Reponses.FirstOrDefault().Helper.Nom)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Type.NomAide)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.RealisationDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.HeureDebut)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.HeureFin)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Adresse.NumeroDeVoie)
-                @Html.DisplayFor(modelItem => item.Adresse.NomDeVoie)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ClotureDate)
-            </td>
-            <td>
-                <form asp-action="Details">
-                    <div>
-                        <input type="hidden" name="IdMembre" value="@ViewBag.IdMembre" />
-                        <input type="hidden" name="IdFeat" value="@item.Id" />
-                        <input type="submit" value="Accepter le Feat" class="btn btn-primary" />
-                    </div>
-                </form>
-            </td>
-        </tr>
+            <tr>
+                <td>
+                    Feat n°
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Createur.Nom)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Reponses.FirstOrDefault().Helper.Nom)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Type.NomAide)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RealisationDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Adresse.NumeroDeVoie)
+                    @Html.DisplayFor(modelItem => item.Adresse.NomDeVoie)
+                </td>
+                <td>
+                    <form asp-action="Details">
+                        <div>
+                            <input type="hidden" name="IdMembre" value="@ViewBag.IdMembre" />
+                            <input type="hidden" name="IdFeat" value="@item.Id" />
+                            <input type="submit" value="Accepter le Feat" class="btn btn-primary" />
+                        </div>
+                    </form>
+                </td>
+            </tr>
         }
     </tbody>
 </table>
