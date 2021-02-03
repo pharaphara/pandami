@@ -207,6 +207,7 @@ namespace Pandami.Controllers
 
             ViewBag.PrenomMembre = membre.Prenom;
             ViewBag.NomMembre = membre.Nom;
+            ViewBag.IdMembre = membre.Id;
 
             return View(membre);
 

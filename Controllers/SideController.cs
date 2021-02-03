@@ -30,15 +30,27 @@ namespace Pandami.Controllers
             ViewBag.TypeLitige = new SelectList((from m in _context.TypeLitiges
                                                  orderby m.Libelle
                                                  select m.Libelle).ToList().Distinct());
+            Membre membre = _context.Membres
+            .Where(b => b.Id == IdMembre)
+           .FirstOrDefault();
+            ViewBag.PrenomMembre = membre.Prenom;
+            ViewBag.NomMembre = membre.Nom;
+            ViewBag.IdMembre = membre.Id;
+            _context.Add(newLitige);
+
+
 
             return View(newLitige);
         }
         [HttpPost]
-        public ActionResult LitigePost(int Id, [Bind("Id, CreationDate,ClotureDate,Commentaire,TypeLitige,Createur,Feat")] Litige newLitige)
+        public ActionResult LitigePost(int Id, [Bind("Id, CreationDate,ClotureDate,Commentaire,TypeLitige,Createur,Feat")] Litige newLitige, int IdMembre)
         {
 
+            _context.Update(newLitige);
+            _context.SaveChanges();
+            
 
-            return View(newLitige);
+            return RedirectToAction("MesFeats", "PAFeats", new { @id = IdMembre });
         }
         public ActionResult MajFeat(int IdFeat, int IdMembre)
         {

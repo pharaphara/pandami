@@ -4,7 +4,7 @@
     ViewData["Title"] = "Mes Feats Giftee";
 }
 
-<h1>Mes Feats - Giftee</h1>
+<h1>My Feats - Giftee</h1>
 <h4>Membre connecté : @ViewBag.PrenomMembre @ViewBag.NomMembre</h4>
 <hr />
 <div>
@@ -72,7 +72,7 @@
                         @Html.DisplayFor(modelItem => item.Adresse.NomDeVoie)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.ClotureDate)
+                        @Html.DisplayFor(modelItem => item.FinFeatHelper)
                     </td>
                     <td>
                         <form asp-action="Details">
@@ -102,9 +102,19 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.Createur.Nom)
                     </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Reponses.FirstOrDefault().Helper.Nom)
-                    </td>
+                    @if (ViewBag.ReponsesActives.IndexOf(item.Id) != -1)
+                    {
+                        <td>
+
+                            <label class="padding-10">Accepté</label>
+
+                        </td>
+                    }
+                    else
+                    {
+                        <td>
+                        </td>
+                    }
                     <td>
                         @Html.DisplayFor(modelItem => item.Type.NomAide)
                     </td>

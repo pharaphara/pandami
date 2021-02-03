@@ -5,16 +5,15 @@
 }
 
 <h1>Litige</h1>
-
-<h4>Litige</h4>
+<h4>Membre connecté : @ViewBag.PrenomMembre @ViewBag.NomMembre</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="LitigePost">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="TypeLitige" class="control-label"></label>
-                <select asp-for="TypeLitige" asp-items=@ViewBag.TypeLitige>
+                <label asp-for="TypeLitige" class="control-label">Raison du litige</label>
+                <select asp-for="TypeLitige" asp-items=@ViewBag.TypeLitige class="padding-10">
                 </select>
                 <span asp-validation-for="TypeLitige" class="text-danger"></span>
             </div>
@@ -28,16 +27,17 @@
             <input type="hidden" asp-for="Feat" />
             <input type="hidden" asp-for="CreationDate" />
             <input type="hidden" asp-for="Createur" />
+            <input type="hidden" name="IdMembre" value="@Model.Createur.Id" />
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+
+                <input type="submit" value="Valider" class="btn btn-primary" />
+
             </div>
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

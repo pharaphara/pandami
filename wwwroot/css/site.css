@@ -290,21 +290,21 @@ td {
 }
 
 .col-sm-9 {
-    color: hotpink;
+    color: red;
 }
 
 .col-sm-2, .col-sm-9, col-sm-10 {
-    padding-top: 10px !important;
-    padding-bottom: 10px !important;
-    min-width: 6vw;
-    max-width:40vw;
-    
+   padding-bottom: 15px;  
 }
 
-.padding-sides {
+.col-sm-10, col-sm-10 {
     padding-left: 10px !important;
-    padding-right: 10px !important;
 }
+
+    .padding-sides {
+        padding-left: 10px !important;
+        padding-right: 10px !important;
+    }
 
 .padding-vert {
     padding-top: 10px !important;
@@ -323,3 +323,4 @@ td {
 .message {
     font-size: 18px;
 }
+

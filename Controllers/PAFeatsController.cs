@@ -130,6 +130,7 @@ namespace Pandami.Controllers
                       .Include(b => b.Type)
                       .Include(b => b.Createur)
                       .Include("Reponses.Helper")
+                      .OrderBy(b => b.RealisationDate)
                       .ToList();
 
             if (!String.IsNullOrEmpty(recherche))
@@ -164,7 +165,9 @@ namespace Pandami.Controllers
                       .Include(b => b.Type)
                       .Include(b => b.Createur)
                       .Include("Reponses.Helper")
+                      .OrderBy(b => b.RealisationDate)
                       .ToList();
+
 
             List<PreferenceAide> listPrefs = _context.PreferenceAides
                                                .Where(p => p.Membre.Id == Id)
@@ -220,12 +223,13 @@ namespace Pandami.Controllers
 
             //Eagerly Loading pour charger toutes les entités liées
             List<Feat> listFeats = _context.Feats
-                      .Where(b => b.Createur.Id == Id)
+                      .Where(b => b.Createur.Id == Id && b.ClotureDate == null)
                       .Include(b => b.Adresse)
                       .Include(b => b.Type)
                       .Include(b => b.Createur)
                       .Include(b => b.Materiel)
                       .Include("Reponses.Helper")
+                      .OrderBy(b => b.RealisationDate)
                       .ToList();
 
 
@@ -246,6 +250,16 @@ namespace Pandami.Controllers
                  .FirstOrDefault();
             ViewBag.PrenomMembre = membre.Prenom;
             ViewBag.NomMembre = membre.Nom;
+
+            var reponsesActives = _context.ReponseHelpers
+                            .Where(b => b.Feat.Createur.Id == Id)
+                            .Where(b => b.DesistementDate == null)
+                            .Select(b => b.Feat.Id)
+                            .ToList();
+
+            ViewBag.IdMembre = Id;
+            ViewBag.ReponsesActives = reponsesActives;
+ 
 
 
             return View(listFeats);
@@ -272,6 +286,7 @@ namespace Pandami.Controllers
             var feats = from h in reponsesHelper
                         join m in _context.Membres on h.Helper.Id equals m.Id
                         where m.Id == Id
+                        orderby h.Feat.RealisationDate
                         select h.Feat;
 
             //feats = feats.Distinct();
@@ -388,7 +403,7 @@ namespace Pandami.Controllers
             ViewBag.TypesAide = new SelectList(await recupTypeAide.Distinct().ToListAsync());
 
             Membre membre = _context.Membres
-             .Where(b => b.Id == Id)
+             .Where(b => b.Id == featToCancel.Createur.Id)
              .FirstOrDefault();
             ViewBag.PrenomMembre = membre.Prenom;
             ViewBag.NomMembre = membre.Nom;
@@ -489,6 +504,14 @@ namespace Pandami.Controllers
 
             ViewBag.IdMembre = IdMembre;
             ViewBag.Reponses = Reponses;
+            if(Reponses.Count() != 0)
+            {
+                ViewBag.PrenomHelper = Reponses.FirstOrDefault().Helper.Prenom;
+                ViewBag.NomHelper = Reponses.FirstOrDefault().Helper.Nom;
+            }
+
+
+
             Membre membre = _context.Membres
              .Where(b => b.Id == IdMembre)
              .FirstOrDefault();
